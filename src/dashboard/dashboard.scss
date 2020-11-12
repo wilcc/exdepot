@@ -1,0 +1,40 @@
+.dashboard{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column; 
+
+  .top-nav{
+    position: relative;
+    background: red;
+  }
+  
+  .content-section{
+    position: relative;
+    display: flex;
+    flex: 1;
+    height: 100%;
+
+    .side-nav{
+      position: relative;
+      background: #0b19d8;
+      width: 200px;
+
+    .nav-btn{
+      position: relative;
+      border-bottom: 1px solid #fff;
+      margin-bottom: 5px;
+      text-align: left;
+      line-height: 50px;
+      padding: 0px 10px;
+      color: #fff;
+      }
+    }
+
+    .content-pane{
+      background: #b1df48;
+      flex: 1;
+    }
+  }  
+}
