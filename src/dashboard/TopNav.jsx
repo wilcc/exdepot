@@ -64,7 +64,7 @@ export default class TopNav extends Component {
                   onClose={()=>this.setState({isAvatarOpen: false})}
                 >
                   <MenuItem onClick={()=>this.setState({isAvatarOpen: false})}>Profile</MenuItem>
-                  <MenuItem>My account</MenuItem>
+                  <MenuItem>Help</MenuItem>
                   <MenuItem>Logout</MenuItem>
               </Menu>
           </Toolbar>

@@ -1,3 +1,22 @@
+#simple-menu{
+
+  .menu-avatar{
+    
+    display: flex;
+    align-items: flex-end;
+    top: 58px !important;
+    left: auto !important;
+    transform-origin: -16px -16px;
+    right: 16px !important;
+    width: 150px;
+    ul,li{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
 .dashboard{
   height: 100%;
   width: 100%;
@@ -9,20 +28,6 @@
     position: relative;
     background: red;
   };
-  #simple-menu{
-    .menu-avatar{
-      
-      display: flex;
-      align-items: flex-end;
-      top: 58px;
-      left: auto;
-      transform-origin: -16px -16px;
-      right: 16px;
-      width: 150px;
-    }
-
-
-  }
   .nav-root{
     flex-grow: 1;
   };
