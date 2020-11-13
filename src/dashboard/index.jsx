@@ -3,14 +3,12 @@ import './dashboard.scss'
 // import SideNav from './SideNav'
 // import TopNav from './TopNav'
 import Dashboard from './Dashboard'
+import Discover from '../pages/Discover'
 export default class index extends Component {
   render() {
     return (
       <Dashboard>
-      This is a test
-      <p>dfigjadkl gjdfklgj asdg sdgsdfg
-      sdfg sdfgsdfgasdfgsdf gsdfagsdf 
-      </p>
+        <Discover />
       </Dashboard>
       
     )
