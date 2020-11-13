@@ -21,8 +21,12 @@
   };
   .search {
     // position: 'relative';
-    background-color: gray;
-    padding: 2,2,2,2;
+    background-color: #ffff;
+    display: flex;
+    padding: 4px 2px 4px 2px;
+    align-items: center;
+    color: grey;
+    border-radius: 10px;
     // margin-right: 2;
     // margin-left: 0;
     // width: '100%';
