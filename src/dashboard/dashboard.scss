@@ -9,7 +9,20 @@
     position: relative;
     background: red;
   };
+  #simple-menu{
+    .menu-avatar{
+      
+      display: flex;
+      align-items: flex-end;
+      top: 58px;
+      left: auto;
+      transform-origin: -16px -16px;
+      right: 16px;
+      width: 150px;
+    }
 
+
+  }
   .nav-root{
     flex-grow: 1;
   };
@@ -51,13 +64,12 @@
     width: '100%';
     
   };
+  .avatar{
+    display: 'flex';
+    margin-right: 16px;
+    margin-left: 16px;
+  }
   .content-section{
-    margin-top: 65px;
-    position: relative;
-    display: flex;
-    flex: 1;
-    height: 100%;
-
     .side-nav{
       position: relative;
       background: #ffffff;
@@ -69,6 +81,12 @@
       margin-bottom: 30px;
       }
     }
+    margin-top: 65px;
+    position: relative;
+    display: flex;
+    flex: 1;
+    height: 100%;
+
 
     .content-pane{
       background: #b1df48;

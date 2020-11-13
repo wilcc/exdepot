@@ -1,23 +1,17 @@
 import React, { Component } from 'react'
 import './dashboard.scss'
-import SideNav from './SideNav'
-import TopNav from './TopNav'
+// import SideNav from './SideNav'
+// import TopNav from './TopNav'
+import Dashboard from './Dashboard'
 export default class index extends Component {
   render() {
     return (
-        <div className="dashboard">
-          <div className="top-nav">
-            <TopNav />
-          </div>
-          <div className="content-section">
-            <div className="side-nav">
-            <SideNav />
-            </div>
-            <div className="content-pane">
-            content-pane this is where all info goes
-            </div>
-          </div>
-        </div>
+      <Dashboard>
+      This is a test
+      <p>dfigjadkl gjdfklgj asdg sdgsdfg
+      sdfg sdfgsdfgasdfgsdf gsdfagsdf 
+      </p>
+      </Dashboard>
       
     )
   }
