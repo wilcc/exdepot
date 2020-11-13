@@ -30,7 +30,7 @@ export default class SideNav extends Component {
 
     render() {
         return (
-          <List>
+          <List >
             <SidenavListitem icon={<SearchIcon/>} textLabel="Discover" />
             <SidenavListitem icon={<ListIcon/>} textLabel="My Listing" />
             <SidenavListitem icon={<MessageIcon/>} textLabel="Message" />
