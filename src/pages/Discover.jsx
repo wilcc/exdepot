@@ -108,7 +108,7 @@ export default class Discover extends Component {
             item xs={12}
             classes={{root: "modified-grid-for-categories"}}
           >      
-            <Paper classes={{root: "modified-paper-for-categories"}}>
+            <Paper elevation={5} classes={{root: "modified-paper-for-categories"}}>
               <List classes={{root: "modified-list-for-categories"}}>
                 {categoryItems}
               </List>
