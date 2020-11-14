@@ -24,6 +24,11 @@ export default class TopNav extends Component {
   
   
   render() {
+    const userAvatar = {
+      userName: "Remy Sharp", 
+      avatarImage: "https://randomuser.me/api/portraits/women/47.jpg" 
+    }
+
     return (
       <div className="nav-root">
         <AppBar>
@@ -48,7 +53,7 @@ export default class TopNav extends Component {
             
               {/*<Button color="inherit">Login</Button> */}
             <div className="avatar" ref={this.openLoggedInAvatar} onClick={()=>this.setState({isAvatarOpen: true})}>
-              <Avatar alt="Remy Sharp" src="https://randomuser.me/api/portraits/women/47.jpg" />
+              <Avatar alt={userAvatar.userName} src={userAvatar.avatarImage} />
             </div>
               <Menu
                   classes={{paper: "menu-avatar"}}

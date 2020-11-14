@@ -75,6 +75,25 @@ export default class Discover extends Component {
       {name: 'Toys', image: 'https://thumbs.dreamstime.com/z/toys-collection-24515711.jpg'},
       {name: 'Furniture', image: 'https://thumbs.dreamstime.com/z/natural-scandinavian-living-room-interior-wooden-furniture-mockup-picture-empty-white-wall-154024411.jpg'},
       {name: 'Miscellaneous', image: 'https://thumbs.dreamstime.com/z/flea-market-brugge-belgium-bronze-baby-shoes-70263835.jpg'},
+      {name: 'Furniture', image: 'https://thumbs.dreamstime.com/z/natural-scandinavian-living-room-interior-wooden-furniture-mockup-picture-empty-white-wall-154024411.jpg'},
+      {name: 'Miscellaneous', image: 'https://thumbs.dreamstime.com/z/flea-market-brugge-belgium-bronze-baby-shoes-70263835.jpg'},
+      {name: 'Electronics', image: 'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg'},
+      {name: 'Books', image: 'https://thumbs.dreamstime.com/z/library-many-shelves-books-library-many-shelves-books-diminishing-perspective-shallow-dof-159717386.jpg'},
+      {name: 'Toys', image: 'https://thumbs.dreamstime.com/z/toys-collection-24515711.jpg'},
+      {name: 'Furniture', image: 'https://thumbs.dreamstime.com/z/natural-scandinavian-living-room-interior-wooden-furniture-mockup-picture-empty-white-wall-154024411.jpg'},
+      {name: 'Miscellaneous', image: 'https://thumbs.dreamstime.com/z/flea-market-brugge-belgium-bronze-baby-shoes-70263835.jpg'},
+      {name: 'Electronics', image: 'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg'},
+      {name: 'Books', image: 'https://thumbs.dreamstime.com/z/library-many-shelves-books-library-many-shelves-books-diminishing-perspective-shallow-dof-159717386.jpg'},
+      {name: 'Toys', image: 'https://thumbs.dreamstime.com/z/toys-collection-24515711.jpg'},
+      {name: 'Furniture', image: 'https://thumbs.dreamstime.com/z/natural-scandinavian-living-room-interior-wooden-furniture-mockup-picture-empty-white-wall-154024411.jpg'},
+      {name: 'Miscellaneous', image: 'https://thumbs.dreamstime.com/z/flea-market-brugge-belgium-bronze-baby-shoes-70263835.jpg'},
+      {name: 'Electronics', image: 'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg'},
+      {name: 'Books', image: 'https://thumbs.dreamstime.com/z/library-many-shelves-books-library-many-shelves-books-diminishing-perspective-shallow-dof-159717386.jpg'},
+      {name: 'Toys', image: 'https://thumbs.dreamstime.com/z/toys-collection-24515711.jpg'},
+      {name: 'Furniture', image: 'https://thumbs.dreamstime.com/z/natural-scandinavian-living-room-interior-wooden-furniture-mockup-picture-empty-white-wall-154024411.jpg'},
+      {name: 'Miscellaneous', image: 'https://thumbs.dreamstime.com/z/flea-market-brugge-belgium-bronze-baby-shoes-70263835.jpg'},
+      {name: 'Electronics', image: 'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg'},
+
       
     ]
 
