@@ -32,17 +32,17 @@ export default class TopNav extends Component {
     return (
       <div className="nav-root">
         <AppBar>
-          <Toolbar>
+          <Toolbar classes={{root: "toolbar-custom-for-top-nav"}}>
             <IconButton
               edge="start"
               className="menuButton"
               color="inherit"
               aria-label="menu"
             >
-              <MenuIcon />
+            ExDepot
             </IconButton>
             <Typography variant="h6" className="title">
-              ExDepot
+              
             </Typography>
             <div className="search">
                 <SearchIcon />

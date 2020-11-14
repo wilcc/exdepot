@@ -24,10 +24,11 @@
   position: absolute;
   display: flex;
   flex-direction: column; 
-
+  .toolbar-custom-for-top-nav{
+    background: rgb(0, 0, 0);
+  }
   .top-nav{
     position: relative;
-    background: red;
   };
   .nav-root{
     flex-grow: 1;
