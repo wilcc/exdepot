@@ -17,6 +17,7 @@
     }
   }
 }
+
 .dashboard{
   height: 100%;
   width: 100%;
@@ -74,25 +75,30 @@
     margin-right: 16px;
     margin-left: 16px;
   }
-  .content-section{
-    .side-nav{
-      position: relative;
-      background: #ffffff;
-      width: 250px;
-      text-align: center;
+  .side-nav{
+    margin-top: 65px;
+    position: fixed;
+    background: #ffffff;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    text-align: center;
+    overflow-x: hidden;
 
-    .create-btn{
-      margin-top: 30px;
-      margin-bottom: 30px;
-      }
+  .create-btn{
+    margin-top: 30px;
+    margin-bottom: 30px;
     }
+  }
+  .content-section{
+    margin-left: 250px;
     margin-top: 65px;
     position: relative;
     display: flex;
     flex: 1;
     height: 100%;
-
-
     .content-pane{
       background: #FFFFFF;
       flex: 1;
