@@ -87,11 +87,14 @@
     height: 100%;
     text-align: center;
     overflow-x: hidden;
-
-  .create-btn{
-    margin-top: 30px;
-    margin-bottom: 30px;
+    
+    .wrapper-for-children-sublist{
+      padding-left: 30px;
     }
+    .create-btn{
+      margin-top: 30px;
+      margin-bottom: 30px;
+      }
   }
   .content-section{
     margin-left: 260px;
