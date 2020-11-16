@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{component} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -21,7 +21,11 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard() {
+export default class MediaCard extends component {
+  constructor(){
+    super()
+  }
+  render(){
   const classes = useStyles();
 
   return (
@@ -51,4 +55,5 @@ export default function MediaCard() {
       </CardActions>
     </Card>
   );
+  }
 }
