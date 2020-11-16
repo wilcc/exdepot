@@ -11,16 +11,10 @@ import { ListItem } from '@material-ui/core';
 export class CategoryItem extends Component {
   render() {
     return (
-
-
           <div className="single-category-display">
-          
-          <img className="category-image" src={this.props.category.image} alt={this.props.category.name} />
-            {this.props.category.name}
-          
+            <img className="category-image" src={this.props.category.image} alt={this.props.category.name} />
+              {this.props.category.name}
           </div>
-
-
     )
   }
 }
@@ -38,27 +32,25 @@ export class MidSectionDiscover extends Component {
     return(
       <Grid 
       item xs={4}
-      
       >      
-      <h2 className="title-component-discover">{titleMidSectionIndividual}</h2>
+        <h2 className="title-component-discover">{titleMidSectionIndividual}</h2>
           <Paper elevation={5} >
-          <List>
-          <ListItem>
-          <img className="item-image" src={threeItemsExamples[0].listItemImg} alt="..." />
-          {threeItemsExamples[0].ListItemTitle}
-          </ListItem>
-          <ListItem>
-          <img className="item-image" src={threeItemsExamples[1].listItemImg} alt="..." />
-          {threeItemsExamples[1].ListItemTitle}
-          </ListItem>
-          <ListItem>
-          <img className="item-image" src={threeItemsExamples[2].listItemImg} alt="..." />
-          {threeItemsExamples[2].ListItemTitle}
-          </ListItem>
-          
-          </List>
+            <List>
+              <ListItem>
+                <img className="item-image" src={threeItemsExamples[0].listItemImg} alt="..." />
+                {threeItemsExamples[0].ListItemTitle}
+              </ListItem>
+              <ListItem>
+                <img className="item-image" src={threeItemsExamples[1].listItemImg} alt="..." />
+                {threeItemsExamples[1].ListItemTitle}
+              </ListItem>
+              <ListItem>
+                <img className="item-image" src={threeItemsExamples[2].listItemImg} alt="..." />
+                {threeItemsExamples[2].ListItemTitle}
+              </ListItem>
+            </List>
           </Paper>
-        </Grid>
+      </Grid>
 
     )
 
@@ -103,16 +95,19 @@ export default class Discover extends Component {
           <MidSectionDiscover titleMidSectionIndividual="Ending Soon" />
           <MidSectionDiscover titleMidSectionIndividual="Suggested For you" />
         </Grid>
-
+        <h2 className="title-component-discover">Items to view:</h2>
+        <Grid container spacing={6}>
+          <Grid 
+            item xs={12}
+          >      
+            <Paper elevation={5} >
+            <h1>PlaceHolder Data Should go here</h1>
+            </Paper>
+          </Grid>
+        </Grid>
 
         </div>
       </div>
     )
   }
 }
-
-
-
-// classes={{root: "modified-grid-for-categories"}}
-// classes={{root: "modified-paper-for-categories"}}
-// classes={{root: "modified-list-for-categories"}}
