@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
+import Select from '@material-ui/core/Select';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import './discover.scss'
 import { ListItem } from '@material-ui/core';
 
@@ -36,17 +39,26 @@ export class MidSectionDiscover extends Component {
         <h2 className="title-component-discover">{titleMidSectionIndividual}</h2>
           <Paper elevation={5} >
             <List>
-              <ListItem>
+              <ListItem classes={{root: "list-items-midsection-discover"}}>
                 <img className="item-image" src={threeItemsExamples[0].listItemImg} alt="..." />
+                <div className="listItem-midsection-title">
                 {threeItemsExamples[0].ListItemTitle}
+              </div> 
+                <BookmarkBorderIcon />
               </ListItem>
-              <ListItem>
+              <ListItem classes={{root: "list-items-midsection-discover"}}>
                 <img className="item-image" src={threeItemsExamples[1].listItemImg} alt="..." />
-                {threeItemsExamples[1].ListItemTitle}
+                <div className="listItem-midsection-title">
+                  {threeItemsExamples[1].ListItemTitle}
+                </div> 
+                <BookmarkBorderIcon />
               </ListItem>
-              <ListItem>
+              <ListItem classes={{root: "list-items-midsection-discover"}}> 
                 <img className="item-image" src={threeItemsExamples[2].listItemImg} alt="..." />
+                <div className="listItem-midsection-title">
                 {threeItemsExamples[2].ListItemTitle}
+              </div> 
+                <BookmarkBorderIcon />
               </ListItem>
             </List>
           </Paper>
