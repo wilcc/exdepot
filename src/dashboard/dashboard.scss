@@ -104,6 +104,7 @@
     .content-pane{
       background: #FFFFFF;
       flex: 1;
+      overflow-x: hidden;
     }
   }  
 }
