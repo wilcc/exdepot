@@ -6,8 +6,11 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
 import image1 from './img/1.jpg';
+import './card.scss'
 
 const useStyles = makeStyles({
   root: {
@@ -30,21 +33,20 @@ export default function MediaCard() {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+          <Typography gutterBottom variant="h5" component="h3">
+            Beats Headphone
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+            Bids: 
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className="card-action-buttons">
         <Button size="small" color="primary">
-          Share
+          {<EditIcon/>}
         </Button>
         <Button size="small" color="primary">
-          Learn More
+          {<DeleteForeverIcon/>}
         </Button>
       </CardActions>
     </Card>

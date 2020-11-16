@@ -11,8 +11,8 @@ export default class index extends Component {
     return (
       <Dashboard>
         {/* <Discover /> */}
-        <Detail />
-        {/* <MyListing /> */}
+        {/* <Detail /> */}
+        <MyListing />
 
       </Dashboard>
       

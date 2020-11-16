@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Card from './Card';
 import CreateIcon from '@material-ui/icons/Create';
+import './MyListing.scss'
 
 export default class MyListing extends Component {
   render() {
