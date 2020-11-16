@@ -36,6 +36,7 @@ export default class Detail extends Component {
             autoPlayInterval={2000}
             autoPlayDirection="rtl"
             autoPlay={true}
+            autoHeight={true}
             fadeOutAnimation={true}
             mouseTrackingEnabled={true}
             disableAutoPlayOnAction={true}

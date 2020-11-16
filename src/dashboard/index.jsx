@@ -5,12 +5,15 @@ import './dashboard.scss'
 import Dashboard from './Dashboard'
 import Discover from '../pages/Discover'
 import Detail from '../pages/Detail'
+import MyListing from '../pages/MyListing'
 export default class index extends Component {
   render() {
     return (
       <Dashboard>
         {/* <Discover /> */}
         <Detail />
+        {/* <MyListing /> */}
+
       </Dashboard>
       
     )
