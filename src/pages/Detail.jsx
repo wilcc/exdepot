@@ -12,8 +12,7 @@ import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+
 export default class Detail extends Component {
   constructor(props, context) {
     super(props, context);
@@ -23,14 +22,8 @@ export default class Detail extends Component {
     0: { items: 1 },
     1024: { items: 2 },
   };
-// {/* added Grid and Paper tags possibly not needed at all}  
   render() {
     return (
-      <Grid container spacing={1}>
-      <Grid item xs={12}>
-      <Paper elevation={5}>
-      
-      
       <div className="container">
         <h2 className="head">
           Product Name
@@ -86,9 +79,6 @@ export default class Detail extends Component {
           </Button>
         </div>
       </div>
-      </Paper>
-      </Grid>
-      </Grid>
     );
   }
 }
