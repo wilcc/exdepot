@@ -27,8 +27,8 @@ export default class Detail extends Component {
       <div className="container">
         <h2 className="head">
           Product Name
-          {/* <BookmarkBorderIcon /> */}
-          <BookmarkIcon color="primary" />
+          <BookmarkBorderIcon />
+          {/* <BookmarkIcon color="primary" /> */}
         </h2>
         <div className="carousel">
           <AliceCarousel
