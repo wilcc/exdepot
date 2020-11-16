@@ -1,4 +1,4 @@
-import React,{component} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -15,33 +15,30 @@ import './card.scss'
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    marginBottom: 50,
+    marginRight: 50,
   },
   media: {
-    height: 140,
+    height: 200,
+    width: 345,
   },
 });
 
-export default class MediaCard extends component {
-  constructor(){
-    super()
-  }
-  render(){
+export default function MediaCard(props) {
   const classes = useStyles();
-
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={image1}
-          title="Contemplative Reptile"
+          image={props.image}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
-            Beats Headphone
+            {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Bids: 
+            Bids:{props.bids}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -55,5 +52,4 @@ export default class MediaCard extends component {
       </CardActions>
     </Card>
   );
-  }
 }

@@ -3,3 +3,9 @@
     display: flex;
     justify-content: space-around;
 }
+.cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
