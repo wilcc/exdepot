@@ -10,8 +10,8 @@ export default class index extends Component {
   render() {
     return (
       <Dashboard>
-        {/* <Discover /> */}
-        <Detail />
+        <Discover />
+        {/* <Detail /> */}
         {/* <MyListing /> */}
 
       </Dashboard>
