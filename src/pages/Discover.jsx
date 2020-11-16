@@ -107,16 +107,6 @@ export default class Discover extends Component {
           <MidSectionDiscover titleMidSectionIndividual="Ending Soon" />
           <MidSectionDiscover titleMidSectionIndividual="Suggested For you" />
         </Grid>
-        <h2 className="title-component-discover">Items to view:</h2>
-        <Grid container spacing={6}>
-          <Grid 
-            item xs={12}
-          >      
-            <Paper elevation={5} >
-            <h1>PlaceHolder Data Should go here</h1>
-            </Paper>
-          </Grid>
-        </Grid>
 
         </div>
       </div>
