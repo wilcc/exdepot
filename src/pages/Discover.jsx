@@ -25,6 +25,47 @@ export class CategoryItem extends Component {
   }
 }
 
+export class MidSectionDiscover extends Component {
+
+  render() {
+    const threeItemsExamples = [
+      {ListItemTitle: "Beats Headphones", listItemImg: "https://www.adorama.com/images/Large/btmx422lla.jpg" },
+      {ListItemTitle: "Batman #497: The breaking of the Bat", listItemImg: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png" },
+      {ListItemTitle: "Steam Controller", listItemImg: "https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg" },
+
+    ]
+    const { titleMidSectionIndividual, listItemImg, ListItemTitle } = this.props;
+    return(
+      <Grid 
+      item xs={4}
+      
+      >      
+      <h2 className="title-component-discover">{titleMidSectionIndividual}</h2>
+          <Paper elevation={5} >
+          <List>
+          <ListItem>
+          <img className="item-image" src={threeItemsExamples[0].listItemImg} alt="..." />
+          {threeItemsExamples[0].ListItemTitle}
+          </ListItem>
+          <ListItem>
+          <img className="item-image" src={threeItemsExamples[1].listItemImg} alt="..." />
+          {threeItemsExamples[1].ListItemTitle}
+          </ListItem>
+          <ListItem>
+          <img className="item-image" src={threeItemsExamples[2].listItemImg} alt="..." />
+          {threeItemsExamples[2].ListItemTitle}
+          </ListItem>
+          
+          </List>
+          </Paper>
+        </Grid>
+
+    )
+
+  }
+
+}
+
 
 export default class Discover extends Component {
 
@@ -58,77 +99,9 @@ export default class Discover extends Component {
         </Grid>
 
         <Grid container spacing={6}>
-        <Grid 
-        item xs={4}
-        
-        >      
-        <h2 className="title-component-discover">Popular</h2>
-            <Paper elevation={5} >
-            <List>
-            <ListItem>
-            <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-            Cool PCB for LED Controls
-            </ListItem>
-            <ListItem>
-            <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-            Cool PCB for LED Controls
-            </ListItem>
-            <ListItem>
-            <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-            Cool PCB for LED Controls
-            </ListItem>
-            
-            </List>
-            </Paper>
-          </Grid>
-
-          <Grid 
-          item xs={4}
-
-        >      
-        <h2 className="title-component-discover">Ending Soon</h2>
-          <Paper elevation={5} >
-          <List>
-          <ListItem>
-          <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-          Cool PCB for LED Controls
-          </ListItem>
-          <ListItem>
-          <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-          Cool PCB for LED Controls
-          </ListItem>
-          <ListItem>
-          <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-          Cool PCB for LED Controls
-          </ListItem>
-          
-          </List>
-          </Paper>
-        </Grid>
-
-        <Grid 
-        item xs={4}
-
-      >      
-      <h2 className="title-component-discover">Suggested for you</h2>
-        <Paper elevation={5} >
-        <List>
-        <ListItem>
-        <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-        Cool PCB for LED Controls
-        </ListItem>
-        <ListItem>
-        <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-        Cool PCB for LED Controls
-        </ListItem>
-        <ListItem>
-        <img className="item-image" src="https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg" alt="..." />
-        Cool PCB for LED Controls
-        </ListItem>
-        
-        </List>
-        </Paper>
-      </Grid>
+          <MidSectionDiscover titleMidSectionIndividual="Popular" />
+          <MidSectionDiscover titleMidSectionIndividual="Ending Soon" />
+          <MidSectionDiscover titleMidSectionIndividual="Suggested For you" />
         </Grid>
 
 
