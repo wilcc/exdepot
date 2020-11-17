@@ -17,6 +17,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import MessageIcon from '@material-ui/icons/Message';
 import PersonIcon from '@material-ui/icons/Person';
 import CancelIcon from '@material-ui/icons/Cancel';
+import Badge from '@material-ui/core/Badge';
 import './MyListing.scss'
 import { Message } from '@material-ui/icons';
 
@@ -32,6 +33,26 @@ const useStyles = makeStyles({
     width: 345,
   },
 });
+
+export function CardItemIbidWith(props) {
+  const classes = useStyles();
+
+  return(
+    <Card className={classes.root}>
+    <CardActionArea>       
+    <Typography gutterBottom variant="h6" component="h6">
+    Blue Yeti Microphone
+    </Typography>
+    <CardMedia
+      className={classes.media}
+      image="https://c1.neweggimages.com/ProductImageCompressAll1280/36-431-024-05.jpg"
+    />
+    </CardActionArea>
+  </Card>
+
+
+  )
+}
 
 export function MediaCard(props) {
   const classes = useStyles();
@@ -53,18 +74,23 @@ export function MediaCard(props) {
           Status:{props.status}
         </Typography>
         </CardContent>
+        <Typography gutterBottom variant="h5" component="h5">
+        Items I bid with:
+        </Typography>
+        <CardItemIbidWith />
       </CardActionArea>
       <CardActions className="card-action-buttons">
         <Button size="small" color="primary">
           {<PersonIcon/>} UserNameHere
         </Button>
         <Button size="small" color="primary">
-         {<MessageIcon />}
+          <Badge badgeContent={4} color="secondary">
+              {<MessageIcon />}
+          </Badge>
         </Button>
         <Button size="small" color="secondary">
-         {<CancelIcon />} Cancel Bid
+        {<CancelIcon />} Cancel Bid
         </Button>
-
       </CardActions>
     </Card>
   );
