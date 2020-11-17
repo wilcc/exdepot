@@ -9,8 +9,6 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
-import image1 from './img/1.jpg';
-import './card.scss'
 
 const useStyles = makeStyles({
   root: {
@@ -22,7 +20,12 @@ const useStyles = makeStyles({
     height: 200,
     width: 345,
   },
-});
+  cardActionButtons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+
+}
+})
 
 export default function MediaCard(props) {
   const classes = useStyles();
@@ -42,7 +45,7 @@ export default function MediaCard(props) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions className="card-action-buttons">
+      <CardActions className={classes.cardActionButtons}>
         <Button size="small" color="primary">
           {<EditIcon/>}
         </Button>
