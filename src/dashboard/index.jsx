@@ -7,6 +7,7 @@ import Discover from '../pages/Discover';
 import Categories from '../pages/Categories';
 import Detail from '../pages/Detail';
 import MyListing from '../pages/MyListing';
+import CurrentBids from '../pages/CurrentBids';
 export default class index extends Component {
   render() {
     return (
@@ -14,7 +15,8 @@ export default class index extends Component {
         {/*<Discover /> */}
         {/*<Detail /> */}
         {/*<MyListing /> */}
-          <Categories />
+        {/* <Categories /> */}
+        <CurrentBids />
       </Dashboard>
       
     )
