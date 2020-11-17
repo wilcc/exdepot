@@ -3,17 +3,10 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import './discover.scss'
+import { CategoryItem } from './Discover';
+import MyListing from './MyListing';
 
-export class CategoryItemForCategoryPage extends Component {
-  render() {
-    return (
-          <div className="single-category-display">
-            <img className="category-image" src={this.props.category.image} alt={this.props.category.name} />
-              {this.props.category.name}
-          </div>
-    )
-  }
-}
+
 
 export default class Categories extends Component {
   render() {
@@ -83,7 +76,7 @@ export default class Categories extends Component {
 
     
 
-    const categoryItemsMappedoutToDisplay = categoryData.map((category)=><CategoryItemForCategoryPage category={category}/>)
+    const categoryItemsMappedoutToDisplay = categoryData.map((category)=><CategoryItem category={category}/>)
     return (
       <div>
       <h2 className="title-component-discover">Full List of Categories</h2>
@@ -99,6 +92,17 @@ export default class Categories extends Component {
           </div>
         </Paper>
       </Grid>
+      <Grid 
+      item xs={12}
+      
+      >      
+      <h2 className="title-component-discover">Items in Selected Category</h2>
+      <Paper elevation={5} >
+        <div className="display-all-items-wrapper">
+        <MyListing />
+        </div>
+      </Paper>
+    </Grid>
       </Grid>
       </div>
     )
