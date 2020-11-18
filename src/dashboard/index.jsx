@@ -10,18 +10,27 @@ import MyListing from '../pages/MyListing';
 import AcceptDecline from '../pages/AcceptDecline';
 import AcceptDeclineModal from '../pages/AcceptDeclineModal';
 import WatchList from '../pages/WatchList';
+import {BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 export default class index extends Component {
   render() {
     return (
-      <Dashboard>
-        {/* <Discover /> */}
-        {/* <Detail /> */}
-        {/* <MyListing /> */}
-        {/* <Categories /> */}
-        {/* <AcceptDecline /> */}
-        {/* <AcceptDeclineModal /> */}
-        <WatchList />
-      </Dashboard>
+
+      <Router>
+        <Switch>
+        <Route path="/watchlist">
+        <WatchList /> 
+        </Route>
+        <Route path="/discover">
+        <Discover />
+        </Route>
+        <Route path="/">
+          <Redirect to="/discover" />  
+        </Route>
+        </Switch>
+      
+      </Router>
+
+
     );
   }
 }

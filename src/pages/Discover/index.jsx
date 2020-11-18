@@ -7,6 +7,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import './discover.scss';
 import { ListItem } from '@material-ui/core';
+import Dashboard from '../../dashboard/Dashboard';
 
 export class CategoryItem extends Component {
   render() {
@@ -127,24 +128,26 @@ export default class Discover extends Component {
     ));
 
     return (
-      <div>
-        <div className="discover">
-          <h2 className="title-component-discover">Popular Categories:</h2>
-          <Grid container spacing={6}>
-            <Grid item xs={12}>
-              <Paper elevation={5}>
-                <div className="display-all-items-wrapper">{categoryItems}</div>
-              </Paper>
+      <Dashboard>
+        <div>
+          <div className="discover">
+            <h2 className="title-component-discover">Popular Categories:</h2>
+            <Grid container spacing={6}>
+              <Grid item xs={12}>
+                <Paper elevation={5}>
+                  <div className="display-all-items-wrapper">{categoryItems}</div>
+                </Paper>
+              </Grid>
             </Grid>
-          </Grid>
 
-          <Grid container spacing={6}>
-            <MidSectionDiscover titleMidSectionIndividual="Popular" />
-            <MidSectionDiscover titleMidSectionIndividual="Ending Soon" />
-            <MidSectionDiscover titleMidSectionIndividual="Suggested For you" />
-          </Grid>
+            <Grid container spacing={6}>
+              <MidSectionDiscover titleMidSectionIndividual="Popular" />
+              <MidSectionDiscover titleMidSectionIndividual="Ending Soon" />
+              <MidSectionDiscover titleMidSectionIndividual="Suggested For you" />
+            </Grid>
+          </div>
         </div>
-      </div>
+      </Dashboard>
     );
   }
 }

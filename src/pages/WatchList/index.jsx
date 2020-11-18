@@ -12,6 +12,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Typography from '@material-ui/core/Typography';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import './watchList.scss';
+import Dashboard from '../../dashboard/Dashboard';
 
 const useStyles = makeStyles({
   root: {
@@ -121,14 +122,16 @@ export default class WatchList extends Component {
       );
     });
     return (
-      <div className="watch-list-container">
-        <div className="heading">
-          <Typography variant="h5">My Watch List</Typography>
+      <Dashboard>
+        <div className="watch-list-container">
+          <div className="heading">
+            <Typography variant="h5">My Watch List</Typography>
+          </div>
+          <div className="card-wrapper">
+            <div className="cards">{displayCards}</div>
+          </div>
         </div>
-        <div className="card-wrapper">
-          <div className="cards">{displayCards}</div>
-        </div>
-      </div>
+      </Dashboard>
     );
   }
 }

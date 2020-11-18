@@ -13,15 +13,19 @@ import GavelIcon from '@material-ui/icons/Gavel';
 import Collapse from '@material-ui/core/Collapse';
 import CategoryIcon from '@material-ui/icons/Category';
 import './dashboard.scss';
-
+import { NavLink } from 'react-router-dom';
 class SidenavListitem extends Component {
   render() {
+    const { link } = this.props;
+
     return (
       <div>
-        <ListItem button>
-          <ListItemIcon>{this.props.icon}</ListItemIcon>
-          <ListItemText primary={this.props.textLabel} />
-        </ListItem>
+        <NavLink to={ link ? link : "/"}>
+          <ListItem button>
+            <ListItemIcon>{this.props.icon}</ListItemIcon>
+            <ListItemText primary={this.props.textLabel} />
+          </ListItem>
+        </NavLink>
         {this.props.children}
       </div>
     );
@@ -32,7 +36,8 @@ export default class SideNav extends Component {
   render() {
     return (
       <List>
-        <SidenavListitem icon={<SearchIcon />} textLabel="Discover">
+      
+        <SidenavListitem icon={<SearchIcon />} textLabel="Discover" link="/discover">
           <div className="wrapper-for-children-sublist">
             <SidenavListitem icon={<CategoryIcon />} textLabel="Categories" />
           </div>
@@ -40,7 +45,7 @@ export default class SideNav extends Component {
 
         <SidenavListitem icon={<ListIcon />} textLabel="My Listing" />
         <SidenavListitem icon={<MessageIcon />} textLabel="Message" />
-        <SidenavListitem icon={<StarsIcon />} textLabel="My WatchList" />
+        <SidenavListitem icon={<StarsIcon />} textLabel="My WatchList"  link="/watchlist" />
         <SidenavListitem icon={<GavelIcon />} textLabel="Current Bids" />
         <Divider />
         <Button
