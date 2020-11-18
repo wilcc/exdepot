@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow:'scroll',
+    overflow: 'scroll',
     // position:'absolute',
     // top:'10%',
     // left:'10%',
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    width: '50%'
+    width: '50%',
   },
   root: {
     width: 'auto',
@@ -43,50 +43,48 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  imageCard:{
-      display:'flex',
-      flexDirection:'row',
-
-
+  imageCard: {
+    display: 'flex',
+    flexDirection: 'row',
   },
-  bidItem:{
-    marginLeft: 5
-  }
+  bidItem: {
+    marginLeft: 5,
+  },
+  offerDetail: {
+    height: 800,
+    overflowY: 'scroll',
+  },
 }));
 
 export function ImageCard(props) {
   const classes = useStyles();
-  console.log(props)
-return (
+  console.log(props);
+  return (
     <div className={classes.bidItem}>
-    <CardMedia className={classes.media} image={props.image} />
-    <Typography variant="body2" color="textSecondary" component="p">
-    {props.name}
-    </Typography>
+      <CardMedia className={classes.media} image={props.image} />
+      <Typography variant="body2" color="textSecondary" component="p">
+        {props.name}
+      </Typography>
     </div>
-)
+  );
 }
 
 export function MediaCard(props) {
   const classes = useStyles();
 
-  const individualItem = props.bidItem.map((item)=>{
-    return (
-        <ImageCard image={item.ItemImage} name={item.ItemName}/>
-    )
-  })
+  const individualItem = props.bidItem.map((item) => {
+    return <ImageCard image={item.ItemImage} name={item.ItemName} />;
+  });
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
-          <AccountCircleIcon />
+            <AccountCircleIcon />
             {props.title}
           </Typography>
-        <Typography variant='h9'>Items Bid With:</Typography>
-        <div className={classes.imageCard}>
-        {individualItem}
-        </div>
+          <Typography variant="h9">Items Bid With:</Typography>
+          <div className={classes.imageCard}>{individualItem}</div>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
@@ -102,58 +100,99 @@ export function MediaCard(props) {
 }
 
 const UserExample = [
-    {
-        UserName: 'User1',
-        BidItem: [
-            {
-              ItemName: 'Beats Headphones',
-              detail: 'productdetail',
-              ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-            },
-            {
-              ItemName: 'Batman Comic',
-              detail: 'productdetail',
-              ItemImage:
-                'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-            },
-            {
-              ItemName: 'Steam Controller',
-              detail: 'productdetail',
-              ItemImage:
-                'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-            },
-          ]
-    },
-    {
-        UserName: 'User2',
-        BidItem: [
-            {
-              ItemName: 'Beats Headphones',
-              detail: 'productdetail',
-              ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-            },
-            {
-              ItemName: 'Batman Comic',
-              detail: 'productdetail',
-              ItemImage:
-                'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-            },
-            {
-              ItemName: 'Steam Controller',
-              detail: 'productdetail',
-              ItemImage:
-                'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-            },
-          ]
-    },
-    
-]
+  {
+    UserName: 'User1',
+    BidItem: [
+      {
+        ItemName: 'Beats Headphones',
+        detail: 'productdetail',
+        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
+      },
+      {
+        ItemName: 'Batman Comic',
+        detail: 'productdetail',
+        ItemImage:
+          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
+      },
+      {
+        ItemName: 'Steam Controller',
+        detail: 'productdetail',
+        ItemImage:
+          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
+      },
+    ],
+  },
+  {
+    UserName: 'User2',
+    BidItem: [
+      {
+        ItemName: 'Beats Headphones',
+        detail: 'productdetail',
+        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
+      },
+      {
+        ItemName: 'Batman Comic',
+        detail: 'productdetail',
+        ItemImage:
+          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
+      },
+      {
+        ItemName: 'Steam Controller',
+        detail: 'productdetail',
+        ItemImage:
+          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
+      },
+    ],
+  },
+  {
+    UserName: 'User2',
+    BidItem: [
+      {
+        ItemName: 'Beats Headphones',
+        detail: 'productdetail',
+        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
+      },
+      {
+        ItemName: 'Batman Comic',
+        detail: 'productdetail',
+        ItemImage:
+          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
+      },
+      {
+        ItemName: 'Steam Controller',
+        detail: 'productdetail',
+        ItemImage:
+          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
+      },
+    ],
+  },
+  {
+    UserName: 'User2',
+    BidItem: [
+      {
+        ItemName: 'Beats Headphones',
+        detail: 'productdetail',
+        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
+      },
+      {
+        ItemName: 'Batman Comic',
+        detail: 'productdetail',
+        ItemImage:
+          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
+      },
+      {
+        ItemName: 'Steam Controller',
+        detail: 'productdetail',
+        ItemImage:
+          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
+      },
+    ],
+  },
+];
 
-const displayUser = UserExample.map((user)=>{
-    return (
-        <MediaCard title={user.UserName} bidItem={user.BidItem}/>
-    )
-})
+const displayUser = UserExample.map((user) => {
+  return <MediaCard title={user.UserName} bidItem={user.BidItem} />;
+});
 
 export default function TransitionsModal() {
   const classes = useStyles();
@@ -183,14 +222,11 @@ export default function TransitionsModal() {
         BackdropProps={{
           timeout: 500,
         }}
-    
       >
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Item Bids</h2>
-            <div className="offerDetail">
-              {displayUser}
-            </div>
+            <div className={classes.offerDetail}>{displayUser}</div>
           </div>
         </Fade>
       </Modal>
