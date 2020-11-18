@@ -10,6 +10,7 @@ import MyListing from '../pages/MyListing';
 import AcceptDecline from '../pages/AcceptDecline';
 import AcceptDeclineModal from '../pages/AcceptDeclineModal';
 import WatchList from '../pages/WatchList';
+import MakeOffer from '../pages/MakeOffer'
 export default class index extends Component {
   render() {
     return (
@@ -20,7 +21,8 @@ export default class index extends Component {
         {/* <Categories /> */}
         {/* <AcceptDecline /> */}
         {/* <AcceptDeclineModal /> */}
-        <WatchList />
+        {/* <WatchList /> */}
+        <MakeOffer />
       </Dashboard>
     );
   }
