@@ -8,15 +8,17 @@ import Categories from '../pages/Categories';
 import Detail from '../pages/Detail';
 import MyListing from '../pages/MyListing';
 import AcceptDecline from '../pages/AcceptDecline';
+import AcceptDeclineModal from '../pages/AcceptDeclineModal'
 export default class index extends Component {
   render() {
     return (
       <Dashboard>
         {/*<Discover /> */}
-        {/*<Detail /> */}
+        {/* <Detail /> */}
         {/* <MyListing /> */}
         {/* <Categories /> */}
-        <AcceptDecline />
+        {/* <AcceptDecline /> */}
+        <AcceptDeclineModal />
       </Dashboard>
     );
   }

@@ -24,7 +24,7 @@ export default class Detail extends Component {
   };
   render() {
     return (
-      <div className="container">
+      <div className="DetailContainer">
         <h2 className="head">
           Product Name
           <BookmarkBorderIcon />
