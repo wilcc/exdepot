@@ -7,7 +7,7 @@ import image3 from '../img/3.jpg';
 import image4 from '../img/4.jpg';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
-import './Detail.scss'; 
+import './Detail.scss';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
@@ -48,9 +48,7 @@ export default class Detail extends Component {
           </AliceCarousel>
         </div>
         <div className="detail">
-        <div className="title">
-          Description:
-        </div>
+          <div className="title">Description:</div>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
             reiciendis! Reiciendis quas harum magnam mollitia perspiciatis
@@ -63,19 +61,15 @@ export default class Detail extends Component {
         <li>headphone</li>
         <li>Lambo</li>
         <li>coin</li>
-        <div 
-            className="button"
-        >
-          <Button variant="outlined" color="primary"
+        <div className="button">
+          <Button
+            variant="outlined"
+            color="primary"
             startIcon={<GavelTwoToneIcon />}
           >
             Make A Bid
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<SendIcon />}
-          >
+          <Button variant="contained" color="primary" startIcon={<SendIcon />}>
             Message Owner
           </Button>
         </div>

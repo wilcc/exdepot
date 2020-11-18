@@ -23,19 +23,15 @@ const useStyles = makeStyles({
   cardActionButtons: {
     display: 'flex',
     justifyContent: 'flex-end',
-
-}
-})
+  },
+});
 
 export default function MediaCard(props) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={props.image}
-        />
+        <CardMedia className={classes.media} image={props.image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
             {props.title}
@@ -47,10 +43,10 @@ export default function MediaCard(props) {
       </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
         <Button size="small" color="primary">
-          {<EditIcon/>}
+          {<EditIcon />}
         </Button>
         <Button size="small" color="primary">
-          {<DeleteForeverIcon/>}
+          {<DeleteForeverIcon />}
         </Button>
       </CardActions>
     </Card>

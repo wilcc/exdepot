@@ -3,9 +3,8 @@ import MainDashboard from './dashboard/index'
 export default class App extends Component {
   render() {
     return (
-      <MainDashboard>
+      <MainDashboard />
       
-      </MainDashboard>
     )
   }
 }

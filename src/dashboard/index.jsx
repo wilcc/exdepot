@@ -20,7 +20,7 @@ export default class index extends Component {
         {/* <Categories /> */}
         {/* <AcceptDecline /> */}
         {/* <AcceptDeclineModal /> */}
-        <WatchList /> 
+        <WatchList />
       </Dashboard>
     );
   }
