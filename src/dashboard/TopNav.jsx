@@ -18,60 +18,60 @@ export default class TopNav extends Component {
     super(props);
     this.openLoggedInAvatar = React.createRef();
     this.state = {
-      isAvatarOpen: false
-    }
+      isAvatarOpen: false,
+    };
   }
-  
-  
+
   render() {
     const userAvatar = {
-      userName: "Remy Sharp", 
-      avatarImage: "https://randomuser.me/api/portraits/women/47.jpg" 
-    }
+      userName: 'Remy Sharp',
+      avatarImage: 'https://randomuser.me/api/portraits/women/47.jpg',
+    };
 
     return (
       <div className="nav-root">
         <AppBar>
-          <Toolbar classes={{root: "toolbar-custom-for-top-nav"}}>
+          <Toolbar classes={{ root: 'toolbar-custom-for-top-nav' }}>
             <IconButton
               edge="start"
               className="menuButton"
               color="inherit"
               aria-label="menu"
             >
-            ExDepot
+              ExDepot
             </IconButton>
-            <Typography variant="h6" className="title">
-              
-            </Typography>
+            <Typography variant="h6" className="title"></Typography>
             <div className="search">
-                <SearchIcon />
-              <InputBase
-                placeholder="Search…"
-              />
+              <SearchIcon />
+              <InputBase placeholder="Search…" />
             </div>
-            
-              {/*<Button color="inherit">Login</Button> */}
-            <div className="avatar" ref={this.openLoggedInAvatar} onClick={()=>this.setState({isAvatarOpen: true})}>
+
+            {/*<Button color="inherit">Login</Button> */}
+            <div
+              className="avatar"
+              ref={this.openLoggedInAvatar}
+              onClick={() => this.setState({ isAvatarOpen: true })}
+            >
               <Avatar alt={userAvatar.userName} src={userAvatar.avatarImage} />
             </div>
-              <Menu
-                  classes={{paper: "menu-avatar"}}
-                  id="simple-menu"
-                  anchorEl={this.openLoggedInAvatar}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-
-                  open={this.state.isAvatarOpen}
-                  onClose={()=>this.setState({isAvatarOpen: false})}
-                >
-                  <MenuItem onClick={()=>this.setState({isAvatarOpen: false})}>Profile</MenuItem>
-                  <MenuItem>Help</MenuItem>
-                  <MenuItem>Logout</MenuItem>
-              </Menu>
+            <Menu
+              classes={{ paper: 'menu-avatar' }}
+              id="simple-menu"
+              anchorEl={this.openLoggedInAvatar}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              open={this.state.isAvatarOpen}
+              onClose={() => this.setState({ isAvatarOpen: false })}
+            >
+              <MenuItem onClick={() => this.setState({ isAvatarOpen: false })}>
+                Profile
+              </MenuItem>
+              <MenuItem>Help</MenuItem>
+              <MenuItem>Logout</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
       </div>

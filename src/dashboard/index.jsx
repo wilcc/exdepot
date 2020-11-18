@@ -8,7 +8,8 @@ import Categories from '../pages/Categories';
 import Detail from '../pages/Detail';
 import MyListing from '../pages/MyListing';
 import AcceptDecline from '../pages/AcceptDecline';
-import AcceptDeclineModal from '../pages/AcceptDeclineModal'
+import AcceptDeclineModal from '../pages/AcceptDeclineModal';
+import WatchList from '../pages/WatchList';
 export default class index extends Component {
   render() {
     return (
@@ -18,7 +19,8 @@ export default class index extends Component {
         {/* <MyListing /> */}
         {/* <Categories /> */}
         {/* <AcceptDecline /> */}
-        <AcceptDeclineModal />
+        {/* <AcceptDeclineModal /> */}
+        <WatchList />
       </Dashboard>
     );
   }
