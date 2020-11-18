@@ -3,8 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import './discover.scss'
-import { CategoryItem } from './Discover';
-import MyListing from './MyListing';
+import { CategoryItem } from '../Discover';
+import MyListing from '../MyListing';
 
 
 

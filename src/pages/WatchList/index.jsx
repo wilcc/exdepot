@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import CreateIcon from '@material-ui/icons/Create';
-import './MyListing.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,7 +11,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Typography from '@material-ui/core/Typography';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
-import './MyListing.scss';
+import './watchList.scss';
 
 const useStyles = makeStyles({
   root: {

@@ -4,7 +4,7 @@ import './dashboard.scss';
 // import TopNav from './TopNav'
 import Dashboard from './Dashboard';
 import Discover from '../pages/Discover';
-import Categories from '../pages/Categories';
+import Categories from '../pages/Category';
 import Detail from '../pages/Detail';
 import MyListing from '../pages/MyListing';
 import AcceptDecline from '../pages/AcceptDecline';
@@ -14,7 +14,7 @@ export default class index extends Component {
   render() {
     return (
       <Dashboard>
-        {/*<Discover /> */}
+        {/* <Discover /> */}
         {/* <Detail /> */}
         {/* <MyListing /> */}
         {/* <Categories /> */}

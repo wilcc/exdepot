@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import image1 from './img/1.jpg';
-import image2 from './img/2.jpg';
-import image3 from './img/3.jpg';
-import image4 from './img/4.jpg';
+import image1 from '../img/1.jpg';
+import image2 from '../img/2.jpg';
+import image3 from '../img/3.jpg';
+import image4 from '../img/4.jpg';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
-import './Detail.scss';
+import './Detail.scss'; 
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';

@@ -12,7 +12,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import MyListing from './MyListing';
+import MyListing from '../MyListing';
 import CreateIcon from '@material-ui/icons/Create';
 import MessageIcon from '@material-ui/icons/Message';
 import PersonIcon from '@material-ui/icons/Person';
