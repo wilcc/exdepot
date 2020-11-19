@@ -18,11 +18,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'scroll',
-    // position:'absolute',
-    // top:'10%',
-    // left:'10%',
-    // height:'100%',
-    // display:'block'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
