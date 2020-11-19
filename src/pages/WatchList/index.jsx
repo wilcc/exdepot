@@ -12,6 +12,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import Typography from '@material-ui/core/Typography';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import './watchList.scss';
+import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
 const useStyles = makeStyles({
@@ -52,13 +53,15 @@ export function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<GavelTwoToneIcon />}
-        >
-          Make A Bid
-        </Button>
+        <NavLink to="/makeoffer/prodId9283dfs8902">
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<GavelTwoToneIcon />}
+          >
+            Make A Bid
+          </Button>
+        </NavLink>
       </CardActions>
     </Card>
   );

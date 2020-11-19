@@ -14,11 +14,13 @@ import CurrentBids from "../pages/CurrentBids/";
 import Login from "../pages/Login"; 
 import Register from "../pages/Register"; 
 import ForgotPW from "../pages/ForgotPW";
+import MakeOffer from "../pages/MakeOffer";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
+
 } from "react-router-dom";
 export default class index extends Component {
   render() {
@@ -61,7 +63,13 @@ export default class index extends Component {
           </Route>
           <Route path="/profile"></Route> 
           <Route path="/help"></Route>
-          <Route path="searchbar"></Route>
+          <Route path="/searchbar"></Route>
+          <Route path="/makeoffer/:productId">
+            <MakeOffer />
+          </Route>
+          <Route path="/prodetail/:productId">
+            <Detail />
+          </Route>
           <Route path="/">
             <Redirect to="/discover" />
           </Route>

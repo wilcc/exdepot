@@ -56,13 +56,13 @@ export default class TopNav extends Component {
             <NavLink to="/register">
               <Button color="inherit">Register</Button>
             </NavLink>
-            {/*<div
+            <div
               className="avatar"
               ref={this.openLoggedInAvatar}
               onClick={() => this.setState({ isAvatarOpen: true })}
             >
               <Avatar alt={userAvatar.userName} src={userAvatar.avatarImage} />
-            </div>*/}
+            </div>
             <Menu
               classes={{ paper: 'menu-avatar' }}
               id="simple-menu"

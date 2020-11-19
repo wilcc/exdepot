@@ -12,7 +12,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-
+import Dashboard from '../../dashboard/Dashboard';
 
 const useStyles = makeStyles({
   root: {
@@ -108,76 +108,78 @@ export default class MakeOffer extends Component {
         );
       })
     return (
-      <div className="container">
-        <div className="offerDetail">
-        <div className="offeredItem">
+      <Dashboard>
+        <div className="container">
+          <div className="offerDetail">
+          <div className="offeredItem">
+            <Typography className="userInfo" variant="h5" component="h3">
+              Offered Items
+            </Typography>
+            {OfferedCard}
+          </div>
+          <div className="myListItem">
           <Typography className="userInfo" variant="h5" component="h3">
-            Offered Items
-          </Typography>
-          {OfferedCard}
-        </div>
-        <div className="myListItem">
-        <Typography className="userInfo" variant="h5" component="h3">
-            My Items
-          </Typography>
-          {myListCards}
-        </div>
-        </div>
-        <div className="productDetail">
-          <Typography
-            className="productTitle"
-            variant="body2"
-            color="textSecondary"
-            component="h3"
-          >
-            Product Name
-          </Typography>
-          <img
-            src={image1}
-            alt=""
-            width="600px"
-            height="300px"
-            className="image"
-          />
-          <Typography variant="h6" component="h3" className="detailTitle">
-            Product Detail:
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            className="detailBody"
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            vitae soluta totam nulla laborum quo asperiores. Ratione facilis,
-            alias eligendi fugiat neque dolorem itaque odio sed dignissimos,
-            distinctio ipsa esse.
-          </Typography>
-          <Typography variant="h6" component="h3" className="IWantTitle">
-            What I would like to get for the item:
-          </Typography>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-            className="IWantBody"
-          >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-            vitae soluta totam nulla laborum quo asperiores. Ratione facilis,
-            alias eligendi fugiat neque dolorem itaque odio sed dignissimos,
-            distinctio ipsa esse.
-          </Typography>
-          <div className="button">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<GavelTwoToneIcon />}
+              My Items
+            </Typography>
+            {myListCards}
+          </div>
+          </div>
+          <div className="productDetail">
+            <Typography
+              className="productTitle"
+              variant="body2"
+              color="textSecondary"
+              component="h3"
             >
-              Bid
-            </Button>
+              Product Name
+            </Typography>
+            <img
+              src={image1}
+              alt=""
+              width="600px"
+              height="300px"
+              className="image"
+            />
+            <Typography variant="h6" component="h3" className="detailTitle">
+              Product Detail:
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="detailBody"
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+              vitae soluta totam nulla laborum quo asperiores. Ratione facilis,
+              alias eligendi fugiat neque dolorem itaque odio sed dignissimos,
+              distinctio ipsa esse.
+            </Typography>
+            <Typography variant="h6" component="h3" className="IWantTitle">
+              What I would like to get for the item:
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              component="p"
+              className="IWantBody"
+            >
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
+              vitae soluta totam nulla laborum quo asperiores. Ratione facilis,
+              alias eligendi fugiat neque dolorem itaque odio sed dignissimos,
+              distinctio ipsa esse.
+            </Typography>
+            <div className="button">
+              <Button
+                variant="contained"
+                color="primary"
+                startIcon={<GavelTwoToneIcon />}
+              >
+                Bid
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </Dashboard>
     );
   }
 }
