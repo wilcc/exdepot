@@ -30,6 +30,10 @@
   }
   .top-nav{
     position: relative;
+    a {
+      text-decoration: none;
+      color: white;
+      }
   };
   .nav-root{
     flex-grow: 1;
@@ -45,6 +49,7 @@
     background-color: #ffff;
     display: flex;
     padding: 4px 2px 4px 2px;
+    margin-right: 44px;
     align-items: center;
     color: grey;
     border-radius: 10px;
