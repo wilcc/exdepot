@@ -15,6 +15,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register"; 
 import ForgotPW from "../pages/ForgotPW";
 import MakeOffer from "../pages/MakeOffer";
+import Message from "../pages/Message"
+
 import {
   BrowserRouter as Router,
   Switch,
