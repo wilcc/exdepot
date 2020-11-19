@@ -3,11 +3,9 @@ import Button from '@material-ui/core/Button';
 import Card from './Card';
 import CreateIcon from '@material-ui/icons/Create';
 import './MyListing.scss';
+import Dashboard from '../../dashboard/Dashboard';
 
 export default class MyListing extends Component {
-  constructor() {
-    super();
-  }
   render() {
     const threeItemsExamples = [
       {
@@ -55,18 +53,20 @@ export default class MyListing extends Component {
       );
     });
     return (
-      <div>
-        <div className="create-button">
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<CreateIcon />}
-          >
-            Create New
-          </Button>
+      <Dashboard>
+        <div>
+          <div className="create-button">
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<CreateIcon />}
+            >
+              Create New
+            </Button>
+          </div>
+          <div className="cards">{displayCards}</div>
         </div>
-        <div className="cards">{displayCards}</div>
-      </div>
+      </Dashboard>
     );
   }
 }

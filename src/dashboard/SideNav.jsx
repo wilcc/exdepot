@@ -10,7 +10,6 @@ import ListIcon from '@material-ui/icons/List';
 import MessageIcon from '@material-ui/icons/Message';
 import StarsIcon from '@material-ui/icons/Stars';
 import GavelIcon from '@material-ui/icons/Gavel';
-import Collapse from '@material-ui/core/Collapse';
 import CategoryIcon from '@material-ui/icons/Category';
 import './dashboard.scss';
 import { NavLink } from 'react-router-dom';
@@ -37,24 +36,27 @@ export default class SideNav extends Component {
     return (
       <List>
       
-        <SidenavListitem icon={<SearchIcon />} textLabel="Discover" link="/discover">
-          <div className="wrapper-for-children-sublist">
-            <SidenavListitem icon={<CategoryIcon />} textLabel="Categories" />
-          </div>
-        </SidenavListitem>
+        <SidenavListitem icon={<SearchIcon />} textLabel="Discover" link="/discover" />
+            <div className="wrapper-for-children-sublist">
+              <SidenavListitem inset icon={<CategoryIcon />} textLabel="Categories" link="/categories" />
+            </div>
 
-        <SidenavListitem icon={<ListIcon />} textLabel="My Listing" />
-        <SidenavListitem icon={<MessageIcon />} textLabel="Message" />
+
+        <SidenavListitem icon={<ListIcon />} textLabel="My Listing" link="/mylisting"/>
+        <SidenavListitem icon={<MessageIcon />} textLabel="Message" link="/messages" />
         <SidenavListitem icon={<StarsIcon />} textLabel="My WatchList"  link="/watchlist" />
-        <SidenavListitem icon={<GavelIcon />} textLabel="Current Bids" />
+        <SidenavListitem icon={<GavelIcon />} textLabel="Current Bids" link="currbids" />
         <Divider />
-        <Button
-          classes={{ root: 'create-btn' }}
-          variant="contained"
-          color="primary"
-        >
-          Create New Listing
-        </Button>
+        <NavLink to="/createnewlisting">
+          <Button
+            classes={{ root: 'create-btn' }}
+            variant="contained"
+            color="primary"
+          >
+            Create New Listing
+          </Button>
+        </NavLink>
+
       </List>
     );
   }

@@ -18,9 +18,8 @@ import MessageIcon from '@material-ui/icons/Message';
 import PersonIcon from '@material-ui/icons/Person';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Badge from '@material-ui/core/Badge';
-import './MyListing.scss';
 import { Message } from '@material-ui/icons';
-
+import Dashboard from '../../dashboard/Dashboard';
 const useStyles = makeStyles({
   root: {
     maxWidth: 445,
@@ -253,6 +252,7 @@ export default function CurrentBids() {
   };
 
   return (
+    <Dashboard>
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs
@@ -273,5 +273,6 @@ export default function CurrentBids() {
         <AcceptedBidsCards />
       </TabPanel>
     </div>
+    </Dashboard>
   );
 }
