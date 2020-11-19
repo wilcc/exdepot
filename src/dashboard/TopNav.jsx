@@ -10,6 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import { NavLink } from 'react-router-dom';
 
 import './dashboard.scss';
 
@@ -46,7 +47,15 @@ export default class TopNav extends Component {
               <InputBase placeholder="Search…" />
             </div>
 
-            {/*<Button color="inherit">Login</Button> */}
+            <NavLink to="/login">
+              <Button color="inherit">Login</Button>
+            </NavLink>
+            
+            | 
+            
+            <NavLink to="/register">
+              <Button color="inherit">Register</Button>
+            </NavLink>
             <div
               className="avatar"
               ref={this.openLoggedInAvatar}

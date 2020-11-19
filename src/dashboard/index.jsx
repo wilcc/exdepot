@@ -11,13 +11,16 @@ import MyListing from "../pages/MyListing";
 import AcceptDeclineModal from "../pages/AcceptDeclineModal";
 import WatchList from "../pages/WatchList";
 import CurrentBids from "../pages/CurrentBids/";
-import Message from "../pages/Message"
-
+import Login from "../pages/Login"; 
+import Register from "../pages/Register"; 
+import ForgotPW from "../pages/ForgotPW";
+import MakeOffer from "../pages/MakeOffer";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
+
 } from "react-router-dom";
 export default class index extends Component {
   render() {
@@ -49,11 +52,24 @@ export default class index extends Component {
           </Route>
 
           <Route path="/createnewlisting"></Route>
-          <Route path="/login"></Route> 
-          <Route path="/register"></Route>
+          <Route path="/login">
+            <Login />
+          </Route> 
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/forgotpw">
+            <ForgotPW />
+          </Route>
           <Route path="/profile"></Route> 
           <Route path="/help"></Route>
-          <Route path="searchbar"></Route>
+          <Route path="/searchbar"></Route>
+          <Route path="/makeoffer/:productId">
+            <MakeOffer />
+          </Route>
+          <Route path="/prodetail/:productId">
+            <Detail />
+          </Route>
           <Route path="/">
             <Redirect to="/discover" />
           </Route>

@@ -6,6 +6,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import './discover.scss';
 import { ListItem } from '@material-ui/core';
 import Dashboard from '../../dashboard/Dashboard';
+import Button from '@material-ui/core/Button';
 
 export class CategoryItem extends Component {
   render() {
@@ -52,39 +53,45 @@ export class MidSectionDiscover extends Component {
         </h2>
         <Paper elevation={5}>
           <List>
-            <ListItem classes={{ root: 'list-items-midsection-discover' }}>
+          <Button href="/prodetail/someProductIDNum">
+              <ListItem classes={{ root: 'list-items-midsection-discover' }}>
               <img
-                className="item-image"
-                src={threeItemsExamples[0].listItemImg}
-                alt="..."
+              className="item-image"
+              src={threeItemsExamples[0].listItemImg}
+              alt="..."
               />
               <div className="listItem-midsection-title">
-                {threeItemsExamples[0].ListItemTitle}
+              {threeItemsExamples[0].ListItemTitle}
               </div>
               <BookmarkBorderIcon />
-            </ListItem>
-            <ListItem classes={{ root: 'list-items-midsection-discover' }}>
-              <img
-                className="item-image"
-                src={threeItemsExamples[1].listItemImg}
-                alt="..."
-              />
-              <div className="listItem-midsection-title">
-                {threeItemsExamples[1].ListItemTitle}
-              </div>
-              <BookmarkBorderIcon />
-            </ListItem>
-            <ListItem classes={{ root: 'list-items-midsection-discover' }}>
-              <img
-                className="item-image"
-                src={threeItemsExamples[2].listItemImg}
-                alt="..."
-              />
-              <div className="listItem-midsection-title">
-                {threeItemsExamples[2].ListItemTitle}
-              </div>
-              <BookmarkBorderIcon />
-            </ListItem>
+              </ListItem>
+          </Button>
+          <Button href="/prodetail/someProductIDNum">
+              <ListItem classes={{ root: 'list-items-midsection-discover' }}>
+                <img
+                  className="item-image"
+                  src={threeItemsExamples[1].listItemImg}
+                  alt="..."
+                />
+                <div className="listItem-midsection-title">
+                  {threeItemsExamples[1].ListItemTitle}
+                </div>
+                <BookmarkBorderIcon />
+              </ListItem>
+            </Button>
+            <Button href="/prodetail/someProductIDNum">
+              <ListItem classes={{ root: 'list-items-midsection-discover' }}>
+                <img
+                  className="item-image"
+                  src={threeItemsExamples[2].listItemImg}
+                  alt="..."
+                />
+                <div className="listItem-midsection-title">
+                  {threeItemsExamples[2].ListItemTitle}
+                </div>
+                <BookmarkBorderIcon />
+              </ListItem>
+            </Button>
           </List>
         </Paper>
       </Grid>
