@@ -15,7 +15,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register"; 
 import ForgotPW from "../pages/ForgotPW";
 import MakeOffer from "../pages/MakeOffer";
-import Message from "../pages/Message"
+import Message from "../pages/Message";
+import CreateNewListing from "../pages/CreateNewListing";
 
 import {
   BrowserRouter as Router,
@@ -53,7 +54,9 @@ export default class index extends Component {
             <CurrentBids />
           </Route>
 
-          <Route path="/createnewlisting"></Route>
+          <Route path="/createnewlisting">
+            <CreateNewListing />
+          </Route>
           <Route path="/login">
             <Login />
           </Route> 

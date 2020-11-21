@@ -1,0 +1,28 @@
+// .display-Uploaded-Images-Wrapper {
+//   display: 'flex';
+//   flex-wrap: 'wrap';
+//   justify-Content: 'space-around';
+//   overflow: 'hidden';
+// }
+// .gridList {
+//   width: 500;
+//   height: 450;
+// }
+
+.images-upload-wrapper{
+  padding: 15px;
+  margin: 10px;
+  position: relative;
+}
+.input-container{
+  position: relative;
+  padding: 15px 15px 15px 15px;
+  .title-for-text-input{
+    position: relative;
+  }
+  .text-area-styling{
+    position: relative;
+    width: 100%;
+    right: auto;
+  }
+}
