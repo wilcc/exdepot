@@ -4,9 +4,11 @@ import MessageCard from './messageCard';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
+import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import TextField from '@material-ui/core/TextField';
 import './message.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -41,7 +43,13 @@ const useStyles = makeStyles((theme) => ({
   bubbleWrap: {
     display: 'flex',
   },
-  
+  inputContainer:{
+    display:'flex',
+    justifyContent:'flex-end',
+  },
+  replyButton:{
+    marginTop: 15,
+  }
 }));
 
 export function ChatLayout() {
@@ -147,6 +155,10 @@ export default function Index() {
           <Fade in={open}>
             <div className={classes.paper}>
               <ChatLayout />
+              <div className={classes.inputContainer}>
+                <TextField id='outlined-basic' label='Enter Your Message'></TextField>
+                <Button className={classes.replyButton}>send</Button>
+              </div>
             </div>
           </Fade>
         </Modal>
