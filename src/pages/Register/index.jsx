@@ -13,6 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert';
+
+
 
 function Copyright() {
   return (
@@ -62,6 +65,7 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
+        <Alert severity="error">Test</Alert>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
