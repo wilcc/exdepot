@@ -21,9 +21,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => {console.log('mongodb connected')})
 .catch(()=> {console.log('server err')});
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
 
 app.use(logger('dev'));
 app.use(express.json());
