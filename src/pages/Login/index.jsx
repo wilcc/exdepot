@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,16 +13,17 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
-
+import Alert from '@material-ui/lab/Alert';
+import { setToken } from '../../reducers/authreducer';
+import { useDispatch, useSelector } from 'react-redux'
+import {Redirect} from 'react-router'
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       &nbsp;
-      <NavLink to="/">
-      ExDepot
-      </NavLink>
+      <NavLink to="/">ExDepot</NavLink>
       &nbsp;
       {new Date().getFullYear()}
       {'.'}
@@ -52,8 +53,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const [userName, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.auth.token )
 
-  return (
+  return token ? <Redirect to='/discover'/> : ( 
+    
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -63,17 +70,20 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
+        {error !== '' ? <Alert severity="error">{error}</Alert> : null}
+        <div className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="userName"
+            label="User Name"
+            name="userName"
+            autoComplete="userName"
             autoFocus
+            value={userName}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
             variant="outlined"
@@ -85,6 +95,8 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -96,26 +108,50 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={async () => {
+              const response = await fetch(
+                'http://localhost:3003/api/users/login',
+                {
+                  method: 'POST',
+                  mode: 'cors',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    userName,
+                    password,
+                  }),
+                }
+              );
+              let jsondata = await response.json();
+              if (response.status === 409) {
+                setError(jsondata.message);
+              } else {
+                console.log(jsondata);
+                dispatch(setToken({token:jsondata.token}))
+              }
+            }}
           >
             Login
           </Button>
           <Grid container>
             <Grid item xs>
-            <NavLink to="/forgotpw">
-              <Link href="" variant="body2">
-                Forgot password?
-              </Link>
-            </NavLink>
+              <NavLink to="/forgotpw">
+                <Link href="" variant="body2">
+                  Forgot password?
+                </Link>
+              </NavLink>
             </Grid>
             <Grid item>
-            <NavLink to="/register">
-              <Link href="" variant="body2">
-                {"Don't have an account? Register"}
-              </Link>
-            </NavLink>
+              <NavLink to="/register">
+                <Link href="" variant="body2">
+                  {"Don't have an account? Register"}
+                </Link>
+              </NavLink>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={8}>
         <Copyright />

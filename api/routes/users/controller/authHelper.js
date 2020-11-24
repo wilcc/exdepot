@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 async function createUser(user) {
+
   let newUser = await new User({
     userName: user.userName,
     firstName: user.firstName,
@@ -21,6 +22,7 @@ async function hashPassword(password) {
 }
 
 async function errorHandler(error) {
+
     if (error.code === 11000) {
       return `${Object.keys(error.keyValue)[0]} Already Exist `
     } else {

@@ -11,10 +11,25 @@ import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { NavLink } from 'react-router-dom';
-
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { logout } from '../reducers/authreducer';
 import './dashboard.scss';
 
-export default class TopNav extends Component {
+const mapStateToProps = (state) => {
+  return {
+    token: state.auth.token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => bindActionCreators(
+    {
+      logout,
+    },
+    dispatch
+  );
+
+class TopNav extends Component {
   constructor(props) {
     super(props);
     this.openLoggedInAvatar = React.createRef();
@@ -46,13 +61,10 @@ export default class TopNav extends Component {
               <SearchIcon />
               <InputBase placeholder="Search…" />
             </div>
-
             <NavLink to="/login">
               <Button color="inherit">Login</Button>
             </NavLink>
-            
-            | 
-            
+            |
             <NavLink to="/register">
               <Button color="inherit">Register</Button>
             </NavLink>
@@ -79,7 +91,14 @@ export default class TopNav extends Component {
                 Profile
               </MenuItem>
               <MenuItem>Help</MenuItem>
-              <MenuItem>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  console.log('logout');
+                  this.props.logout();
+                }}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
@@ -87,3 +106,5 @@ export default class TopNav extends Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopNav);

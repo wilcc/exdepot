@@ -30,7 +30,7 @@ module.exports = {
   
         if (foundUser === 404) {
           throw {
-            status: 500,
+            status: 409,
             message: 'User not found, please sign up',
           };
         }
