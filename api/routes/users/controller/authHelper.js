@@ -5,7 +5,7 @@ async function createUser(user) {
   let newUser = await new User({
     firstName: user.firstName,
     lastName: user.lastName,
-    phone: user.phone,
+    phoneNumber: user.phoneNumber,
     email: user.email,
     password: user.password,
   });
@@ -20,7 +20,7 @@ async function hashPassword(password) {
 
 async function errorHandler(error) {
     if (error.code == 11000) {
-      return 'Email & Phone Number Already Exist!';
+      return `${Object.keys(error.keyValue)[0]} Already Exist `
     } else {
       return error.message;
     }
