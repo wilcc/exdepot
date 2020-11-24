@@ -26,7 +26,7 @@ module.exports = {
     },
     login: async (req, res) => {
       try {
-        let foundUser = await findOneUser(req.body.username);
+        let foundUser = await findOneUser(req.body.userName);
   
         if (foundUser === 404) {
           throw {

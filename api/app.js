@@ -22,7 +22,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(()=> {console.log('server err')});
 
 
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

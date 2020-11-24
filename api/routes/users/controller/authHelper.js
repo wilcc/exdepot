@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 async function createUser(user) {
   let newUser = await new User({
+    userName: user.userName,
     firstName: user.firstName,
     lastName: user.lastName,
     phoneNumber: user.phoneNumber,
