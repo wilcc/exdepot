@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
       trim: true,
       required: true,
       default: '',
+      unique: true,
       },
       firstName: {
         type: String,

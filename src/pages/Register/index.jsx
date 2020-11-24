@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
-
 
 
 function Copyright() {
@@ -54,6 +53,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Register() {
   const classes = useStyles();
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [userName, setUserName] = useState();
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [alertError, setError] = useState('');
+  const [registrationComplete, SetRegistrationComplete] = useState(false)
 
   return (
     <Container component="main" maxWidth="xs">
@@ -65,19 +72,29 @@ export default function Register() {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <Alert severity="error">Test</Alert>
-        <form className={classes.form} noValidate>
+        {alertError !== '' ? (<Alert severity="error">{alertError}</Alert>) : null}
+        {registrationComplete && <Alert severity="success">register successful click&nbsp;
+                                    <NavLink to="/login">
+                                      <Link href="" variant="body2">
+                                      here
+                                    </Link>
+                                  </NavLink>
+                                  &nbsp;to login
+                                  </Alert>}
+        <div className={classes.form}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="fname"
-                name="firstName"
+                name="fname"
                 variant="outlined"
                 required
                 fullWidth
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={fname}
+                onChange={(event)=> setFname(event.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -89,8 +106,23 @@ export default function Register() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lname}
+                onChange={(event)=> setLname(event.target.value)}
               />
             </Grid>
+            <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="userName"
+              label="UserName"
+              name="UserName"
+              autoComplete="userName"
+              value={userName}
+              onChange={(event)=> setUserName(event.target.value)}
+            />
+          </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -100,6 +132,8 @@ export default function Register() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(event)=> setEmail(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -111,6 +145,8 @@ export default function Register() {
                 label="Phone Number"
                 name="phoneNumber"
                 autoComplete="phoneNumber"
+                value={phoneNumber}
+                onChange={(event)=> setPhoneNumber(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -123,6 +159,8 @@ export default function Register() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(event)=> setPassword(event.target.value)}
               />
             </Grid>
           </Grid>
@@ -132,6 +170,39 @@ export default function Register() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={ async ()=> {
+              const response = await fetch('http://localhost:3003/api/users/register', {
+                  method: 'POST',
+                  mode: 'cors',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    "firstName": fname, 
+                    "lastName":lname, 
+                    "userName": userName, 
+                    "phoneNumber":phoneNumber, 
+                    "email":email, 
+                    "password":password
+                })
+              })
+
+              console.log(response)
+
+              if(response.status == 409) {
+                let jsondata = await response.json()
+                console.log(jsondata);
+                setError(jsondata.message)
+              } else {
+                SetRegistrationComplete(true)
+
+              }
+              
+              
+
+       
+            }}
           >
             Register
           </Button>
@@ -144,7 +215,7 @@ export default function Register() {
             </NavLink>
             </Grid>
           </Grid>
-        </form>
+        </div>
       </div>
       <Box mt={5}>
         <Copyright />
