@@ -9,6 +9,7 @@ var cors = require('cors')
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users/users');
 const categoryRouter = require('./routes/categories/categories')
+const listingRouter = require('./routes/listings/listings')
 const app = express();
 
 // Setup Mongoose
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/listings', listingRouter);
 app.use('/api/categories', categoryRouter); 
 
 // catch 404 and forward to error handler

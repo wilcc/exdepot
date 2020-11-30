@@ -9,9 +9,6 @@ const ListingBidSchema = new mongoose.Schema({
   ListingID: {
     type: String,
   },
-  categoryID: {
-    type: String,
-  },
   status: {
     type: String,
     required: true,
