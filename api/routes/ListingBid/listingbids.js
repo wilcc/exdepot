@@ -8,3 +8,5 @@ router.get('/fetchAllBids', listingBidController.fetchAllBids);
 router.put('/acceptbid', listingBidController.acceptBid);
 router.put('/cancelbid', listingBidController.cancelBid);
 router.put('/declinebid', listingBidController.declineBid);
+
+module.exports = router;

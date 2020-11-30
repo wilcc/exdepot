@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/listings', listingRouter);
-app.user('/api/listingbid', listingBidRouter);
+app.use('/api/listingbid', listingBidRouter);
 app.use('/api/categories', categoryRouter); 
 
 // catch 404 and forward to error handler

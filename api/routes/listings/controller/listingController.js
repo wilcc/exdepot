@@ -1,5 +1,5 @@
 const Listing = require('../model/Listing');
-const ListingBid = require('../model/ListingBid');
+const ListingBid = require('../../ListingBid/model/ListingBid');
 
 module.exports = {
   fetchAll: async (req, res) => {

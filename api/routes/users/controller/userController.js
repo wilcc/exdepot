@@ -6,7 +6,7 @@ const {
       comparePassword,
       createJwtToken,
   } = require('./authHelper');
-
+const AWS = require('aws-sdk');
 module.exports = {
     register: async (req, res) => {
       try {
@@ -55,5 +55,29 @@ module.exports = {
         });
       }
     },
+    uploadprofpic: async (req, res) => {
+      try {
+        let s3 = new AWS.S3({
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        })
+      let bucketName = 'exdepot-midterm'
+      let keyName = `user_${req.user.id}/` + req.files.imgFile.name //'s3_test_1.jpg'
+      var objectParams = {
+          Bucket: bucketName,
+          Key: keyName,
+          Body: req.files.imgFile.data,
+          ACL: 'public-read'
+      };
+      var uploadPromise = await s3.putObject(objectParams).promise();
+      res.status(200).json({
+        message: 'Upload Complete',
+        url: `https://${bucketName}.s3.amazonaws.com/${keyName}`
+      });
+
+      } catch (err) {
+        console.log(err)
+      }
+    }
   };
   
