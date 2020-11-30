@@ -3,10 +3,13 @@ const moment = require('moment');
 const now = moment();
 
 const ListingBidSchema = new mongoose.Schema({
-  userID: {
+  BidderUserID: {
     type: String,
   },
   ListingID: {
+    type: String,
+  },
+  ownerUserID: {
     type: String,
   },
   status: {
