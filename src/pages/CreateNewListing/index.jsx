@@ -60,7 +60,7 @@ class CreateNewListing extends Component{
           style={{ width: 400 }}
           renderInput={(params) => <TextField {...params} label="Pick Category" variant="outlined" />}
         />
-
+        
       </div>
       </Dashboard>
     )

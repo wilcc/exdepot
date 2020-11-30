@@ -22,7 +22,6 @@ module.exports = {
       name,
       description,
       exchangeDescription,
-      ownerUserID,
       categoryID,
       images,
     } = req.body;
@@ -31,13 +30,13 @@ module.exports = {
       name,
       description,
       exchangeDescription,
-      ownerUserID,
+      ownerUserID: req.user.id,
       categoryID,
       images,
     });
 
     let savedListing = await newListing.save();
-    res.send(savedListing);
+    res.status(200).json({savedListing});
   },
   deleteListing: async (req, res) => {
     let oneListing = await Listing.findOneAndDelete({ listingId: req.body.id });

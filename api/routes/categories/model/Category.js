@@ -16,6 +16,10 @@ const CategorySchema = new mongoose.Schema({
     default: '',
   },
   ListingBid: [],
+  image: {
+    type: String,
+    default: 'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg'
+  },
   timestamp: {
     type: String,
     default: now.format('dddd, MMMM Do YYYY, h:mm:ss a'),

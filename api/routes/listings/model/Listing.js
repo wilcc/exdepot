@@ -13,7 +13,10 @@ const ListingSchema = new mongoose.Schema({
   ownerUserID: {
     type: String,
   },
-  CategoryID: [],
+  CategoryID: {
+    type: String,
+    default: ''
+  },
   name: {
     type: String,
     default: 'Name of Listing Item',
