@@ -1,4 +1,5 @@
 const Listing = require('../model/Listing');
+const ListingBid = require('../model/ListingBid');
 
 module.exports = {
   fetchAll: async (req, res) => {
@@ -39,7 +40,8 @@ module.exports = {
     res.send(savedListing);
   },
   deleteListing: async (req, res) => {
-    let oneListing = await Listing.findByIdAndDelete({ listingId: req.body.id });
+    let oneListing = await Listing.findOneAndDelete({ listingId: req.body.id });
+    let oneListingBid = await ListingBid.findOneAndDelete({ ListingID: req.body.id });
     console.log('Onelisting deleted', oneListing);
     res.send(oneListing);
   }

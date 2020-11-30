@@ -39,5 +39,12 @@ module.exports = {
     currentListingBid.status = 'canceled';
     currentListingBid.save();
     res.send(currentListingBid);
-  }
+  },
+  declineBid: async (req, res) => {
+    let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
+    currentListingBid.status = 'declined';
+    currentListingBid.save();
+    res.send(currentListingBid);
+  },
+  
 }
