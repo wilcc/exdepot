@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
 var cors = require('cors')
+const fileUpload = require('express-fileupload');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users/users');
@@ -13,6 +14,8 @@ const listingRouter = require('./routes/listings/listings');
 const listingBidRouter = require('./routes/ListingBid/listingbids');
 const app = express();
 
+
+app.use(fileUpload());
 // Setup Mongoose
 const mongoose = require('mongoose');
 
