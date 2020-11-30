@@ -15,10 +15,9 @@ const CategorySchema = new mongoose.Schema({
     trim: true,
     default: '',
   },
-  ListingBid: [],
   image: {
     type: String,
-    default: 'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg'
+    default: 'https://exdepot-midterm.s3.amazonaws.com/defaults/Category_img_default.jpg'
   },
   timestamp: {
     type: String,

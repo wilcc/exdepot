@@ -2,7 +2,7 @@ const Category = require('../model/Category');
 const User = require('../../users/model/User');
 const Listing = require('../../listings/model/Listing');
 const ListingBid = require('../../ListingBid/model/ListingBid');
-
+const AWS = require('aws-sdk');
 module.exports = {
 
   createCategory: async (req, res) => {
@@ -11,7 +11,7 @@ module.exports = {
         
         let compareFirstWithDB = await Category.findOne({CategoryName: CategoryName})
         if (compareFirstWithDB) {
-          res.send('Category Name already exists');
+          res.status(200).json({ message: "Category Name already exists"});
         }
 
         let newCategory = await new Category({
