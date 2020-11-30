@@ -10,5 +10,6 @@ router.get('/fetchall', listingController.fetchAll)
 router.get('/fetchone', listingController.fetchOne)
 router.get('/fetchownerlisting', listingController.fetchOwnerListing)
 router.post('/createListing', listingController.createListing);
+router.delete('/deleteListing', listingController.deleteListing);
 // router.post('/login', userController.login);
 module.exports = router;
