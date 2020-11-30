@@ -28,6 +28,16 @@ module.exports = {
       } catch(err) {
         console.log('error occurred in backend createCategory controller:', err)
       }
-  }
+  },
+  fetchallCategories: async (req, res) => {
+    try {
+      let fetchallCategories = await Category.find();
+      res.status(200).json({
+        fetchallCategories
+      })
+    } catch (err) {
+      console.log(err)
+    }
 
+  }
 }

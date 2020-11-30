@@ -9,6 +9,10 @@ import './CreateNewListing.scss';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { setCategoryList } from '../../reducers/categoryreducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 
 class CreateNewListing extends Component{
   constructor(props){
@@ -22,6 +26,25 @@ class CreateNewListing extends Component{
       files: files
     });
   }
+
+
+  async componentDidMount() {
+    const response = await fetch(
+      'http://localhost:3003/api/categories/fetchAllCategories',
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    let jsondata = await response.json();
+    console.log("categoryList from the server", jsondata.fetchallCategories)
+    this.props.setCategoryList({categoryList: jsondata.fetchallCategories})
+  }
+
   render(){
     const demoCategories = [
       {catName: 'Electronics'},
@@ -55,8 +78,8 @@ class CreateNewListing extends Component{
           </div>
           <Autocomplete
           id="combo-box-demo"
-          options={demoCategories}
-          getOptionLabel={(option) => option.catName}
+          options={this.props.categoryList}
+          getOptionLabel={(option) => option.CategoryName}
           style={{ width: 400 }}
           renderInput={(params) => <TextField {...params} label="Pick Category" variant="outlined" />}
         />
@@ -67,4 +90,19 @@ class CreateNewListing extends Component{
   }
 }
 
-export default CreateNewListing;
+// export default CreateNewListing;
+
+
+const mapStateToProps = (state) => {
+  return {
+    categoryList: state.category.categoryList,
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setCategoryList,
+    },
+    dispatch
+  );
+export default connect(mapStateToProps, mapDispatchToProps)(CreateNewListing);

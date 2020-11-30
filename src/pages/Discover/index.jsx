@@ -7,6 +7,9 @@ import './discover.scss';
 import { ListItem } from '@material-ui/core';
 import Dashboard from '../../dashboard/Dashboard';
 import Button from '@material-ui/core/Button';
+import { setCategoryList } from '../../reducers/categoryreducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 export class CategoryItem extends Component {
   render() {
@@ -23,8 +26,12 @@ export class CategoryItem extends Component {
   }
 }
 
-export class MidSectionDiscover extends Component {
+class MidSectionDiscover extends Component {
+  
+
   render() {
+
+  
     const threeItemsExamples = [
       {
         ListItemTitle: 'Beats Headphones',
@@ -99,7 +106,26 @@ export class MidSectionDiscover extends Component {
   }
 }
 
-export default class Discover extends Component {
+class Discover extends Component {
+
+  async componentDidMount() {
+    const response = await fetch(
+      'http://localhost:3003/api/categories/fetchAllCategories',
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    let jsondata = await response.json();
+    // console.log("categoryList from the server", jsondata.fetchallCategories)
+    this.props.setCategoryList({categoryList: jsondata.fetchallCategories})
+  }
+
+
   render() {
     const categoryData = [
       {
@@ -156,3 +182,18 @@ export default class Discover extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    categoryList: state.category.categoryList,
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setCategoryList,
+    },
+    dispatch
+  );
+export default connect(mapStateToProps, mapDispatchToProps)(Discover);
