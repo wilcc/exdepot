@@ -18,7 +18,12 @@ class CreateNewListing extends Component{
   constructor(props){
     super(props);
     this.state = {
-      files: []
+      files: [],
+      itemName: '',
+      itemDescription: '',
+      exchangeDescription: '',
+      category: {},
+
     };
   }
   handleChange(files){
@@ -66,24 +71,76 @@ class CreateNewListing extends Component{
             />
         </div>
           <div className="input-container">
-          <TextField classes={{root: 'text-area-styling'}} label="Item Name" variant="outlined" />
+          <TextField classes={{root: 'text-area-styling'}} label="Item Name" variant="outlined" value={this.state.itemName}
+          onChange={(e) => {
+            this.setState({itemName: e.target.value })
+            console.log("item name", this.state.itemName)} 
+          }/>
           <h4 className="title-for-text-input">Item Description:</h4>
-            <TextareaAutosize className="text-area-styling" id="outlined-basic" aria-label="item description" rowsMin={8} placeholder="Description of the item you're trying to give for some other item from another person" />
+            <TextareaAutosize className="text-area-styling" id="outlined-basic" aria-label="item description" rowsMin={8} placeholder="Description of the item you're trying to give for some other item from another person" value={this.state.itemDescription} 
+            onChange={(e) => {
+              this.setState({itemDescription: e.target.value })
+              console.log("item Desc", this.state.itemDescription)} 
+            }/>
           </div>
           
           <div className="input-container">
-          <TextField classes={{root: 'text-area-styling'}} label="Item Name" variant="outlined" />
           <h4 className="title-for-text-input">What I want for this this item:</h4>
-            <TextareaAutosize className="text-area-styling" id="outlined-basic" aria-label="item description" rowsMin={8} placeholder="say what you would like to trade it with " />
+            <TextareaAutosize className="text-area-styling" id="outlined-basic" aria-label="item description" rowsMin={8} placeholder="say what you would like to trade it with " value={this.state.exchangeDescription}  
+            onChange={(e) => {
+              this.setState({exchangeDescription: e.target.value })
+              console.log("exchangeDescription", this.state.exchangeDescription)} 
+            }/>
           </div>
           <Autocomplete
           id="combo-box-demo"
           options={this.props.categoryList}
           getOptionLabel={(option) => option.CategoryName}
+          value={this.state.category}
+          onChange={(e, value) => {
+            this.setState({category: value }, () => { console.log(this.state.category)})
+            } 
+          }
           style={{ width: 400 }}
           renderInput={(params) => <TextField {...params} label="Pick Category" variant="outlined" />}
         />
-        
+        <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            // className={classes.submit}
+            onClick={async () => {
+              const response = await fetch(
+                'http://localhost:3003/api/listings/createListing',
+                {
+                  method: 'POST',
+                  mode: 'cors',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.props.authToken}`
+                  },
+
+                  // itemName: '',
+                  // itemDescription: '',
+                  // exchangeDescription: '',
+                  // category: {},
+                  body: JSON.stringify({
+                    name: this.state.itemName ,
+                    description: this.state.itemDescription,
+                    exchangeDescription: this.state.exchangeDescription,
+                    categoryID: this.state.category._id,
+                    images: [],
+                  }),
+                }
+              );
+              let jsondata = await response.json();
+              console.log('request from fe', jsondata);
+            }}
+          >
+            Create New Listing
+          </Button>
       </div>
       </Dashboard>
     )
@@ -96,6 +153,7 @@ class CreateNewListing extends Component{
 const mapStateToProps = (state) => {
   return {
     categoryList: state.category.categoryList,
+    authToken: state.auth.token,
   };
 };
 const mapDispatchToProps = (dispatch) =>
