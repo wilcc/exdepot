@@ -61,20 +61,25 @@ class TopNav extends Component {
               <SearchIcon />
               <InputBase placeholder="Search…" />
             </div>
-            <NavLink to="/login">
-              <Button color="inherit">Login</Button>
-            </NavLink>
-            |
-            <NavLink to="/register">
-              <Button color="inherit">Register</Button>
-            </NavLink>
-            <div
+            {this.props.token ? 
+              (<div
               className="avatar"
               ref={this.openLoggedInAvatar}
               onClick={() => this.setState({ isAvatarOpen: true })}
-            >
-              <Avatar alt={userAvatar.userName} src={userAvatar.avatarImage} />
-            </div>
+              >
+                <Avatar alt={userAvatar.userName} src={userAvatar.avatarImage} /> 
+              </div>) : 
+              <>
+              <NavLink to="/login">
+              <Button color="inherit">Login</Button>
+              </NavLink>
+              |
+              <NavLink to="/register">
+              <Button color="inherit">Register</Button>
+              </NavLink>
+              </>
+            }
+
             <Menu
               classes={{ paper: 'menu-avatar' }}
               id="simple-menu"
