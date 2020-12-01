@@ -29,7 +29,7 @@ class CreateNewListing extends Component{
   handleChange(files){
     this.setState({
       files: files
-    });
+    }, () => {console.log(this.state.files)});
   }
 
 
@@ -59,6 +59,7 @@ class CreateNewListing extends Component{
     //   {catName: 'gardening'}
     // ]
     // console.log(this.props)
+    
     return (
       <Dashboard>
       <div className="create-listing-container">
@@ -112,6 +113,16 @@ class CreateNewListing extends Component{
             color="primary"
             // className={classes.submit}
             onClick={async () => {
+              const formData = new FormData();
+              formData.append("name", this.state.itemName)
+              formData.append("description", this.state.itemDescription)
+              formData.append("exchangeDescription", this.state.exchangeDescription)
+              formData.append("categoryID", this.state.category._id)
+              
+              for(let i = 0; i < this.state.files.length; i++) {
+                let file = this.state.files[i];
+                formData.append(`image_${i}`, file);
+              }
               const response = await fetch(
                 'http://localhost:3003/api/listings/createListing',
                 {
@@ -119,21 +130,22 @@ class CreateNewListing extends Component{
                   mode: 'cors',
                   credentials: 'same-origin',
                   headers: {
-                    'Content-Type': 'application/json',
+                    // 'Content-Type': 'application/json',
                     'Authorization': `Bearer ${this.props.authToken}`
                   },
 
                   // itemName: '',
                   // itemDescription: '',
                   // exchangeDescription: '',
-                  // category: {},
-                  body: JSON.stringify({
-                    name: this.state.itemName ,
-                    description: this.state.itemDescription,
-                    exchangeDescription: this.state.exchangeDescription,
-                    categoryID: this.state.category._id,
-                    images: [],
-                  }),
+                  // // category: {},
+                  // body: JSON.stringify({
+                  //   name: this.state.itemName ,
+                  //   description: this.state.itemDescription,
+                  //   exchangeDescription: this.state.exchangeDescription,
+                  //   categoryID: this.state.category._id,
+                  //   images: [],
+                  // }),
+                  body: formData
                 }
               );
               let jsondata = await response.json();

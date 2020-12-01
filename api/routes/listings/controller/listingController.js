@@ -1,5 +1,6 @@
 const Listing = require('../model/Listing');
 const ListingBid = require('../../ListingBid/model/ListingBid');
+const AWS = require('aws-sdk');
 
 module.exports = {
   fetchAll: async (req, res) => {
@@ -29,13 +30,38 @@ module.exports = {
       images,
     } = req.body;
 
+    let fileKeys = Object.keys(req.files);
+    let imageListing = [];
+    for(let i = 0; i < fileKeys.length; i++) {
+      let fileRequest = req.files[fileKeys[i]]
+      try {
+        let s3 = new AWS.S3({
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        })
+      let bucketName = 'exdepot-midterm'
+      let keyName = `user_${req.user.id}/` + fileRequest.name //'s3_test_1.jpg'
+      var objectParams = {
+          Bucket: bucketName,
+          Key: keyName,
+          Body: fileRequest.data,
+          ACL: 'public-read'
+      };
+      var uploadPromise = await s3.putObject(objectParams).promise();
+
+      let urlS3 = `https://${bucketName}.s3.amazonaws.com/${keyName}`
+      imageListing.push(urlS3);
+      } catch (err) {
+        console.log(err)
+      }
+    }
     let newListing = await new Listing({
       name,
       description,
       exchangeDescription,
       ownerUserID: req.user.id,
       categoryID,
-      images,
+      images: [...imageListing],
     });
 
     let savedListing = await newListing.save();
