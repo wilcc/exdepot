@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
+import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 
 const useStyles = makeStyles({
   root: {
@@ -24,6 +26,10 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  cardTitle:{
+    display: 'flex',
+    justifyContent: 'space-between',
+  }
 });
 
 export default function CategoryListCard(props) {
@@ -33,9 +39,33 @@ export default function CategoryListCard(props) {
       <CardActionArea>
         <CardMedia className={classes.media} image={props.image} />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h3">
-            {props.title}
-          </Typography>
+          <div className={classes.cardTitle}>
+            <Typography gutterBottom variant="h5" component="h3">
+              {props.title}
+            </Typography>
+            <div>
+              <BookmarkIcon onClick={async (e,value) => {
+                console.log(e)
+              const response = await fetch(
+                'http://localhost:3003/api/watchlist/add',
+                {
+                  method: 'POST',
+                  mode: 'cors',
+                  credentials: 'same-origin',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.props.authToken}`
+                  },
+                  body: JSON.stringify({
+
+                  }),
+                }
+              );
+              let jsondata = await response.json();
+              console.log('request from fe', jsondata);
+            }}/>
+            </div>
+          </div>
           <Typography variant="body2" color="textSecondary" component="p">
             Bids:{props.bids}
           </Typography>
