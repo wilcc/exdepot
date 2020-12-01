@@ -7,7 +7,7 @@ module.exports = {
 
   createCategory: async (req, res) => {
     try{
-        const {CategoryName, Description} = req.body;
+        const {CategoryName, Description, image} = req.body;
         
         let compareFirstWithDB = await Category.findOne({CategoryName: CategoryName})
         if (compareFirstWithDB) {
@@ -17,6 +17,7 @@ module.exports = {
         let newCategory = await new Category({
           CategoryName: CategoryName,
           Description: Description,
+          image: image,
         });
 
         await newCategory.save();
