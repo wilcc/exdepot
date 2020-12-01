@@ -51,14 +51,14 @@ class CreateNewListing extends Component{
   }
 
   render(){
-    const demoCategories = [
-      {catName: 'Electronics'},
-      {catName: 'DIY parts'},
-      {catName: 'toys'},
-      {catName: 'accessories'},
-      {catName: 'gardening'}
-    ]
-    console.log(this.props)
+    // const demoCategories = [
+    //   {catName: 'Electronics'},
+    //   {catName: 'DIY parts'},
+    //   {catName: 'toys'},
+    //   {catName: 'accessories'},
+    //   {catName: 'gardening'}
+    // ]
+    // console.log(this.props)
     return (
       <Dashboard>
       <div className="create-listing-container">

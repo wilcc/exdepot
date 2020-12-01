@@ -16,6 +16,10 @@ module.exports = {
 
     res.status(200).json({ownerListing})
   },
+  fetchCategoryListing: async (req, res) => {
+    let categoryListing = await Listing.find({ categoryID: req.params.categoryID });
+    res.status(200).json({categoryListing})
+  },
   createListing: async (req, res) => {
     const {
       name,

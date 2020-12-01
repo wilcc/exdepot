@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
 router.get('/fetchall', authVerify.authenticateToken, listingController.fetchAll)
 router.get('/fetchone', authVerify.authenticateToken, listingController.fetchOne)
 router.get('/fetchownerlisting', authVerify.authenticateToken, listingController.fetchOwnerListing)
+router.get(`/fetchcategorylisting/:categoryID`, listingController.fetchCategoryListing)
 router.post('/createListing', authVerify.authenticateToken, listingController.createListing);
 router.delete('/deleteListing', authVerify.authenticateToken, listingController.deleteListing);
 // router.post('/login', userController.login);
