@@ -5,17 +5,16 @@ module.exports = {
   fetchAll: async (req, res) => {
     let allListings = await Listing.find();
 
-    res.send(allListings);
+    res.status(200).json({allListings})
   },
   fetchOne: async (req, res) => {
     let oneListing = await Listing.findOne({ listingID: req.body.id });
-    console.log(oneListing)
-    res.send(oneListing);
+    res.status(200).json({oneListing})
   },
   fetchOwnerListing: async (req, res) => {
     let ownerListing = await Listing.find({ ownerUserID: req.user.id });
 
-    res.send(ownerListing);
+    res.status(200).json({ownerListing})
   },
   createListing: async (req, res) => {
     const {

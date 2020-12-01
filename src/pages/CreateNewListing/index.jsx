@@ -58,6 +58,7 @@ class CreateNewListing extends Component{
       {catName: 'accessories'},
       {catName: 'gardening'}
     ]
+    console.log(this.props)
     return (
       <Dashboard>
       <div className="create-listing-container">

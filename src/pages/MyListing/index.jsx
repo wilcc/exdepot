@@ -4,9 +4,37 @@ import Card from './Card';
 import CreateIcon from '@material-ui/icons/Create';
 import './MyListing.scss';
 import Dashboard from '../../dashboard/Dashboard';
+import { setListing } from '../../reducers/listingreducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-export default class MyListing extends Component {
+
+class MyListing extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      listing: {},
+    }
+  }
+
+  async componentDidMount() {
+    const response = await fetch(
+      'http://localhost:3003/api/listings/fetchownerlisting',
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.props.authToken}`
+        },
+      }
+    );
+    let jsondata = await response.json();
+    this.props.setListing({listingList: jsondata.ownerListing})
+  }
   render() {
+
     const threeItemsExamples = [
       {
         ItemName: 'Beats Headphones',
@@ -43,10 +71,11 @@ export default class MyListing extends Component {
           'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
       },
     ];
-    const displayCards = threeItemsExamples.map((item) => {
+    console.log('listing',this.props.listing.listingList)
+    const displayCards = this.props.listing.listingList.map((item) => {
       return (
         <Card
-          title={item.ItemName}
+          title={item.name}
           bids={item.ItemBids}
           image={item.ItemImage}
         />
@@ -70,3 +99,19 @@ export default class MyListing extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    listing: state.listing,
+    authToken: state.auth.token,
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setListing,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyListing);
