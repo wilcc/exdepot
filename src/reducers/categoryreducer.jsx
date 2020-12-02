@@ -4,7 +4,7 @@ export const categorySlice = createSlice({
   name: 'category',
   initialState: {
     categoryList: [],
-    CategoryPopularList: [],
+    categoryPopularList: [],
   },
   reducers: {
     setCategoryList: (state, { payload }) => {
