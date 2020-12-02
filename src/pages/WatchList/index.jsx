@@ -15,6 +15,9 @@ import './watchList.scss';
 import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
+import { setListing } from '../../reducers/listingreducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -67,63 +70,43 @@ export function MediaCard(props) {
   );
 }
 
-export default class WatchList extends Component {
-  constructor() {
-    super();
+class WatchList extends Component {
+  constructor(props) {
+    super(props)
+    this.state={
+      listing: {},
+    }
+  }
+
+
+  async componentDidMount() {
+    const response = await fetch(
+      'http://localhost:3003/api/listings/fetchownerlisting',
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.props.authToken}`
+        },
+      }
+    );
+    let jsondata = await response.json();
+    this.props.setListing({listingList: jsondata.ownerListing})
   }
   render() {
-    const threeItemsExamples = [
-      {
-        ItemName: 'Beats Headphones',
-        Owner: 'User1',
-        ItemBids: 12,
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        Owner: 'User2',
-        ItemBids: 2,
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        Owner: 'User3',
-        ItemBids: 8,
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-      {
-        ItemName: 'Beats Headphones',
-        Owner: 'User4',
-        ItemBids: 12,
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        Owner: 'User5',
-        ItemBids: 2,
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        Owner: 'User6',
-        ItemBids: 8,
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-    ];
-    const displayCards = threeItemsExamples.map((item) => {
-      return (
-        <MediaCard
-          title={item.ItemName}
-          owner={item.Owner}
-          bids={item.ItemBids}
-          image={item.ItemImage}
-        />
-      );
-    });
+
+    // const displayCards = threeItemsExamples.map((item) => {
+    //   return (
+    //     <MediaCard
+    //       title={item.ItemName}
+    //       owner={item.Owner}
+    //       bids={item.ItemBids}
+    //       image={item.ItemImage}
+    //     />
+    //   );
+    // });
     return (
       <Dashboard>
         <div className="watch-list-container">
@@ -131,10 +114,26 @@ export default class WatchList extends Component {
             <Typography variant="h5">My Watch List</Typography>
           </div>
           <div className="card-wrapper">
-            <div className="cards">{displayCards}</div>
+            {/* <div className="cards">{displayCards}</div> */}
           </div>
         </div>
       </Dashboard>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    listing: state.listing,
+    authToken: state.auth.token,
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setListing,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(WatchList);

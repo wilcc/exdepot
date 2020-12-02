@@ -126,6 +126,7 @@ class Categories extends Component {
           itemID={item._id}
           title={item.name}
           bids={item.ItemBids}
+          authToken= {this.props.authToken}
           image={item.images[0] ? item.images[0] : "https://media.istockphoto.com/photos/single-cloud-central-in-blue-sky-picture-id667409780"}
         />
       );

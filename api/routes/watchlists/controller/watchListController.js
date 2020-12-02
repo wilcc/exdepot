@@ -2,7 +2,6 @@ const WatchList = require('../model/Watchlist');
 
 module.exports = {
   add: async (req, res) => {
-      console.log(req.user)
     let newWatchList = await new WatchList({
       ownerUserID: req.user.id,
       listingID: req.body.listingID,

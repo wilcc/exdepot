@@ -45,8 +45,8 @@ export default function CategoryListCard(props) {
             </Typography>
             <div>
               <BookmarkIcon onClick={async (e,value) => {
-                // console.log(props)
-                console.log(props.itemID)
+
+                
               const response = await fetch(
                 'http://localhost:3003/api/watchlist/add',
                 {

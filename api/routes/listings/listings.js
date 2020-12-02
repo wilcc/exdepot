@@ -6,10 +6,10 @@ const authVerify = require('../../middleware/authVerify');
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
-router.get('/fetchall', authVerify.authenticateToken, listingController.fetchAll)
-router.get('/fetchone', authVerify.authenticateToken, listingController.fetchOne)
+router.get('/fetchall', listingController.fetchAll)
+router.get('/fetchone', listingController.fetchOne)
 router.get('/fetchownerlisting', authVerify.authenticateToken, listingController.fetchOwnerListing)
-router.get(`/fetchcategorylisting/:categoryID`,authVerify.authenticateToken,listingController.fetchCategoryListing)
+router.get(`/fetchcategorylisting/:categoryID`,listingController.fetchCategoryListing)
 router.post('/createListing', authVerify.authenticateToken, listingController.createListing);
 router.delete('/deleteListing', authVerify.authenticateToken, listingController.deleteListing);
 // router.post('/login', userController.login);
