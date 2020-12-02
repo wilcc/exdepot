@@ -8,18 +8,22 @@ import { ListItem } from '@material-ui/core';
 import Dashboard from '../../dashboard/Dashboard';
 import Button from '@material-ui/core/Button';
 import { setCategoryList, setCategoryPopularList } from '../../reducers/categoryreducer';
+import { setListing } from '../../reducers/listingreducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavLink } from 'react-router-dom';
 
 export class CategoryItem extends Component {
   render() {
     return (
       <div className="single-category-display">
+      <NavLink to="/categories">
         <img
           className="category-image"
           src={this.props.category.image}
           alt={this.props.category.CategoryName}
         />
+        </NavLink>
         {this.props.category.CategoryName}
       </div>
     );
@@ -142,32 +146,6 @@ class Discover extends Component {
 
 
   render() {
-    const categoryData = [
-      {
-        name: 'Electronics',
-        image:
-          'https://thumbs.dreamstime.com/z/cool-sharpen-electronics-15263.jpg',
-      },
-      {
-        name: 'Books',
-        image:
-          'https://thumbs.dreamstime.com/z/library-many-shelves-books-library-many-shelves-books-diminishing-perspective-shallow-dof-159717386.jpg',
-      },
-      {
-        name: 'Toys',
-        image: 'https://thumbs.dreamstime.com/z/toys-collection-24515711.jpg',
-      },
-      {
-        name: 'Furniture',
-        image:
-          'https://thumbs.dreamstime.com/z/natural-scandinavian-living-room-interior-wooden-furniture-mockup-picture-empty-white-wall-154024411.jpg',
-      },
-      {
-        name: 'Miscellaneous',
-        image:
-          'https://thumbs.dreamstime.com/z/flea-market-brugge-belgium-bronze-baby-shoes-70263835.jpg',
-      },
-    ];
 
     const categoryItems = this.props.categoryPopularList.map((category) => (
       <CategoryItem category={category} />
@@ -203,12 +181,14 @@ const mapStateToProps = (state) => {
   return {
     categoryList: state.category.categoryList,
     categoryPopularList: state.category.categoryPopularList,
+    listing: state.listing,
   };
 };
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      setCategoryList,setCategoryPopularList,
+      setCategoryList,setCategoryPopularList,setListing,
+
     },
     dispatch
   );
