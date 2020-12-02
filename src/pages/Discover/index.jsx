@@ -7,7 +7,7 @@ import './discover.scss';
 import { ListItem } from '@material-ui/core';
 import Dashboard from '../../dashboard/Dashboard';
 import Button from '@material-ui/core/Button';
-import { setCategoryList } from '../../reducers/categoryreducer';
+import { setCategoryList, setCategoryPopularList } from '../../reducers/categoryreducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -18,9 +18,9 @@ export class CategoryItem extends Component {
         <img
           className="category-image"
           src={this.props.category.image}
-          alt={this.props.category.name}
+          alt={this.props.category.CategoryName}
         />
-        {this.props.category.name}
+        {this.props.category.CategoryName}
       </div>
     );
   }
@@ -110,7 +110,7 @@ class Discover extends Component {
 
   async componentDidMount() {
     const response = await fetch(
-      'http://localhost:3003/api/categories/fetchAllCategories',
+      'http://localhost:3003/api/categories/fetchallCategories',
       {
         method: 'GET',
         mode: 'cors',
@@ -123,6 +123,21 @@ class Discover extends Component {
     let jsondata = await response.json();
     // console.log("categoryList from the server", jsondata.fetchallCategories)
     this.props.setCategoryList({categoryList: jsondata.fetchallCategories})
+
+    const responsePopular = await fetch(
+      'http://localhost:3003/api/categories/fetcpopularcategoriesfour',
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    let jsondataPopular = await responsePopular.json();
+    // console.log("categoryList from the server", jsondata.fetchallCategories)
+    this.props.setCategoryPopularList({categoryPopularList: jsondataPopular.fetchPopularCategoriesSlicedFour})
   }
 
 
@@ -154,7 +169,7 @@ class Discover extends Component {
       },
     ];
 
-    const categoryItems = categoryData.map((category) => (
+    const categoryItems = this.props.categoryPopularList.map((category) => (
       <CategoryItem category={category} />
     ));
 
@@ -187,12 +202,13 @@ class Discover extends Component {
 const mapStateToProps = (state) => {
   return {
     categoryList: state.category.categoryList,
+    categoryPopularList: state.category.categoryPopularList,
   };
 };
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      setCategoryList,
+      setCategoryList,setCategoryPopularList,
     },
     dispatch
   );

@@ -39,6 +39,28 @@ module.exports = {
     } catch (err) {
       console.log(err)
     }
+  },
+  fetcpopularcategoriesfour: async (req, res) => {
+    try {
+      let fetchAllListing = Listing
+      .find()
+      .then(async (foundListingsToCountPopCat) => {
+        let tempPopArr = []
+        for (let i = 0; i < foundListingsToCountPopCat.length; i++) {
+          tempPopArr.push(foundListingsToCountPopCat[i].categoryID)
+        }
+        let resultPopularCategoryIds = await tempPopArr.filter((categoryIds, index) => tempPopArr.indexOf(categoryIds) !== index);
+        
+        return resultPopularCategoryIds
+      })
+      .then(async (resultPopularCategoryIds) => {
+        let fetchPopularCategories = await Category.find({ _id: resultPopularCategoryIds});
+        let fetchPopularCategoriesSlicedFour = await fetchPopularCategories.slice(0, 4)
+        res.status(200).json({fetchPopularCategoriesSlicedFour})
+      }).catch((error) => console.log(error))
+    } catch (err) {
+      console.log(err)
+    }
 
   }
 }
