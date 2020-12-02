@@ -28,6 +28,8 @@ mongoose.connect(process.env.MONGODB_URI, {
 .then(() => {console.log('mongodb connected')})
 .catch(()=> {console.log('server err')});
 
+
+
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
