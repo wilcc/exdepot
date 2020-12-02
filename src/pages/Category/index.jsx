@@ -11,6 +11,7 @@ import { setCategoryList } from '../../reducers/categoryreducer';
 import { setListing } from '../../reducers/listingreducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { NavLink } from 'react-router-dom';
 
 class CategoryItem extends Component {
   constructor(props){
@@ -21,31 +22,50 @@ class CategoryItem extends Component {
     }
   }
   render() {
-
+    const { category, selectCategory } = this.props
     return (
       <div className="single-category-display">
+      <NavLink to={`/categories/${category._id}`}>
         <img
           className="category-image"
-          src={this.props.category.image}
-          alt={this.props.category.name}
+          src={category.image}
+          alt={category.name}
           onClick={async () => {
+            selectCategory(category);
             const response = await fetch(
-              `http://localhost:3003/api/listings/fetchcategorylisting/${this.props.category._id}`,
-              {
-                method: 'GET',
-                mode: 'cors',
-                credentials: 'same-origin',
-                headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${this.props.authToken}`,
-                },
-              }
-            );
-            let jsondata = await response.json();
-            this.props.setListing({ listingList: jsondata.categoryListing });
+                  `http://localhost:3003/api/listings/fetchcategorylisting/${this.props.category._id}`,
+                  {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'same-origin',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${this.props.authToken}`,
+                    },
+                  }
+                );
+                let jsondata = await response.json();
+                this.props.setListing({ listingList: jsondata.categoryListing });
           }}
+          // onClick={async () => {
+          //   const response = await fetch(
+          //     `http://localhost:3003/api/listings/fetchcategorylisting/${this.props.category._id}`,
+          //     {
+          //       method: 'GET',
+          //       mode: 'cors',
+          //       credentials: 'same-origin',
+          //       headers: {
+          //         'Content-Type': 'application/json',
+          //         Authorization: `Bearer ${this.props.authToken}`,
+          //       },
+          //     }
+          //   );
+          //   let jsondata = await response.json();
+          //   this.props.setListing({ listingList: jsondata.categoryListing });
+          // }}
         />
-        {this.props.category.CategoryName}
+        </NavLink>
+        {category.CategoryName}
       </div>
     );
   }
@@ -55,11 +75,15 @@ class Categories extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: {},
       listing: {},
+      categoryId: '',
     };
   }
-
+  selectCategory = (category) => {
+    this.setState({
+      categoryId: category._id
+    })
+  }
   async componentDidMount() {
     const response = await fetch(
       'http://localhost:3003/api/categories/fetchAllCategories',
@@ -71,12 +95,29 @@ class Categories extends Component {
           'Content-Type': 'application/json',
         },
       }
-    );
-    let jsondata = await response.json();
+      );
+      let jsondata = await response.json();
     this.props.setCategoryList({ categoryList: jsondata.fetchallCategories });
+    // const categoryId = window.location.pathname.split('/')[2]
+    // this.setState({
+    //   categoryId: categoryId,
+
+    // })
+  }
+
+  async componentDidUpdate() {
+    const categoryId = window.location.pathname.split('/')[2]
+    if(this.state.categoryId !== categoryId) {
+      this.setState({
+      categoryId: categoryId,
+
+    }, () => console.log('categoryId Update', categoryId))
+    
+    }
   }
 
   render() {
+    const category = this.props.categoryList.find((c) => c._id == this.state.categoryId)
     const displayCards = this.props.listing.listingList.map((item) => {
       return (
         <Card
@@ -88,14 +129,14 @@ class Categories extends Component {
     });
     const categoryItemsMappedoutToDisplay = this.props.categoryList.map(
       (category) => {
-        return <CategoryItem category={category} setListing={this.props.setListing}/>;
+        return <CategoryItem category={category} setListing={this.props.setListing} selectCategory={this.selectCategory}/>;
       }
     );
     return (
       <Dashboard>
         <div>
           <h2 className="title-component-discover">Full List of Categories</h2>
-
+          <h2 className="title-component-discover">this is categoryId: {category && category.CategoryName}</h2>
           <Grid container spacing={6}>
             <Grid item xs={12}>
               <Paper elevation={5}>

@@ -36,6 +36,9 @@ export default class index extends Component {
           </Route>
 
           <Route path="/categories">
+          <Categories />
+        </Route> 
+          <Route path="/categories/:categoryId">
             <Categories />
           </Route> 
 

@@ -15,16 +15,17 @@ import { NavLink } from 'react-router-dom';
 
 export class CategoryItem extends Component {
   render() {
+    const { category } = this.props
     return (
       <div className="single-category-display">
-      <NavLink to="/categories">
+      <NavLink to={`/categories/${category._id}`}>
         <img
           className="category-image"
-          src={this.props.category.image}
-          alt={this.props.category.CategoryName}
+          src={category.image}
+          alt={category.CategoryName}
         />
         </NavLink>
-        {this.props.category.CategoryName}
+        {category.CategoryName}
       </div>
     );
   }
