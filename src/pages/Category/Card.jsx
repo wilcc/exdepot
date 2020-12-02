@@ -43,8 +43,10 @@ export default function CategoryListCard(props) {
             <Typography gutterBottom variant="h5" component="h3">
               {props.title}
             </Typography>
-            {/* <div>
+            <div>
               <BookmarkIcon onClick={async (e,value) => {
+                // console.log(props)
+                console.log(props.itemID)
               const response = await fetch(
                 'http://localhost:3003/api/watchlist/add',
                 {
@@ -53,17 +55,17 @@ export default function CategoryListCard(props) {
                   credentials: 'same-origin',
                   headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.props.authToken}`
+                    'Authorization': `Bearer ${props.authToken}`
                   },
                   body: JSON.stringify({
-
+                    listingID: '2034390834',
                   }),
                 }
               );
               let jsondata = await response.json();
               console.log('request from fe', jsondata);
             }}/>
-            </div> */}
+            </div>
           </div>
           <Typography variant="body2" color="textSecondary" component="p">
             Bids:{props.bids}
