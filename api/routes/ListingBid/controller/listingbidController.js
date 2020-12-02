@@ -3,20 +3,22 @@ const Listing = require('../../listings/model/Listing');
 
 module.exports = {
   createBid: async (req, res) => {
-    let currentListing = await Listing.findOne({ listingID: req.body.id });
-    
-    let biddingOnCurrentListing = await Listing.findOne({ listingID: req.body.listingID });
-    
+    let currentListing = await Listing.findOne({ _id: req.body.id });
+    let itemsbid = req.body.items_bid;
+
     let newListingBid = await new ListingBid ({
       bidderUserID: req.user._id,
-      ListingID: biddingOnCurrentListing.listingID,
-      ownerUserID: biddingOnCurrentListing.ownerUserID,
+      ListingID: currentListing._id,
+      ownerUserID: currentListing.ownerUserID,
       status: 'active',
-      items_bid: this.items_bid.push(currentListing.listingID)
+      items_bid: itemsbid,
     });
 
     newListingBid.save();
     console.log('saved NewListingBid', newListingBid);
+    res
+      .status(200)
+      .json({message: "Successfully created NewListingBid", newListingBid})
   },
   fetchAllBids: async (req, res) => {
     let allListingBidByOwner = await ListingBid.find({ ownerUserID: req.user.id });
