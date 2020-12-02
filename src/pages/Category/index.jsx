@@ -32,6 +32,7 @@ class CategoryItem extends Component {
           alt={category.name}
           onClick={async () => {
             selectCategory(category);
+            console.log(this.props.authToken)
             const response = await fetch(
                   `http://localhost:3003/api/listings/fetchcategorylisting/${this.props.category._id}`,
                   {
@@ -40,7 +41,7 @@ class CategoryItem extends Component {
                     credentials: 'same-origin',
                     headers: {
                       'Content-Type': 'application/json',
-                      Authorization: `Bearer ${this.props.authToken}`,
+                      'Authorization': `Bearer ${this.props.authToken}`,
                     },
                   }
                 );
@@ -131,7 +132,7 @@ class Categories extends Component {
     });
     const categoryItemsMappedoutToDisplay = this.props.categoryList.map(
       (category) => {
-        return <CategoryItem category={category} setListing={this.props.setListing} selectCategory={this.selectCategory}/>;
+        return <CategoryItem category={category} setListing={this.props.setListing} authToken= {this.props.authToken} selectCategory={this.selectCategory}/>;
       }
     );
     return (
