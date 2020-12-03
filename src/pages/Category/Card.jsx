@@ -11,6 +11,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -26,10 +27,10 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-end',
   },
-  cardTitle:{
+  cardTitle: {
     display: 'flex',
     justifyContent: 'space-between',
-  }
+  },
 });
 
 export default function CategoryListCard(props) {
@@ -37,33 +38,36 @@ export default function CategoryListCard(props) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={props.image} />
+        <NavLink to={`/prodetail/${props.listingID}`}>
+          <CardMedia className={classes.media} image={props.image} />
+        </NavLink>
         <CardContent>
           <div className={classes.cardTitle}>
             <Typography gutterBottom variant="h5" component="h3">
               {props.title}
             </Typography>
             <div>
-              <BookmarkIcon onClick={async (e,value) => {
-                console.log(props.listingID)
-              const response = await fetch(
-                'http://localhost:3003/api/watchlist/toggle',
-                {
-                  method: 'POST',
-                  mode: 'cors',
-                  credentials: 'same-origin',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${props.authToken}`
-                  },
-                  body: JSON.stringify({
-                    listingID: `${props.listingID}`,
-                  }),
-                }
-              );
-              let jsondata = await response.json();
-              console.log('request from fe', jsondata);
-            }}/>
+              <BookmarkIcon
+                onClick={async (e, value) => {
+                  const response = await fetch(
+                    'http://localhost:3003/api/watchlist/toggle',
+                    {
+                      method: 'POST',
+                      mode: 'cors',
+                      credentials: 'same-origin',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${props.authToken}`,
+                      },
+                      body: JSON.stringify({
+                        listingID: `${props.listingID}`,
+                      }),
+                    }
+                  );
+                  let jsondata = await response.json();
+                  console.log('request from fe', jsondata);
+                }}
+              />
             </div>
           </div>
           <Typography variant="body2" color="textSecondary" component="p">
