@@ -60,6 +60,7 @@ module.exports = {
       description,
       exchangeDescription,
       ownerUserID: req.user.id,
+      ownerUserName: req.user.userName,
       categoryID,
       images: [...imageListing],
     });

@@ -96,14 +96,14 @@ class WatchList extends Component {
     this.props.setWatch({watchList: jsondata.myWatchList})
   }
   render() {
-    const displayCards = this.props.watch.watchList.map((item) => {
-      console.log(item)
+    const displayCards = this.props.watch.watchList.map((watchList) => {
+      
       return (
         <MediaCard
-          title={item.ItemName}
-          owner={item.Owner}
-          bids={item.ItemBids}
-          image={item.ItemImage}
+          title={watchList.item.name}
+          
+          // bids={item.ItemBids}
+          image={watchList.item.images[0]}
         />
       );
     });

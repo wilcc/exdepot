@@ -16,6 +16,9 @@ const ListingSchema = new mongoose.Schema({
   ownerUserID: {
     type: String,
   },
+  ownerUserName:{
+    type: String,
+  },
   categoryID: {
     type: String,
     default: ''
