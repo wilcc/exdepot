@@ -23,7 +23,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setCurrBidsList } from '../../reducers/currbidsreducer.jsx'
 import Dashboard from '../../dashboard/Dashboard';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux' 
 const useStyles = makeStyles({
   root: {
     maxWidth: 445,
@@ -92,48 +92,27 @@ export function MediaCard(props) {
     </Card>
   );
 }
-export class CurrentBidsCards extends Component {
-  render() {
-    const threeItemsExamples = [
-      {
-        ItemName: 'Beats Headphones',
-        ItemBids: 12,
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-        status: 'pending',
-      },
-      {
-        ItemName: 'Batman Comic',
-        ItemBids: 2,
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-        status: 'active',
-      },
-      {
-        ItemName: 'Steam Controller',
-        ItemBids: 8,
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-        status: 'pending',
-      },
-    ];
-    console.log("CurrentBidsCards this.props clg", this.props);
-    const displayCards = threeItemsExamples.map((item) => {
-      return (
-        <MediaCard
-          title={item.ItemName}
-          bids={item.ItemBids}
-          image={item.ItemImage}
-          status={item.status}
-        />
-      );
-    });
+export function CurrentBidsCards(props) {
+      const currBids = useSelector(state => state.currbids.currBidsList) 
+
+      const displayCards = currBids.map((item) => {
+        return (
+          <MediaCard
+            title={item.listing.name}
+            bids={0}
+            image={item.listing.images.length ? item.listing.images[0] : "https://media.istockphoto.com/photos/single-cloud-central-in-blue-sky-picture-id667409780" }
+            status={item.listing.status}
+            itemsIbidWith={item.listing.Item_bids}
+          />
+        );
+      });
     return (
       <div>
         <div className="cards">{displayCards}</div>
       </div>
     );
   }
-}
+
 
 export function MediaCardAcceptedHistory(props) {
   const classes = useStyles();
