@@ -2,7 +2,7 @@ const WatchList = require('../model/Watchlist');
 const Listing = require('../../listings/model/Listing');
 
 module.exports = {
-  add: async (req, res) => {
+  toggle: async (req, res) => {
     let newWatchList = await new WatchList({
       ownerUserID: req.user.id,
       listingID: req.body.listingID,
@@ -12,15 +12,22 @@ module.exports = {
   },
   fetchWatchList: async (req, res) => {
     let myWatchList = await WatchList.find({ ownerUserID: req.user.id });
+    let listingIds = myWatchList.map((item) => item.listingID);
+
+    let listingMap = {};
+    let listingItems = await Listing.find({ _id: { $in: listingIds } });
+    for (const item of listingItems) {
+      listingMap[item._id] = item;
+    }
+    for (let i = 0; i < myWatchList.length; i++) {
+      console.log('thisisconsole', typeof(myWatchList[i]));
+      myWatchList[i].item = listingMap[myWatchList[i].listingID];
+      myWatchList[i] = Object.assign({}, myWatchList[i]._doc, {
+        item: listingMap[myWatchList[i].listingID],
+      });
+
+
+    }
     res.status(200).json({ myWatchList });
   },
-  // fetchWatchList: async (req, res) => {
-  //   let myWatchList = await WatchList.find({ ownerUserID: req.user.id })
-  //     .then(async (foundResults) => {
-  //       let temp = foundResults.populate({ listingID: foundResults.listingID });
-  //       console.log('temp', temp);
-  //     })
-  //     .catch((err) => console.log(err));
-  //   res.status(200).json({ myWatchList });
-  // },
 };
