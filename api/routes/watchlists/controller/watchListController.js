@@ -3,12 +3,22 @@ const Listing = require('../../listings/model/Listing');
 
 module.exports = {
   toggle: async (req, res) => {
-    let newWatchList = await new WatchList({
-      ownerUserID: req.user.id,
-      listingID: req.body.listingID,
-    });
-    let savedWatchList = newWatchList.save();
-    res.status(200).json({ savedWatchList });
+    let found = await WatchList.find({
+      listingID: req.body.listingID
+    })
+    if(found.length > 0){
+      let newWatchList = await WatchList.deleteOne({
+        listingID : req.body.listingID
+      })
+      res.status(200).json({ newWatchList });
+    } else {
+      let newWatchList = await new WatchList({
+        ownerUserID: req.user.id,
+        listingID: req.body.listingID,
+      });
+      let savedWatchList = newWatchList.save();
+      res.status(200).json({ savedWatchList });
+    }
   },
   fetchWatchList: async (req, res) => {
     let myWatchList = await WatchList.find({ ownerUserID: req.user.id });
