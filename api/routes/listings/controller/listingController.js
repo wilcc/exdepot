@@ -13,7 +13,6 @@ module.exports = {
     res.status(200).json({oneListing})
   },
   fetchOwnerListing: async (req, res) => {
-    console.log(req)
     let ownerListing = await Listing.find({ ownerUserID: req.user.id });
 
     res.status(200).json({ownerListing})

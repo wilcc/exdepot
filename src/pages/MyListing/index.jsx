@@ -34,7 +34,6 @@ class MyListing extends Component {
     this.props.setListing({listingList: jsondata.ownerListing})
   }
   render() {
-
     const displayCards = this.props.listing.listingList.map((item) => {
       return (
         <Card

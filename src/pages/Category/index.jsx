@@ -32,7 +32,6 @@ class CategoryItem extends Component {
           alt={category.name}
           onClick={async () => {
             selectCategory(category);
-            console.log(this.props.authToken)
             const response = await fetch(
                   `http://localhost:3003/api/listings/fetchcategorylisting/${this.props.category._id}`,
                   {

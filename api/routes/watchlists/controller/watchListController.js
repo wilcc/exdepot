@@ -1,4 +1,5 @@
 const WatchList = require('../model/Watchlist');
+const Listing = require('../../listings/model/Listing')
 
 module.exports = {
   add: async (req, res) => {

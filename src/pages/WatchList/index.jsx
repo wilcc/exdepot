@@ -15,7 +15,7 @@ import './watchList.scss';
 import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
-import { setListing } from '../../reducers/listingreducer';
+import { setWatch } from '../../reducers/watchreducer'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 const useStyles = makeStyles({
@@ -74,14 +74,14 @@ class WatchList extends Component {
   constructor(props) {
     super(props)
     this.state={
-      listing: {},
+      watchList: {},
     }
   }
 
 
   async componentDidMount() {
     const response = await fetch(
-      'http://localhost:3003/api/listings/fetchownerlisting',
+      'http://localhost:3003/api/watchlist/',
       {
         method: 'GET',
         mode: 'cors',
@@ -93,20 +93,19 @@ class WatchList extends Component {
       }
     );
     let jsondata = await response.json();
-    this.props.setListing({listingList: jsondata.ownerListing})
+    this.props.setWatch({watchList: jsondata.myWatchList})
   }
   render() {
-
-    // const displayCards = threeItemsExamples.map((item) => {
-    //   return (
-    //     <MediaCard
-    //       title={item.ItemName}
-    //       owner={item.Owner}
-    //       bids={item.ItemBids}
-    //       image={item.ItemImage}
-    //     />
-    //   );
-    // });
+    const displayCards = this.props.watch.watchList.map((item) => {
+      return (
+        <MediaCard
+          title={item.ItemName}
+          owner={item.Owner}
+          bids={item.ItemBids}
+          image={item.ItemImage}
+        />
+      );
+    });
     return (
       <Dashboard>
         <div className="watch-list-container">
@@ -114,7 +113,7 @@ class WatchList extends Component {
             <Typography variant="h5">My Watch List</Typography>
           </div>
           <div className="card-wrapper">
-            {/* <div className="cards">{displayCards}</div> */}
+            <div className="cards">{displayCards}</div>
           </div>
         </div>
       </Dashboard>
@@ -124,14 +123,14 @@ class WatchList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    listing: state.listing,
+    watch: state.watch,
     authToken: state.auth.token,
   };
 };
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      setListing,
+      setWatch,
     },
     dispatch
   );
