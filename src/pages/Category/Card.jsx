@@ -46,7 +46,6 @@ export default function CategoryListCard(props) {
             <div>
               <BookmarkIcon onClick={async (e,value) => {
 
-                
               const response = await fetch(
                 'http://localhost:3003/api/watchlist/add',
                 {
@@ -58,7 +57,7 @@ export default function CategoryListCard(props) {
                     'Authorization': `Bearer ${props.authToken}`
                   },
                   body: JSON.stringify({
-                    listingID: '2034390834',
+                    listing: `${props.listingID}`,
                   }),
                 }
               );

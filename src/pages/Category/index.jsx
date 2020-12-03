@@ -120,9 +120,10 @@ class Categories extends Component {
   render() {
     const category = this.props.categoryList.find((c) => c._id == this.state.categoryId)
     const displayCards = this.props.listing.listingList.map((item) => {
+      console.log(item)
       return (
         <Card
-          itemID={item._id}
+          listingID={item.listingID}
           title={item.name}
           bids={item.ItemBids}
           authToken= {this.props.authToken}

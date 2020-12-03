@@ -97,6 +97,7 @@ class WatchList extends Component {
   }
   render() {
     const displayCards = this.props.watch.watchList.map((item) => {
+      console.log(item)
       return (
         <MediaCard
           title={item.ItemName}
