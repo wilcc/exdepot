@@ -4,7 +4,7 @@ const now = moment();
 
 
 const WatchListSchema = new mongoose.Schema({
-    listing: {},
+    listingID: String,
     ownerUserID: {
       type: String,
     },

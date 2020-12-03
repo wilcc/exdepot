@@ -9,7 +9,7 @@ const authVerify = require('../../middleware/authVerify');
 //     res.send('respond with a resource');
 //   });
 router.get('/',authVerify.authenticateToken,watchListController.fetchWatchList)
-router.post('/add',authVerify.authenticateToken, watchListController.add)
+router.post('/toggle',authVerify.authenticateToken, watchListController.toggle)
 
 
 
