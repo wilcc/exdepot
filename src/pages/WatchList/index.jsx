@@ -101,7 +101,7 @@ class WatchList extends Component {
       return (
         <MediaCard
           title={watchList.item.name}
-          
+          owner={watchList.item.ownerUserName}
           // bids={item.ItemBids}
           image={watchList.item.images[0]}
         />

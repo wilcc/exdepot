@@ -64,7 +64,8 @@ module.exports = {
       categoryID,
       images: [...imageListing],
     });
-
+    console.log('listing',newListing)
+    console.log('user',req.user)
     let savedListing = await newListing.save();
     res.status(200).json({savedListing});
   },

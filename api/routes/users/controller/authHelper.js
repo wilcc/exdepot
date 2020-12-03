@@ -59,6 +59,7 @@ async function createJwtToken(user) {
   let payload = {
       id: user._id,
       email: user.email,
+      userName: user.userName,
   }
   let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {expiresIn: 360000});
   return jwtToken;
