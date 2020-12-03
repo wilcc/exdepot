@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -19,7 +19,11 @@ import PersonIcon from '@material-ui/icons/Person';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Badge from '@material-ui/core/Badge';
 import { Message } from '@material-ui/icons';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setCurrBidsList } from '../../reducers/currbidsreducer.jsx'
 import Dashboard from '../../dashboard/Dashboard';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 const useStyles = makeStyles({
   root: {
     maxWidth: 445,
@@ -112,6 +116,7 @@ export class CurrentBidsCards extends Component {
         status: 'pending',
       },
     ];
+    console.log("CurrentBidsCards this.props clg", this.props);
     const displayCards = threeItemsExamples.map((item) => {
       return (
         <MediaCard
@@ -243,14 +248,37 @@ const useStylesForTabs = makeStyles((theme) => ({
   },
 }));
 
-export default function CurrentBids() {
+export function CurrentBids(props) {
   const classes = useStylesForTabs();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect( () => {
+      async function fetchcurrbids() {
+        const response = await fetch(
+        'http://localhost:3003/api/listingbid/fetchAllBids',
+        {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${props.authToken}`
+          },
+        }
+      );
+      
+      let jsondata = await response.json();
+      props.setCurrBidsList({currBidsList: jsondata.allListingBidByOwner})
+      } 
+      fetchcurrbids()
+    }
+  );
 
+  console.log("CurrentBids func compoment main props clg", props )
   return (
     <Dashboard>
     <div className={classes.root}>
@@ -276,3 +304,22 @@ export default function CurrentBids() {
     </Dashboard>
   );
 }
+
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    currBidsList: state.currBidsList,
+    authToken: state.auth.token,
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setCurrBidsList,
+
+    },
+    dispatch
+  );
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentBids);

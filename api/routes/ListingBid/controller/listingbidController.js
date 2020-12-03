@@ -4,11 +4,12 @@ const Listing = require('../../listings/model/Listing');
 module.exports = {
   createBid: async (req, res) => {
     let currentListing = await Listing.findOne({ _id: req.body.id });
-    let itemsbid = req.body.items_bid;
-
+    let itemsbid = await Listing.find({ _id: req.body.items_bid });
+    console.log("itemsbid clg", itemsbid)
     let newListingBid = await new ListingBid ({
       bidderUserID: req.user._id,
       ListingID: currentListing._id,
+      listing: currentListing,
       ownerUserID: currentListing.ownerUserID,
       status: 'active',
       items_bid: itemsbid,
@@ -21,8 +22,8 @@ module.exports = {
       .json({message: "Successfully created NewListingBid", newListingBid})
   },
   fetchAllBids: async (req, res) => {
-    let allListingBidByOwner = await ListingBid.find({ ownerUserID: req.user.id });
-    res.send(allListingBidByOwner);
+    let allListingBidByOwner = await ListingBid.find({ bidderUserID: req.user._id });
+    res.status(200).json({ allListingBidByOwner });
   },
   acceptBid: async (req, res) => {
     let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
@@ -33,20 +34,20 @@ module.exports = {
           let acceptedBid = currentListingBid;
           acceptedBid.status = 'accepted';
           acceptedBid.save();
-          res.send(acceptedBid);
+          res.status(200).json({acceptedBid});
     }
   },
   cancelBid: async (req, res) => {
     let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
     currentListingBid.status = 'canceled';
     currentListingBid.save();
-    res.send(currentListingBid);
+    res.status(200).json({currentListingBid});
   },
   declineBid: async (req, res) => {
     let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
     currentListingBid.status = 'declined';
     currentListingBid.save();
-    res.send(currentListingBid);
+    res.status(200).json({currentListingBid});
   },
   
 }

@@ -2,9 +2,11 @@ import { combineReducers } from 'redux'
 import { authSlice } from './authreducer.jsx'
 import { categorySlice } from './categoryreducer.jsx'
 import { listingSlice} from './listingreducer.jsx'
+import { currBidsSlice } from './currbidsreducer.jsx'
 
 export default combineReducers({
   auth: authSlice.reducer,
   category: categorySlice.reducer,
-  listing: listingSlice.reducer
+  listing: listingSlice.reducer,
+  currbids: currBidsSlice.reducer,
 })

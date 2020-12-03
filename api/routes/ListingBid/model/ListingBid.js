@@ -21,6 +21,9 @@ const ListingBidSchema = new mongoose.Schema({
     type: Array,
     default: []
     },
+  listing: {
+    type: Object,
+  },
   timestamp: {
     type: String,
     default: now.format('dddd, MMMM Do YYYY, h:mm:ss a'),
