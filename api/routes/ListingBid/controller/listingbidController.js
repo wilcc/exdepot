@@ -4,7 +4,7 @@ const Listing = require('../../listings/model/Listing');
 module.exports = {
   createBid: async (req, res) => {
     let currentListing = await Listing.findOne({ _id: req.body.id });
-    let itemsbid = await Listing.find({ _id: req.body.items_bid });
+    let itemsbid = await Listing.find({ _id: {$in: req.body.items_bid }});
     console.log("itemsbid clg", itemsbid)
     let newListingBid = await new ListingBid ({
       bidderUserID: req.user._id,
