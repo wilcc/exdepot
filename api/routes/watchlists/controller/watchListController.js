@@ -7,17 +7,17 @@ module.exports = {
       listingID: req.body.listingID
     })
     if(found.length > 0){
-      let newWatchList = await WatchList.deleteOne({
+      let myWatchList = await WatchList.deleteOne({
         listingID : req.body.listingID
       })
-      res.status(200).json({ newWatchList });
+      res.status(200).json({ myWatchList });
     } else {
       let newWatchList = await new WatchList({
         ownerUserID: req.user.id,
         listingID: req.body.listingID,
       });
-      let savedWatchList = newWatchList.save();
-      res.status(200).json({ savedWatchList });
+      let myWatchList = newWatchList.save();
+      res.status(200).json({ myWatchList });
     }
   },
   fetchWatchList: async (req, res) => {
@@ -30,13 +30,10 @@ module.exports = {
       listingMap[item._id] = item;
     }
     for (let i = 0; i < myWatchList.length; i++) {
-      console.log('thisisconsole', typeof(myWatchList[i]));
       myWatchList[i].item = listingMap[myWatchList[i].listingID];
       myWatchList[i] = Object.assign({}, myWatchList[i]._doc, {
         item: listingMap[myWatchList[i].listingID],
       });
-
-
     }
     res.status(200).json({ myWatchList });
   },

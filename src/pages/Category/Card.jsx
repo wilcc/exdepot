@@ -1,4 +1,4 @@
-import React from 'react';
+import {React,useState }from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { NavLink } from 'react-router-dom';
+import {useSelector,useDispatch,} from 'react-redux'
+import { setWatch } from '../../reducers/watchreducer'
 
 const useStyles = makeStyles({
   root: {
@@ -35,6 +37,11 @@ const useStyles = makeStyles({
 
 export default function CategoryListCard(props) {
   const classes = useStyles();
+  const watchList = useSelector(state=>state.watch.watchList)
+  // const watchListIds = watchList.map((item)=>item.listingID)
+  // const isWatched = watchListIds.indexOf(props.listingID) >= 0
+  const isWatched = false
+  const dispatch = useDispatch()
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -47,6 +54,7 @@ export default function CategoryListCard(props) {
               {props.title}
             </Typography>
             <div>
+              {isWatched ? 
               <BookmarkIcon
                 onClick={async (e, value) => {
                   const response = await fetch(
@@ -65,9 +73,33 @@ export default function CategoryListCard(props) {
                     }
                   );
                   let jsondata = await response.json();
-                  console.log('request from fe', jsondata);
+                  // dispatch(setWatch({watchList:jsondata.myWatchList}))
                 }}
-              />
+              /> : <BookmarkBorderIcon 
+              onClick={async (e, value) => {
+                const response = await fetch(
+                  'http://localhost:3003/api/watchlist/toggle',
+                  {
+                    method: 'POST',
+                    mode: 'cors',
+                    credentials: 'same-origin',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${props.authToken}`,
+                    },
+                    body: JSON.stringify({
+                      listingID: `${props.listingID}`,
+                    }),
+                  }
+                );
+                let jsondata = await response.json();
+                  // dispatch(setWatch({watchList:jsondata.myWatchList}))
+
+
+
+
+
+              }}/>}
             </div>
           </div>
           <Typography variant="body2" color="textSecondary" component="p">

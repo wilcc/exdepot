@@ -18,6 +18,7 @@ import Dashboard from '../../dashboard/Dashboard';
 import { setWatch } from '../../reducers/watchreducer'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {fetchWatchList} from '../../action/fetchWatchlist'
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -80,22 +81,27 @@ class WatchList extends Component {
 
 
   async componentDidMount() {
-    const response = await fetch(
-      'http://localhost:3003/api/watchlist/',
-      {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.props.authToken}`
-        },
-      }
-    );
-    let jsondata = await response.json();
-    this.props.setWatch({watchList: jsondata.myWatchList})
+    this.props.fetchWatchList()
+    // const response = await fetch(
+    //   'http://localhost:3003/api/watchlist/',
+    //   {
+    //     method: 'GET',
+    //     mode: 'cors',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${this.props.authToken}`
+    //     },
+    //   }
+    // );
+    // let jsondata = await response.json();
+
+    // this.props.setWatch({watchList: jsondata.myWatchList})
+
+
   }
   render() {
+
     const displayCards = this.props.watch.watchList.map((watchList) => {
       
       return (
@@ -132,6 +138,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       setWatch,
+      fetchWatchList,
     },
     dispatch
   );
