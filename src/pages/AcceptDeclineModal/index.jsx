@@ -53,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
 
 export function ImageCard(props) {
   const classes = useStyles();
-  console.log(props);
   return (
     <div className={classes.bidItem}>
       <CardMedia className={classes.media} image={props.image} />

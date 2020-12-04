@@ -9,7 +9,7 @@ module.exports = {
     res.status(200).json({allListings})
   },
   fetchOne: async (req, res) => {
-    let oneListing = await Listing.findOne({ listingID: req.body.id });
+    let oneListing = await Listing.findOne({ _id: req.params.listingID });
     res.status(200).json({oneListing})
   },
   fetchOwnerListing: async (req, res) => {
@@ -64,8 +64,6 @@ module.exports = {
       categoryID,
       images: [...imageListing],
     });
-    console.log('listing',newListing)
-    console.log('user',req.user)
     let savedListing = await newListing.save();
     res.status(200).json({savedListing});
   },

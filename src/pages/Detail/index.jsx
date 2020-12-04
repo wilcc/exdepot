@@ -13,21 +13,50 @@ import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import Dashboard from '../../dashboard/Dashboard';
-export default class Detail extends Component {
+
+import { setDetail} from '../../reducers/detailreducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
+
+
+class Detail extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {};
+    this.state = {
+      listingDetail:{},
+    };
   }
   responsive = {
     0: { items: 1 },
     1024: { items: 2 },
   };
+  
+  async componentDidMount() {
+    let listingID = window.location.pathname.split('/')[2]
+    const response = await fetch(
+      `http://localhost:3003/api/listings/fetchone/${listingID}`,
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.props.authToken}`
+        },
+      }
+    )
+    let jsondata = await response.json();
+    this.props.setDetail({listingDetail: jsondata.oneListing})
+  }
   render() {
+    const displayImages = this.props.detail.listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
     return (
       <Dashboard>
         <div className="DetailContainer">
           <h2 className="head">
-            Product Name
+            {this.props.detail.listingDetail.name}
             <BookmarkBorderIcon />
             {/* <BookmarkIcon color="primary" /> */}
           </h2>
@@ -42,26 +71,23 @@ export default class Detail extends Component {
               mouseTrackingEnabled={true}
               disableAutoPlayOnAction={true}
             >
-              <img src={image1} className="sliderimg" alt="" />
+              {displayImages}
+              {/* <img src={image1} className="sliderimg" alt="" />
               <img src={image2} className="sliderimg" alt="" />
               <img src={image3} className="sliderimg" alt="" />
-              <img src={image4} className="sliderimg" alt="" />
+              <img src={image4} className="sliderimg" alt="" /> */}
             </AliceCarousel>
           </div>
           <div className="detail">
             <div className="title">Description:</div>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
-              reiciendis! Reiciendis quas harum magnam mollitia perspiciatis
-              accusantium delectus, minus, illo quos inventore commodi incidunt
-              enim esse velit blanditiis, assumenda non.
+              {this.props.detail.listingDetail.description}
             </p>
           </div>
           <div>Things I'm searching for:</div>
-          <li>shoes</li>
-          <li>headphone</li>
-          <li>Lambo</li>
-          <li>coin</li>
+          <p>
+            {this.props.detail.listingDetail.exchangeDescription}
+          </p>
           <div className="button">
             <Button
               variant="outlined"
@@ -79,3 +105,20 @@ export default class Detail extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    detail: state.detail,
+    authToken: state.auth.token,
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      setDetail,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

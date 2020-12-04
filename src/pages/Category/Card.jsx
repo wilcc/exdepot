@@ -38,14 +38,14 @@ const useStyles = makeStyles({
 export default function CategoryListCard(props) {
   const classes = useStyles();
   const watchList = useSelector(state=>state.watch.watchList)
-  // const watchListIds = watchList.map((item)=>item.listingID)
-  // const isWatched = watchListIds.indexOf(props.listingID) >= 0
-  const isWatched = false
+  const watchListIds = watchList.map((item)=>item.listingID)
+  const isWatched = watchListIds.indexOf(props.listingID) >= 0
+  // const isWatched = false
   const dispatch = useDispatch()
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <NavLink to={`/prodetail/${props.listingID}`}>
+        <NavLink to={`/prodetail/${props.listingID}` } listingID={props.listingID}>
           <CardMedia className={classes.media} image={props.image} />
         </NavLink>
         <CardContent>
@@ -93,6 +93,8 @@ export default function CategoryListCard(props) {
                   }
                 );
                 let jsondata = await response.json();
+                console.log(jsondata)
+
                   // dispatch(setWatch({watchList:jsondata.myWatchList}))
 
 

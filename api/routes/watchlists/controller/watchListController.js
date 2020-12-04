@@ -34,6 +34,7 @@ module.exports = {
       myWatchList[i] = Object.assign({}, myWatchList[i]._doc, {
         item: listingMap[myWatchList[i].listingID],
       });
+
     }
     res.status(200).json({ myWatchList });
   },

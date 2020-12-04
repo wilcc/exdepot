@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 router.get('/fetchall', listingController.fetchAll)
-router.get('/fetchone', listingController.fetchOne)
+router.get('/fetchone/:listingID', listingController.fetchOne)
 router.get('/fetchownerlisting', authVerify.authenticateToken, listingController.fetchOwnerListing)
 router.get(`/fetchcategorylisting/:categoryID`,listingController.fetchCategoryListing)
 router.post('/createListing', authVerify.authenticateToken, listingController.createListing);
