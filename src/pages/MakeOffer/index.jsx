@@ -53,9 +53,7 @@ export function MyListCard(props) {
     <Typography gutterBottom variant="h5" component="h3">
             {props.title}
             </Typography>
-            <CardActionArea onClick={() => {
-              
-            }}>
+            <CardActionArea onClick={props.onClick}>
           <AddBoxIcon fontSize="large"/>
           </CardActionArea>
         </CardContent>
@@ -63,18 +61,19 @@ export function MyListCard(props) {
   );
 }
 export function MyOfferCard(props) {
+
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={props.image} />
-        <CardContent className={classes.CardContent}>
-          <Typography gutterBottom variant="h5" component="h3">
-            {props.title}
-          </Typography>
-        <RemoveCircleIcon fontSize="large"/>
-        </CardContent>
-      </CardActionArea>
+      <CardMedia className={classes.media} image={props.image} />
+      <CardContent className={classes.CardContent}>
+        <Typography gutterBottom variant="h5" component="h3">
+        {props.title}
+        </Typography>
+        <CardActionArea onClick={props.RemoveOnClick}>
+          <RemoveCircleIcon fontSize="large"/>
+        </CardActionArea>
+      </CardContent>
     </Card>
   );
 }
@@ -88,29 +87,36 @@ export class MakeOffer extends Component {
     this.props.fetchMyListings()
   }
 
+  async makeBidApi() {
+    console.log('BEFORE This is MakeBidAPI Network Request api button')
+    let listingID = window.location.pathname.split('/')[2]
+    const response = await fetch(
+      `http://localhost:3003/api/listingbid/createbid`,
+      {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.props.authToken}`
+        },
+        body: {
+          ListingID: listingID,
+          items_bid: this.state.itemsbids,
+        }
+      }
+    )
+    console.log('AFTER This is MakeBidAPI Network Request api button')
+  }
+
   render() {
     const listingDetail = this.props.detail.listingDetail
     const displayImages = listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
-    const threeItemsExamples = [
-      {
-        ItemName: 'Beats Headphones',
-        detail: 'productdetail',
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        detail: 'productdetail',
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        detail: 'productdetail',
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-    ];
-    const myListCards = this.props.listing.listingList.map((item) => {
+    const itemOfferedIds = this.state.itemsbids.map((item) => item._id)
+    const myListings = this.props.listing.listingList.filter((item) => itemOfferedIds.indexOf(item._id) == (-1))
+
+    
+    const myListCards = myListings.map((item) => {
       return (
         <MyListCard
           title={item.name}
@@ -118,6 +124,12 @@ export class MakeOffer extends Component {
           detail={item.description}
           listingID={item._id}
           fullItem={item}
+          onClick = {() => {
+            const itemsbids = [item, ...this.state.itemsbids];
+            this.setState({
+              itemsbids: itemsbids,
+            });
+          }}
         />
       );
     })
@@ -128,10 +140,16 @@ export class MakeOffer extends Component {
           image={item.images[0]}
           detail={item.description}
           listingID={item._id}
+          fullItem={item}
+          RemoveOnClick = {() => {
+            const removedItemsBids = this.state.itemsbids.filter((element) => element._id !== item._id);
+            this.setState({
+              itemsbids: removedItemsBids,
+            });
+          }}
           />
         );
       })
-    console.log('this is MakeOffer props', this.props);
     return (
       <Dashboard>
         <div className="container">
@@ -198,6 +216,9 @@ export class MakeOffer extends Component {
                 variant="contained"
                 color="primary"
                 startIcon={<GavelTwoToneIcon />}
+                onClick={()=> {
+                  this.makeBidApi()
+                }}
               >
                 Bid
               </Button>
