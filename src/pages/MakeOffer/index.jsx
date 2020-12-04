@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import './MakeOffer.scss';
 import image1 from '../img/1.jpg';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+
+import { fetchMyListings } from '../../reducers/listingreducer';
+import { bindActionCreators } from 'redux';
+
+
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +20,7 @@ import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import Dashboard from '../../dashboard/Dashboard';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -40,15 +48,17 @@ export function MyListCard(props) {
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={props.image} />
-        <CardContent className={classes.CardContent}>
-          <Typography gutterBottom variant="h5" component="h3">
+    <CardMedia className={classes.media} image={props.image} />
+    <CardContent className={classes.CardContent}>
+    <Typography gutterBottom variant="h5" component="h3">
             {props.title}
-          </Typography>
+            </Typography>
+            <CardActionArea onClick={() => {
+              
+            }}>
           <AddBoxIcon fontSize="large"/>
+          </CardActionArea>
         </CardContent>
-      </CardActionArea>
     </Card>
   );
 }
@@ -69,8 +79,18 @@ export function MyOfferCard(props) {
   );
 }
 
-export default class MakeOffer extends Component {
+export class MakeOffer extends Component {
+
+  state = {
+    itemsbids: [],
+  }
+  async componentDidMount() {
+    this.props.fetchMyListings()
+  }
+
   render() {
+    const listingDetail = this.props.detail.listingDetail
+    const displayImages = listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
     const threeItemsExamples = [
       {
         ItemName: 'Beats Headphones',
@@ -90,24 +110,28 @@ export default class MakeOffer extends Component {
           'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
       },
     ];
-    const myListCards = threeItemsExamples.map((item) => {
+    const myListCards = this.props.listing.listingList.map((item) => {
       return (
         <MyListCard
-          title={item.ItemName}
-          image={item.ItemImage}
-          detail={item.detail}
+          title={item.name}
+          image={item.images[0]}
+          detail={item.description}
+          listingID={item._id}
+          fullItem={item}
         />
       );
     })
-    const OfferedCard = threeItemsExamples.map((item) => {
+    const OfferedCard = this.state.itemsbids.map((item) => {
         return (
           <MyOfferCard
-            title={item.ItemName}
-            image={item.ItemImage}
-            detail={item.detail}
+          title={item.name}
+          image={item.images[0]}
+          detail={item.description}
+          listingID={item._id}
           />
         );
       })
+    console.log('this is MakeOffer props', this.props);
     return (
       <Dashboard>
         <div className="container">
@@ -128,19 +152,25 @@ export default class MakeOffer extends Component {
           <div className="productDetail">
             <Typography
               className="productTitle"
-              variant="body2"
-              color="textSecondary"
-              component="h3"
+              variant="h5"
+              component="h5"
             >
-              Product Name
+              Product Name: {listingDetail.name}
             </Typography>
-            <img
-              src={image1}
-              alt=""
-              width="600px"
-              height="300px"
-              className="image"
-            />
+
+            <AliceCarousel
+              responsive={this.responsive}
+              autoPlayInterval={2000}
+              autoPlayDirection="rtl"
+              autoPlay={true}
+              autoHeight={true}
+              fadeOutAnimation={true}
+              mouseTrackingEnabled={true}
+              disableAutoPlayOnAction={true}
+            >
+              {displayImages}
+            </AliceCarousel>
+
             <Typography variant="h6" component="h3" className="detailTitle">
               Product Detail:
             </Typography>
@@ -150,10 +180,7 @@ export default class MakeOffer extends Component {
               component="p"
               className="detailBody"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-              vitae soluta totam nulla laborum quo asperiores. Ratione facilis,
-              alias eligendi fugiat neque dolorem itaque odio sed dignissimos,
-              distinctio ipsa esse.
+              {listingDetail.description}
             </Typography>
             <Typography variant="h6" component="h3" className="IWantTitle">
               What I would like to get for the item:
@@ -164,10 +191,7 @@ export default class MakeOffer extends Component {
               component="p"
               className="IWantBody"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis,
-              vitae soluta totam nulla laborum quo asperiores. Ratione facilis,
-              alias eligendi fugiat neque dolorem itaque odio sed dignissimos,
-              distinctio ipsa esse.
+            {listingDetail.exchangeDescription}
             </Typography>
             <div className="button">
               <Button
@@ -184,3 +208,21 @@ export default class MakeOffer extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    detail: state.detail,
+    authToken: state.auth.token,
+    listing: state.listing,
+  };
+};
+
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      fetchMyListings,
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(MakeOffer);

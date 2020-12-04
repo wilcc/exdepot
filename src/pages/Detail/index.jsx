@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import Dashboard from '../../dashboard/Dashboard';
-
+import { NavLink } from 'react-router-dom';
 import { setDetail} from '../../reducers/detailreducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,12 +22,8 @@ import { bindActionCreators } from 'redux';
 
 
 class Detail extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      listingDetail:{},
-    };
-  }
+
+
   responsive = {
     0: { items: 1 },
     1024: { items: 2 },
@@ -50,8 +46,15 @@ class Detail extends Component {
     let jsondata = await response.json();
     this.props.setDetail({listingDetail: jsondata.oneListing})
   }
+
   render() {
-    const displayImages = this.props.detail.listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
+    const listingDetail = this.props.detail.listingDetail
+    if(listingDetail === null) {
+      return null
+    }
+    // const displayImages = []
+    const displayImages = listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
+    
     return (
       <Dashboard>
         <div className="DetailContainer">
@@ -72,10 +75,6 @@ class Detail extends Component {
               disableAutoPlayOnAction={true}
             >
               {displayImages}
-              {/* <img src={image1} className="sliderimg" alt="" />
-              <img src={image2} className="sliderimg" alt="" />
-              <img src={image3} className="sliderimg" alt="" />
-              <img src={image4} className="sliderimg" alt="" /> */}
             </AliceCarousel>
           </div>
           <div className="detail">
@@ -89,13 +88,15 @@ class Detail extends Component {
             {this.props.detail.listingDetail.exchangeDescription}
           </p>
           <div className="button">
+          <NavLink to={`/makeoffer/${listingDetail._id}`}>
             <Button
-              variant="outlined"
-              color="primary"
-              startIcon={<GavelTwoToneIcon />}
-            >
-              Make A Bid
-            </Button>
+                variant="outlined"
+                color="primary"
+                startIcon={<GavelTwoToneIcon />}
+              >
+                Make A Bid
+              </Button>
+          </NavLink>
             <Button variant="contained" color="primary" startIcon={<SendIcon />}>
               Message Owner
             </Button>

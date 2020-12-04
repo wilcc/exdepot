@@ -4,34 +4,15 @@ import Card from './Card';
 import CreateIcon from '@material-ui/icons/Create';
 import './MyListing.scss';
 import Dashboard from '../../dashboard/Dashboard';
-import { setListing } from '../../reducers/listingreducer';
+import { fetchMyListings } from '../../reducers/listingreducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 
 class MyListing extends Component {
-  constructor(props){
-    super(props)
-    this.state={
-      listing: {},
-    }
-  }
 
   async componentDidMount() {
-    const response = await fetch(
-      'http://localhost:3003/api/listings/fetchownerlisting',
-      {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.props.authToken}`
-        },
-      }
-    );
-    let jsondata = await response.json();
-    this.props.setListing({listingList: jsondata.ownerListing})
+    this.props.fetchMyListings()
   }
   render() {
     const displayCards = this.props.listing.listingList.map((item) => {
@@ -72,7 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      setListing,
+      fetchMyListings,
     },
     dispatch
   );
