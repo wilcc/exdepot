@@ -16,7 +16,7 @@ export const fetchWatchList = createAsyncThunk(
         
       });
       let watchList = await response.json();
-      return watchList
+      return watchList.myWatchList
     }
   );
 

@@ -15,10 +15,13 @@ import './watchList.scss';
 import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
-import { setWatch } from '../../reducers/watchreducer'
+import { setWatch,fetchWatchList } from '../../reducers/watchreducer'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchWatchList} from '../../action/fetchWatchlist'
+
+
+import { setDetail, fetchDetail } from '../../reducers/detailreducer';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -81,22 +84,23 @@ class WatchList extends Component {
 
 
   async componentDidMount() {
-    // this.props.fetchWatchList()
-    const response = await fetch(
-      'http://localhost:3003/api/watchlist/',
-      {
-        method: 'GET',
-        mode: 'cors',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.props.authToken}`
-        },
-      }
-    );
-    let jsondata = await response.json();
+    this.props.fetchWatchList()
+    this.props.fetchDetail()
+    // const response = await fetch(
+    //   'http://localhost:3003/api/watchlist/',
+    //   {
+    //     method: 'GET',
+    //     mode: 'cors',
+    //     credentials: 'same-origin',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Authorization': `Bearer ${this.props.authToken}`
+    //     },
+    //   }
+    // );
+    // let jsondata = await response.json();
 
-    this.props.setWatch({watchList: jsondata.myWatchList})
+    // this.props.setWatch({watchList: jsondata.myWatchList})
 
 
   }
@@ -138,6 +142,7 @@ const mapDispatchToProps = (dispatch) =>
     {
       setWatch,
       fetchWatchList,
+      fetchDetail
     },
     dispatch
   );

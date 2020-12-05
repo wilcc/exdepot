@@ -14,22 +14,28 @@ import SendIcon from '@material-ui/icons/Send';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import Dashboard from '../../dashboard/Dashboard';
 import { NavLink } from 'react-router-dom';
-import { setDetail} from '../../reducers/detailreducer';
+import { setDetail, fetchDetail } from '../../reducers/detailreducer';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-
-
-
 class Detail extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      listingDetail: {},
+    };
+  }
 
   responsive = {
     0: { items: 1 },
     1024: { items: 2 },
   };
-  
+
   async componentDidMount() {
+
+    // this.props.fetchDetail();
+
     let listingID = window.location.pathname.split('/')[2]
     const response = await fetch(
       `http://localhost:3003/api/listings/fetchone/${listingID}`,
@@ -48,13 +54,14 @@ class Detail extends Component {
   }
 
   render() {
-    const listingDetail = this.props.detail.listingDetail
-    if(listingDetail === null) {
-      return null
+    const listingDetail = this.props.detail.listingDetail;
+    if (listingDetail === null) {
+      return null;
     }
-    // const displayImages = []
-    const displayImages = listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
-    
+    const displayImages = listingDetail.images.map((item) => (
+      <img src={item} className="sliderimg" alt="" />
+    ));
+
     return (
       <Dashboard>
         <div className="DetailContainer">
@@ -79,25 +86,25 @@ class Detail extends Component {
           </div>
           <div className="detail">
             <div className="title">Description:</div>
-            <p>
-              {this.props.detail.listingDetail.description}
-            </p>
+            <p>{this.props.detail.listingDetail.description}</p>
           </div>
           <div>Things I'm searching for:</div>
-          <p>
-            {this.props.detail.listingDetail.exchangeDescription}
-          </p>
+          <p>{this.props.detail.listingDetail.exchangeDescription}</p>
           <div className="button">
-          <NavLink to={`/makeoffer/${listingDetail._id}`}>
-            <Button
+            <NavLink to={`/makeoffer/${listingDetail._id}`}>
+              <Button
                 variant="outlined"
                 color="primary"
                 startIcon={<GavelTwoToneIcon />}
               >
                 Make A Bid
               </Button>
-          </NavLink>
-            <Button variant="contained" color="primary" startIcon={<SendIcon />}>
+            </NavLink>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<SendIcon />}
+            >
               Message Owner
             </Button>
           </div>
@@ -106,7 +113,6 @@ class Detail extends Component {
     );
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {
@@ -118,6 +124,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       setDetail,
+      fetchDetail,
     },
     dispatch
   );
