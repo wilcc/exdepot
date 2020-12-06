@@ -68,7 +68,7 @@ module.exports = {
     res.status(200).json({savedListing});
   },
   deleteListing: async (req, res) => {
-    let oneListing = await Listing.findOneAndDelete({ listingId: req.body.id });
+    let oneListing = await Listing.findOneAndDelete({ _id: req.body.id });
     let oneListingBid = await ListingBid.findOneAndDelete({ ListingID: req.body.id });
     console.log('Onelisting deleted', oneListing);
     res.send(oneListing);

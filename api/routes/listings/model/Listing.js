@@ -1,17 +1,11 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const now = moment();
-const shortid = require('shortid');
 
 const ListingSchema = new mongoose.Schema({
   //remove ListingID at some point this is redundant ID thought it might be easier for the users to view a different userFriendly ID
   //be careful removing may cause avalanche of bugs in frontend
-  listingID: {
-    type: String,
-    required: true,
-    default: shortid.generate,
-    unique: true,
-  },
+  
   //end of redundant id
   ownerUserID: {
     type: String,

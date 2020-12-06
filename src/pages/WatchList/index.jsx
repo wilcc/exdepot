@@ -15,12 +15,9 @@ import './watchList.scss';
 import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
-import { setWatch,fetchWatchList } from '../../reducers/watchreducer'
+import { setWatch, fetchWatchList } from '../../reducers/watchreducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-
-import { setDetail, fetchDetail } from '../../reducers/detailreducer';
 
 const useStyles = makeStyles({
   root: {
@@ -43,7 +40,12 @@ export function MediaCard(props) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={props.image} />
+        <NavLink
+          to={`/prodetail/${props.listingID}`}
+          listingID={props.listingID}
+        >
+          <CardMedia className={classes.media} image={props.image} />
+        </NavLink>
         <CardContent>
           <div className="cardTitle">
             <Typography gutterBottom variant="h5" component="h3">
@@ -76,16 +78,15 @@ export function MediaCard(props) {
 
 class WatchList extends Component {
   constructor(props) {
-    super(props)
-    this.state={
+    super(props);
+    this.state = {
       watchList: {},
-    }
+    };
   }
 
-
   async componentDidMount() {
-    this.props.fetchWatchList()
-    this.props.fetchDetail()
+    this.props.fetchWatchList();
+
     // const response = await fetch(
     //   'http://localhost:3003/api/watchlist/',
     //   {
@@ -101,18 +102,16 @@ class WatchList extends Component {
     // let jsondata = await response.json();
 
     // this.props.setWatch({watchList: jsondata.myWatchList})
-
-
   }
   render() {
     const displayCards = this.props.watch.watchList.map((watchList) => {
-      
       return (
         <MediaCard
           title={watchList.item.name}
           owner={watchList.item.ownerUserName}
           // bids={item.ItemBids}
           image={watchList.item.images[0]}
+          listingID={watchList.item.listingID}
         />
       );
     });
@@ -142,7 +141,6 @@ const mapDispatchToProps = (dispatch) =>
     {
       setWatch,
       fetchWatchList,
-      fetchDetail
     },
     dispatch
   );
