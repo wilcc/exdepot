@@ -46,20 +46,10 @@ class CreateNewListing extends Component{
       }
     );
     let jsondata = await response.json();
-    console.log("categoryList from the server", jsondata.fetchallCategories)
     this.props.setCategoryList({categoryList: jsondata.fetchallCategories})
   }
 
   render(){
-    // const demoCategories = [
-    //   {catName: 'Electronics'},
-    //   {catName: 'DIY parts'},
-    //   {catName: 'toys'},
-    //   {catName: 'accessories'},
-    //   {catName: 'gardening'}
-    // ]
-    // console.log(this.props)
-    
     return (
       <Dashboard>
       <div className="create-listing-container">
@@ -149,7 +139,7 @@ class CreateNewListing extends Component{
                 }
               );
               let jsondata = await response.json();
-              console.log('request from fe', jsondata);
+              console.log('request from fe create listing', jsondata);
             }}
           >
             Create New Listing

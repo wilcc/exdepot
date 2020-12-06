@@ -8,6 +8,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import { fetchMyListings } from '../../reducers/listingreducer';
 import { bindActionCreators } from 'redux';
 
+import Alert from '@material-ui/lab/Alert';
 
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -82,14 +83,33 @@ export class MakeOffer extends Component {
 
   state = {
     itemsbids: [],
+    alertNoneSelectedToBidWith: false,
   }
   async componentDidMount() {
     this.props.fetchMyListings()
   }
 
   async makeBidApi() {
-    console.log('BEFORE This is MakeBidAPI Network Request api button')
+    //ListingID is to grab the id from the req.params
     let listingID = window.location.pathname.split('/')[2]
+
+    //convert all state.items and grab only ids of that itembids
+    const itemIDsToBidWithOnlyArr = this.state.itemsbids.map((onlyItemIdNeeded) => onlyItemIdNeeded._id);
+
+    //this if statement is to check and alert for none selected Items for bid
+    if(itemIDsToBidWithOnlyArr) {
+      this.setState({
+        alertNoneSelectedToBidWith: true,
+      })
+    } 
+    
+    //remove alert if theres some length in bidding items ids
+    if (itemIDsToBidWithOnlyArr.length > 0) {
+      this.setState({
+        alertNoneSelectedToBidWith: false,
+      })
+    }
+
     const response = await fetch(
       `http://localhost:3003/api/listingbid/createbid`,
       {
@@ -101,21 +121,20 @@ export class MakeOffer extends Component {
           'Authorization': `Bearer ${this.props.authToken}`
         },
         body: {
-          ListingID: listingID,
-          items_bid: this.state.itemsbids,
+          id: listingID,
+          items_bid: itemIDsToBidWithOnlyArr,
         }
-      }
-    )
-    console.log('AFTER This is MakeBidAPI Network Request api button')
-  }
-
-  render() {
-    const listingDetail = this.props.detail.listingDetail
-    const displayImages = listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
-    const itemOfferedIds = this.state.itemsbids.map((item) => item._id)
-    const myListings = this.props.listing.listingList.filter((item) => itemOfferedIds.indexOf(item._id) == (-1))
-
+      });
+      let jsondata = await response.json();
+      console.log('response AFTER This is MakeBidAPI Network Request api button', jsondata);
     
+  }
+    render() {
+      const listingDetail = this.props.detail.listingDetail
+      const displayImages = listingDetail.images.map((item)=> <img src={item} className="sliderimg" alt="" />)
+      const itemOfferedIds = this.state.itemsbids.map((item) => item._id)
+      const myListings = this.props.listing.listingList.filter((item) => itemOfferedIds.indexOf(item._id) == (-1))
+      
     const myListCards = myListings.map((item) => {
       return (
         <MyListCard
@@ -150,6 +169,8 @@ export class MakeOffer extends Component {
           />
         );
       })
+
+    const { alertNoneSelectedToBidWith } = this.state.alertNoneSelectedToBidWith
     return (
       <Dashboard>
         <div className="container">
@@ -211,6 +232,8 @@ export class MakeOffer extends Component {
             >
             {listingDetail.exchangeDescription}
             </Typography>
+            {this.state.alertNoneSelectedToBidWith === true ?
+              <Alert severity="error">You need to Select your Posted Items to Bid</Alert> : null}
             <div className="button">
               <Button
                 variant="contained"

@@ -16,7 +16,6 @@ module.exports = {
     });
 
     newListingBid.save();
-    console.log('saved NewListingBid', newListingBid);
     res
       .status(200)
       .json({message: "Successfully created NewListingBid", newListingBid})
