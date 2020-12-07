@@ -45,7 +45,7 @@ export default class SideNav extends Component {
         <SidenavListitem icon={<ListIcon />} textLabel="My Listing" link="/mylisting"/>
         <SidenavListitem icon={<MessageIcon />} textLabel="Message" link="/messages" />
         <SidenavListitem icon={<StarsIcon />} textLabel="My WatchList"  link="/watchlist" />
-        <SidenavListitem icon={<GavelIcon />} textLabel="Current Bids" link="currbids" />
+        <SidenavListitem icon={<GavelIcon />} textLabel="Current Bids" link="/currbids" />
         <Divider />
         <NavLink to="/createnewlisting">
           <Button
