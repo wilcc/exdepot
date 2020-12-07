@@ -7,7 +7,7 @@ module.exports = {
     let itemsbid = await Listing.find({ _id: {$in: req.body.items_bid }});
     console.log("itemsbid clg", itemsbid)
     let newListingBid = await new ListingBid ({
-      bidderUserID: req.user._id,
+      bidderUserID: req.user.id,
       ListingID: currentListing._id,
       listing: currentListing,
       ownerUserID: currentListing.ownerUserID,
@@ -21,6 +21,7 @@ module.exports = {
       .json({message: "Successfully created NewListingBid", newListingBid})
   },
   fetchAllBids: async (req, res) => {
+    console.log('I need this req.user._id givemethat log', req.user.id)
     let allListingBidByOwner = await ListingBid.find({ bidderUserID: req.user._id });
     res.status(200).json({ allListingBidByOwner });
   },

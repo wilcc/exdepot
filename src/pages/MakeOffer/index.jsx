@@ -126,7 +126,6 @@ export class MakeOffer extends Component {
         }
       });
       let jsondata = await response.json();
-      console.log('response AFTER This is MakeBidAPI Network Request api button', jsondata);
     
   }
     render() {
