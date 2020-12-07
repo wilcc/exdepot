@@ -108,25 +108,24 @@ export class MakeOffer extends Component {
       this.setState({
         alertNoneSelectedToBidWith: false,
       })
+      const response = await fetch(
+        `http://localhost:3003/api/listingbid/createbid`,
+        {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.props.authToken}`
+          },
+          body: JSON.stringify({
+            id: listingID,
+            items_bid: itemIDsToBidWithOnlyArr,
+            }) 
+        });
     }
-    const response = await fetch(
-      `http://localhost:3003/api/listingbid/createbid`,
-      {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'same-origin',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.props.authToken}`
-        },
-        body: JSON.stringify({
-          id: listingID,
-          items_bid: itemIDsToBidWithOnlyArr,
-          }) 
-      });
-      let jsondata = await response.json();
-      console.log('this.pros.authToken needs to be proper', this.props.authToken);
-      console.log('json data of response')
+
+    
       
   }
     render() {

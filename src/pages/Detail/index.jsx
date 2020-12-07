@@ -61,8 +61,7 @@ class Detail extends Component {
     const listingDetail = this.props.detail.listingDetail;
     // console.log(listingDetail.ownerUserID)
     // console.log('props id',this.props.currentUserID)
-   { (listingDetail.ownerUserID === this.props.currentUserID) ? console.log('yes') : console.log('no')
-}
+  //  {listingDetail.ownerUserID === this.props.currentUserID ? console.log('yes') : console.log('no')}
     if (listingDetail === null) {
       return null;
     }

@@ -79,9 +79,6 @@ export function MediaCard(props) {
           <Typography gutterBottom variant="h5" component="h3">
             {props.title}
           </Typography>
-          {/*<Typography variant="body2" color="textSecondary" component="p">
-            Bids:{props.bids}
-  </Typography>*/}
           <Typography variant="body1" color="textSecondary" component="p">
             Status:{props.status}
           </Typography>
@@ -255,7 +252,7 @@ export function CurrentBids(props) {
   useEffect(() => {
     async function fetchcurrbids() {
       const response = await fetch(
-        "http://localhost:3003/api/listingbid/fetchAllBids",
+        "http://localhost:3003/api/listingbid/fetchownerbid",
         {
           method: "GET",
           mode: "cors",
@@ -273,7 +270,6 @@ export function CurrentBids(props) {
     fetchcurrbids();
   });
 
-  console.log("CurrentBids func compoment main props clg", props);
   return (
     <Dashboard>
       <div className={classes.root}>

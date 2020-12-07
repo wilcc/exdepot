@@ -19,6 +19,7 @@ import "./dashboard.scss";
 const mapStateToProps = (state) => {
   return {
     token: state.auth.token,
+    userName: state.auth.userName,
   };
 };
 
@@ -67,7 +68,7 @@ class TopNav extends Component {
                 className="avatar"
                 ref={this.openLoggedInAvatar}
                 onClick={() => this.setState({ isAvatarOpen: true })}
-              >
+              >{this.props.userName}
                 <Avatar
                   alt={userAvatar.userName}
                   src={userAvatar.avatarImage}
