@@ -45,7 +45,10 @@ class CategoryItem extends Component {
                   }
                 );
                 let jsondata = await response.json();
-                this.props.setListing({ listingList: jsondata.categoryListing });
+                let filteredResultsForOnlyOtherUsersListing = jsondata.categoryListing.filter((categoryCard) => categoryCard.ownerUserID !== this.props.userID)
+                // console.log("filteredResultsForOnlyOtherUsersListing", filteredResultsForOnlyOtherUsersListing)
+                console.log('this.props.userID in category', this.props.userID)
+                this.props.setListing({ listingList: filteredResultsForOnlyOtherUsersListing });
           }}
           // onClick={async () => {
           //   const response = await fetch(
@@ -132,7 +135,7 @@ class Categories extends Component {
     });
     const categoryItemsMappedoutToDisplay = this.props.categoryList.map(
       (category) => {
-        return <CategoryItem category={category} setListing={this.props.setListing} authToken= {this.props.authToken} selectCategory={this.selectCategory}/>;
+        return <CategoryItem category={category} setListing={this.props.setListing} authToken= {this.props.authToken} userID={this.props.userID} selectCategory={this.selectCategory}/>;
       }
     );
     return (
@@ -170,6 +173,7 @@ const mapStateToProps = (state) => {
     categoryList: state.category.categoryList,
     listing: state.listing,
     authToken: state.auth.token,
+    userID: state.auth.userID,
   };
 };
 const mapDispatchToProps = (dispatch) =>
