@@ -16,7 +16,6 @@ export const fetchDetail = createAsyncThunk(
       },
     });
     let jsondata = await response.json;
-    console.log('jssdfgsdfgsgsdgdsgsdgsdgsdgsdgdgfdgsds',jsondata)
     return jsondata.oneListing;
   }
 );

@@ -50,7 +50,9 @@ class Detail extends Component {
       }
     )
     let jsondata = await response.json();
+    console.log(jsondata)
     this.props.setDetail({listingDetail: jsondata.oneListing})
+
   }
 
   render() {

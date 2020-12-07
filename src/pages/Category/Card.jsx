@@ -97,10 +97,6 @@ export default function CategoryListCard(props) {
 
                   // dispatch(setWatch({watchList:jsondata.myWatchList}))
 
-
-
-
-
               }}/>}
             </div>
           </div>

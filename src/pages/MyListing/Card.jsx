@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Typography from '@material-ui/core/Typography';
+import {NavLink} from 'react-router-dom'
 
 const useStyles = makeStyles({
   root: {
@@ -31,7 +32,12 @@ export default function MediaCard(props) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={props.image} />
+      <NavLink
+          to={`/prodetail/${props.listingID}`}
+          listingID={props.listingID}
+        >
+          <CardMedia className={classes.media} image={props.image} />
+        </NavLink>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
             {props.title}

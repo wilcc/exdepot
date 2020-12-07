@@ -17,9 +17,11 @@ class MyListing extends Component {
   render() {
     const displayCards = this.props.listing.listingList.map((item) => {
       return (
+
         <Card
           title={item.name}
           bids={item.ItemBids}
+          listingID={item._id}
           image={item.images[0] ? item.images[0] : "https://media.istockphoto.com/photos/single-cloud-central-in-blue-sky-picture-id667409780"}
         />
       );
