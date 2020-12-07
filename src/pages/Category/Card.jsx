@@ -13,7 +13,7 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import { NavLink } from 'react-router-dom';
 import {useSelector,useDispatch,} from 'react-redux'
-import { setWatch } from '../../reducers/watchreducer'
+import { setWatch,fetchWatchList } from '../../reducers/watchreducer'
 
 const useStyles = makeStyles({
   root: {
@@ -44,7 +44,6 @@ export default function CategoryListCard(props) {
   const dispatch = useDispatch()
   return (
     <Card className={classes.root}>
-      <CardActionArea>
         <NavLink to={`/prodetail/${props.listingID}` } listingID={props.listingID}>
           <CardMedia className={classes.media} image={props.image} />
         </NavLink>
@@ -57,6 +56,7 @@ export default function CategoryListCard(props) {
               {isWatched ? 
               <BookmarkIcon
                 onClick={async (e, value) => {
+                e.stopPropagation()
                   const response = await fetch(
                     'http://localhost:3003/api/watchlist/toggle',
                     {
@@ -73,10 +73,11 @@ export default function CategoryListCard(props) {
                     }
                   );
                   let jsondata = await response.json();
-                  // dispatch(setWatch({watchList:jsondata.myWatchList}))
+                  dispatch(fetchWatchList())
                 }}
               /> : <BookmarkBorderIcon 
               onClick={async (e, value) => {
+                e.stopPropagation()
                 const response = await fetch(
                   'http://localhost:3003/api/watchlist/toggle',
                   {
@@ -93,7 +94,8 @@ export default function CategoryListCard(props) {
                   }
                 );
                 let jsondata = await response.json();
-                console.log(jsondata)
+                dispatch(fetchWatchList())
+
 
                   // dispatch(setWatch({watchList:jsondata.myWatchList}))
 
@@ -104,7 +106,6 @@ export default function CategoryListCard(props) {
             Bids:{props.bids}
           </Typography>
         </CardContent>
-      </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
         <Button size="small" color="primary">
           {<EditIcon />}
