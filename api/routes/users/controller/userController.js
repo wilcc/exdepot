@@ -48,6 +48,8 @@ module.exports = {
         let jwtToken = await createJwtToken(foundUser);
         res.status(200).json({
           token: jwtToken,
+          userID: foundUser._id,
+          userName: foundUser.userName
         });
       } catch (error) {
         res.status(error.status).json({

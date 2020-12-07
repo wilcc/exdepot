@@ -15,8 +15,8 @@ import Container from '@material-ui/core/Container';
 import { NavLink } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import { setToken } from '../../reducers/authreducer';
-import { useDispatch, useSelector } from 'react-redux'
-import {Redirect} from 'react-router'
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 
 function Copyright() {
   return (
@@ -57,10 +57,11 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const dispatch = useDispatch();
-  const token = useSelector(state => state.auth.token )
+  const token = useSelector((state) => state.auth.token);
 
-  return token ? <Redirect to='/discover'/> : ( 
-    
+  return token ? (
+    <Redirect to="/discover" />
+  ) : (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -128,8 +129,13 @@ export default function Login() {
               if (response.status === 409) {
                 setError(jsondata.message);
               } else {
-                console.log(jsondata);
-                dispatch(setToken({token:jsondata.token}))
+                dispatch(
+                  setToken({
+                    token: jsondata.token,
+                    userID: jsondata.userID,
+                    userName: jsondata.userName,
+                  })
+                );
               }
             }}
           >

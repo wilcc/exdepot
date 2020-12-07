@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchDetail = createAsyncThunk(
   'fetchDetail',
-  async (args, thunkAPI) => {
-    let listingID = window.location.pathname.split('/')[2];
+  async (listingID, thunkAPI) => {
+    // let listingID = window.location.pathname.split('/')[2];
     const token = thunkAPI.getState().auth.token;
     const fetchUrl = `http://localhost:3003/api/listings/fetchone/${listingID}`;
     const response = await fetch(fetchUrl, {
@@ -15,7 +15,7 @@ export const fetchDetail = createAsyncThunk(
         Authorization: `Bearer ${token}`,
       },
     });
-    let jsondata = await response.json;
+    let jsondata = await response.json();
     return jsondata.oneListing;
   }
 );

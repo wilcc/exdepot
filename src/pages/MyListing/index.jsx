@@ -15,6 +15,7 @@ class MyListing extends Component {
     this.props.fetchMyListings()
   }
   render() {
+
     const displayCards = this.props.listing.listingList.map((item) => {
       return (
 
