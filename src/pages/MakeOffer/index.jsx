@@ -92,10 +92,10 @@ export class MakeOffer extends Component {
   async makeBidApi() {
     //ListingID is to grab the id from the req.params
     let listingID = window.location.pathname.split('/')[2]
-
+    
     //convert all state.items and grab only ids of that itembids
     const itemIDsToBidWithOnlyArr = this.state.itemsbids.map((onlyItemIdNeeded) => onlyItemIdNeeded._id);
-
+    
     //this if statement is to check and alert for none selected Items for bid
     if(itemIDsToBidWithOnlyArr) {
       this.setState({
@@ -109,7 +109,6 @@ export class MakeOffer extends Component {
         alertNoneSelectedToBidWith: false,
       })
     }
-
     const response = await fetch(
       `http://localhost:3003/api/listingbid/createbid`,
       {
@@ -120,13 +119,15 @@ export class MakeOffer extends Component {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.props.authToken}`
         },
-        body: {
+        body: JSON.stringify({
           id: listingID,
           items_bid: itemIDsToBidWithOnlyArr,
-        }
+          }) 
       });
       let jsondata = await response.json();
-    
+      console.log('this.pros.authToken needs to be proper', this.props.authToken);
+      console.log('json data of response')
+      
   }
     render() {
       const listingDetail = this.props.detail.listingDetail
@@ -169,7 +170,6 @@ export class MakeOffer extends Component {
         );
       })
 
-    const { alertNoneSelectedToBidWith } = this.state.alertNoneSelectedToBidWith
     return (
       <Dashboard>
         <div className="container">
