@@ -13,6 +13,7 @@ const categoryRouter = require('./routes/categories/categories');
 const listingRouter = require('./routes/listings/listings');
 const watchListRouter = require('./routes/watchlists/watchlists')
 const listingBidRouter = require('./routes/ListingBid/listingbids');
+const messageRouter = require('./routes/messages/messages')
 const app = express();
 
 
@@ -43,6 +44,7 @@ app.use('/api/listings', listingRouter);
 app.use('/api/listingbid', listingBidRouter);
 app.use('/api/categories', categoryRouter); 
 app.use('/api/watchlist', watchListRouter)
+app.use('/api/message',messageRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
