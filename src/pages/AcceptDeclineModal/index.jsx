@@ -188,7 +188,7 @@ const displayUser = UserExample.map((user) => {
   return <MediaCard title={user.UserName} bidItem={user.BidItem} />;
 });
 
-export default function TransitionsModal() {
+export default function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -203,7 +203,7 @@ export default function TransitionsModal() {
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        react-transition-group
+        {`Bids: ${props.numOfBids}`}
       </button>
       <Modal
         aria-labelledby="transition-modal-title"

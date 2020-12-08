@@ -8,5 +8,6 @@ router.get('/fetchownerbid', authVerify.authenticateToken, listingBidController.
 router.put('/acceptbid', authVerify.authenticateToken, listingBidController.acceptBid);
 router.put('/cancelbid', authVerify.authenticateToken, listingBidController.cancelBid);
 router.put('/declinebid', authVerify.authenticateToken, listingBidController.declineBid);
+router.get('/fetchotherusersbidsonmylisting', authVerify.authenticateToken, listingBidController.fetchOtherUsersBidsOnMyListing)
 
 module.exports = router;
