@@ -27,7 +27,7 @@ module.exports = {
   //legacy code commented possible not needed at all but keep it for now
   fetchOtherUsersBidsOnMyListing: async (req, res) => {
     console.log('I need this req.user._id givemethat log', req.user.id)
-    let sellersListingBidsItems = await ListingBid.find({ ownerUserID: req.user._id });
+    let sellersListingBidsItems = await ListingBid.find({ ownerUserID: req.user.id });
     res.status(200).json({ sellersListingBidsItems });
   },
   acceptBid: async (req, res) => {
