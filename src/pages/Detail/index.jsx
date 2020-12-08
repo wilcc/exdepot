@@ -34,33 +34,15 @@ class Detail extends Component {
 
   async componentDidMount() {
 
-    
     let listingID = window.location.pathname.split('/')[2]
-    
     this.props.fetchDetail(listingID);
-    // const response = await fetch(
-    //   `http://localhost:3003/api/listings/fetchone/${listingID}`,
-    //   {
-    //     method: 'GET',
-    //     mode: 'cors',
-    //     credentials: 'same-origin',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Authorization': `Bearer ${this.props.authToken}`
-    //     },
-    //   }
-    // )
-    // let jsondata = await response.json();
-    // console.log(jsondata)
-    // this.props.setDetail({listingDetail: jsondata.oneListing})
 
   }
 
   render() {
   
     const listingDetail = this.props.detail.listingDetail;
-    // console.log(listingDetail.ownerUserID)
-    // console.log('props id',this.props.currentUserID)
+
   //  {listingDetail.ownerUserID === this.props.currentUserID ? console.log('yes') : console.log('no')}
     if (listingDetail === null) {
       return null;

@@ -3,11 +3,10 @@ const moment = require('moment');
 const now = moment();
 
 const MessageSchema = new mongoose.Schema({
-  user_1: { userId: String, userName: String },
-  user_2: {
-    userId: String,
-    userName: String,
-  },
+  user1ID: String, 
+  user1Name: String,
+  user2ID: String,
+  user2Name: String,
   messageList: [
     {
       sender_user_id:String,
