@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
-import image1 from '../img/1.jpg';
-import image2 from '../img/2.jpg';
-import image3 from '../img/3.jpg';
-import image4 from '../img/4.jpg';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import './Detail.scss';
@@ -13,9 +9,10 @@ import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import Dashboard from '../../dashboard/Dashboard';
+import MessageModel from '../Message/messageModel';
 import { NavLink } from 'react-router-dom';
 import { setDetail, fetchDetail } from '../../reducers/detailreducer';
-
+import { setMessage, createMessage } from '../../reducers/messagereducer';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -33,17 +30,14 @@ class Detail extends Component {
   };
 
   async componentDidMount() {
-
-    let listingID = window.location.pathname.split('/')[2]
+    let listingID = window.location.pathname.split('/')[2];
     this.props.fetchDetail(listingID);
-
   }
 
   render() {
-  
     const listingDetail = this.props.detail.listingDetail;
 
-  //  {listingDetail.ownerUserID === this.props.currentUserID ? console.log('yes') : console.log('no')}
+    //  {listingDetail.ownerUserID === this.props.currentUserID ? console.log('yes') : console.log('no')}
     if (listingDetail === null) {
       return null;
     }
@@ -89,13 +83,11 @@ class Detail extends Component {
                 Make A Bid
               </Button>
             </NavLink>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<SendIcon />}
-            >
-              Message Owner
-            </Button>
+            <div onClick={
+              this.props.createMessage
+              }>
+              <MessageModel />
+            </div>
           </div>
         </div>
       </Dashboard>
@@ -108,6 +100,7 @@ const mapStateToProps = (state) => {
     detail: state.detail,
     authToken: state.auth.token,
     currentUserID: state.auth.userID,
+    message: state.message,
   };
 };
 const mapDispatchToProps = (dispatch) =>
@@ -115,6 +108,8 @@ const mapDispatchToProps = (dispatch) =>
     {
       setDetail,
       fetchDetail,
+      setMessage,
+      createMessage,
     },
     dispatch
   );
