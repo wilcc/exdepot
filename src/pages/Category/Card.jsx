@@ -53,7 +53,8 @@ export default function CategoryListCard(props) {
               {props.title}
             </Typography>
             <div>
-              {isWatched ? 
+              
+            {isWatched && (props.authToken !== null) ? 
               <BookmarkIcon
                 onClick={async (e, value) => {
                 e.stopPropagation()
@@ -75,7 +76,8 @@ export default function CategoryListCard(props) {
                   let jsondata = await response.json();
                   dispatch(fetchWatchList())
                 }}
-              /> : <BookmarkBorderIcon 
+              /> : (props.authToken !== null) ? 
+              <BookmarkBorderIcon 
               onClick={async (e, value) => {
                 e.stopPropagation()
                 const response = await fetch(
@@ -99,7 +101,7 @@ export default function CategoryListCard(props) {
 
                   // dispatch(setWatch({watchList:jsondata.myWatchList}))
 
-              }}/>}
+              }}/> : null}
             </div>
           </div>
           <Typography variant="body2" color="textSecondary" component="p">
