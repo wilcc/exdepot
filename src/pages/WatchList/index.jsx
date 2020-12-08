@@ -16,7 +16,7 @@ import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
 import { setWatch, fetchWatchList } from '../../reducers/watchreducer';
-import {useSelector,useDispatch,} from 'react-redux'
+import { useSelector,useDispatch,} from 'react-redux'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -103,10 +103,7 @@ export function MediaCard(props) {
                 );
                 let jsondata = await response.json();
                 dispatch(fetchWatchList())
-
-
                   // dispatch(setWatch({watchList:jsondata.myWatchList}))
-
               }}/> : null}
           </div>
           <Typography variant="body1" color="textPrimary" component="h3">

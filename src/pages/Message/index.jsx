@@ -89,7 +89,7 @@ export function ChatLayout() {
         </Typography>
       </div>
     </div>
-  ));
+  ))
   return <div className={classes.container}>{chatBubbles}</div>;
 }
 
