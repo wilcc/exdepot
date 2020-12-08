@@ -25,11 +25,11 @@ module.exports = {
     res.status(200).json({ allListingBidByOwner });
   },
   //legacy code commented possible not needed at all but keep it for now
-  // fetchAllBids: async (req, res) => {
-  //   console.log('I need this req.user._id givemethat log', req.user.id)
-  //   let allListingBidByOwner = await ListingBid.find({ bidderUserID: req.user._id });
-  //   res.status(200).json({ allListingBidByOwner });
-  // },
+  fetchOtherUsersBidsOnMyListing: async (req, res) => {
+    console.log('I need this req.user._id givemethat log', req.user.id)
+    let sellersListingBidsItems = await ListingBid.find({ ownerUserID: req.user._id });
+    res.status(200).json({ sellersListingBidsItems });
+  },
   acceptBid: async (req, res) => {
     let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
     

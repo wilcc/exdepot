@@ -8,6 +8,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import AcceptDeclineModal from "../AcceptDeclineModal/";
 import Typography from '@material-ui/core/Typography';
 import {NavLink} from 'react-router-dom'
 
@@ -43,7 +44,7 @@ export default function MediaCard(props) {
             {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Bids:{props.bids}
+            <AcceptDeclineModal numOfBids={props.bids} />
           </Typography>
         </CardContent>
       </CardActionArea>
