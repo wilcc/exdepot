@@ -15,8 +15,6 @@ import './dashboard.scss';
 import { NavLink } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-
 
 const mapStateToProps = (state) => {
   return {

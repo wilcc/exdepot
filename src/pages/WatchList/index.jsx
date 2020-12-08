@@ -16,6 +16,8 @@ import { NavLink } from 'react-router-dom';
 import Dashboard from '../../dashboard/Dashboard';
 
 import { setWatch, fetchWatchList } from '../../reducers/watchreducer';
+import {useSelector,useDispatch,} from 'react-redux'
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -36,10 +38,17 @@ const useStyles = makeStyles({
 });
 
 export function MediaCard(props) {
+
   const classes = useStyles();
+  const watchList = useSelector(state=>state.watch.watchList);
+  const authTokenInFuncCompState = useSelector(state=>state.auth.token);
+  console.log('WatchList = useSelector', watchList);
+  const watchListIds = watchList.map((element)=>element.listingID);
+  const isWatched = watchListIds.indexOf(props.listingID) >= 0;
+    // const isWatched = false
+    const dispatch = useDispatch();
   return (
     <Card className={classes.root}>
-      <CardActionArea>
         <NavLink
           to={`/prodetail/${props.listingID}`}
           listingID={props.listingID}
@@ -51,7 +60,54 @@ export function MediaCard(props) {
             <Typography gutterBottom variant="h5" component="h3">
               {props.title}
             </Typography>
-            <BookmarkIcon />
+            {isWatched && (authTokenInFuncCompState !== null) ? 
+              <BookmarkIcon
+                onClick={async (e, value) => {
+                e.stopPropagation()
+                  const response = await fetch(
+                    'http://localhost:3003/api/watchlist/toggle',
+                    {
+                      method: 'POST',
+                      mode: 'cors',
+                      credentials: 'same-origin',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${authTokenInFuncCompState}`,
+                      },
+                      body: JSON.stringify({
+                        listingID: `${props.listingID}`,
+                      }),
+                    }
+                  );
+                  let jsondata = await response.json();
+                  dispatch(fetchWatchList())
+                }}
+              /> : (authTokenInFuncCompState !== null) ? 
+              <BookmarkBorderIcon 
+              onClick={async (e, value) => {
+                e.stopPropagation()
+                const response = await fetch(
+                  'http://localhost:3003/api/watchlist/toggle',
+                  {
+                    method: 'POST',
+                    mode: 'cors',
+                    credentials: 'same-origin',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${authTokenInFuncCompState}`,
+                    },
+                    body: JSON.stringify({
+                      listingID: `${props.listingID}`,
+                    }),
+                  }
+                );
+                let jsondata = await response.json();
+                dispatch(fetchWatchList())
+
+
+                  // dispatch(setWatch({watchList:jsondata.myWatchList}))
+
+              }}/> : null}
           </div>
           <Typography variant="body1" color="textPrimary" component="h3">
             Owner: {props.owner}
@@ -60,7 +116,6 @@ export function MediaCard(props) {
             Bids:{props.bids}
           </Typography>
         </CardContent>
-      </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
         <NavLink to="/makeoffer/prodId9283dfs8902">
           <Button
