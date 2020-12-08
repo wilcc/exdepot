@@ -21,6 +21,7 @@ class CategoryItem extends Component {
       listing:{}
     }
   }
+  
   render() {
     const { category, selectCategory } = this.props
     return (
@@ -111,11 +112,12 @@ class Categories extends Component {
 
   async componentDidUpdate() {
     const categoryId = window.location.pathname.split('/')[2]
+
     if(this.state.categoryId !== categoryId) {
       this.setState({
       categoryId: categoryId,
 
-    }, () => console.log('categoryId Update', categoryId))
+    })
     
     }
   }
@@ -142,7 +144,7 @@ class Categories extends Component {
       <Dashboard>
         <div>
           <h2 className="title-component-discover">Full List of Categories</h2>
-          <h2 className="title-component-discover">this is categoryId: {category && category.CategoryName}</h2>
+          <h2 className="title-component-discover">this is category: {category && category.CategoryName}</h2>
           <Grid container spacing={6}>
             <Grid item xs={12}>
               <Paper elevation={5}>
@@ -153,7 +155,7 @@ class Categories extends Component {
             </Grid>
             <Grid item xs={12}>
               <h2 className="title-component-discover">
-                Items in Selected Category
+                Items in Selected Category: {category && category.CategoryName}
               </h2>
               <Paper elevation={5}>
                 <div className="display-all-items-wrapper">
