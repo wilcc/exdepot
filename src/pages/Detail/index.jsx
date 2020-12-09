@@ -83,9 +83,13 @@ class Detail extends Component {
                 Make A Bid
               </Button>
             </NavLink>
-            <div onClick={
-              this.props.createMessage
-              }>
+            <div
+              onClick={() => {
+                this.props.createMessage(
+                  this.props.detail.listingDetail
+                );
+              }}
+            >
               <MessageModel />
             </div>
           </div>

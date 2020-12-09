@@ -6,8 +6,8 @@ const authVerify = require('../../middleware/authVerify')
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
   });
-router.post('/createmessage', messageController.createMessage)
-router.put('/sendmessage', messageController.postMessage)
-router.post('/fetchallmessage',messageController.fetchMessage)
+router.post('/createmessage',authVerify.authenticateToken ,messageController.createMessage)
+router.put('/sendmessage',authVerify.authenticateToken , messageController.postMessage)
+router.post('/fetchallmessage',authVerify.authenticateToken, messageController.fetchMessage)
 
   module.exports = router

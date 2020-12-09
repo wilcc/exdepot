@@ -5,6 +5,7 @@ export const fetchDetail = createAsyncThunk(
   async (listingID, thunkAPI) => {
     // let listingID = window.location.pathname.split('/')[2];
     const token = thunkAPI.getState().auth.token;
+    
     const fetchUrl = `http://localhost:3003/api/listings/fetchone/${listingID}`;
     const response = await fetch(fetchUrl, {
       method: 'GET',

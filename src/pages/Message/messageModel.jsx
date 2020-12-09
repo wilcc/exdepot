@@ -10,6 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TextField from '@material-ui/core/TextField';
 import SendIcon from '@material-ui/icons/Send';
+import {useSelector,useDispatch,} from 'react-redux'
+
+
+
+
 import './message.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -55,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function ChatLayout() {
   const classes = useStyles();
+  const message = useSelector(state=>state.message.messageList.messageList)
+    console.log('this is message',message)
+  const dispatch = useDispatch()
   const dummyData = [
     {
       messageTime: '12:30',
@@ -78,12 +86,12 @@ export function ChatLayout() {
     },
   ];
 
-  const chatBubbles = dummyData.map((item) => (
+  const chatBubbles = message.map((item) => (
     <div className={`${classes.bubbleContainer} ${item.direction}`}>
       <AccountCircleIcon fontSize="large" />
       <div className="classes.bubbleWrap">
         <div className={classes.bubble}>
-          <div className={classes.button}>{item.message}</div>
+          <div className={classes.button}>{item.msg_text}</div>
         </div>
         <Typography color="textSecondary" className="chatTime">
           {item.messageTime}

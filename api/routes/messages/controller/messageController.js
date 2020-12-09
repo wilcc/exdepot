@@ -4,15 +4,16 @@ const now = moment();
 
 module.exports = {
   createMessage: async (req, res) => {
+    console.log(req.user)
     let savedMessage = await Message.findOne({
       $or: [
         {
-          user1ID: req.body.user1ID,
+          user1ID: req.user.id,
           user2ID: req.body.user2ID,
         },
         {
           user1ID: req.body.user2ID,
-          user2ID: req.body.user1ID,
+          user2ID: req.user.id,
         },
       ],
     });
@@ -20,8 +21,8 @@ module.exports = {
       res.status(200).json({ savedMessage });
     } else {
       let newMessage = await new Message({
-        user1ID: req.body.user1ID,
-        user1Name: req.body.user1Name,
+        user1ID: req.user.id,
+        user1Name: req.user.userName,
         user2ID: req.body.user2ID,
         user2Name: req.body.user2Name,
         messageList: [],
@@ -36,12 +37,12 @@ module.exports = {
     let foundMessage = await Message.findOne({
       $or: [
         {
-          user1ID: req.body.user1ID,
+          user1ID: req.user.id,
           user2ID: req.body.user2ID,
         },
         {
           user1ID: req.body.user2ID,
-          user2ID: req.body.user1ID,
+          user2ID: req.user.id,
         },
       ],
     });
@@ -62,10 +63,10 @@ module.exports = {
     let foundMessage = await Message.find({
         $or: [
           {
-            user1ID: req.body.user1ID,
+            user1ID: req.user._id,
           },
           {
-            user2ID: req.body.user1ID,
+            user2ID: req.user._id,
           },
         ],
       });
