@@ -18,6 +18,7 @@ export const fetchMyListings = createAsyncThunk(
       }
     );
     let jsondata = await response.json();
+    
     return jsondata.ownerListing
   }
 );

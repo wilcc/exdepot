@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export const fetchOtherUsersBidsOnMyListing = createAsyncThunk(
-  'fetchMyListings',
+  'fetchOtherUsersBidsOnMyListing',
   async (args, thunkAPI) => {
     const token = thunkAPI.getState().auth.token;
     const fetchUrl = 'http://localhost:3003/api/listingbid/fetchotherusersbidsonmylisting';

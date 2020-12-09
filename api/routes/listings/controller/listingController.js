@@ -27,7 +27,6 @@ module.exports = {
         bidCountLookup[listingId] = 1
       }
     }
-    console.log("bidCountLookup", bidCountLookup)
     for(let i=0; i < ownerListing.length; i++) {
       let listingId = ownerListing[i]._id
       if( listingId in bidCountLookup ){
@@ -37,8 +36,7 @@ module.exports = {
       }
     }
 
-
-
+    console.log('Test for ListingList in controller jsondata', ownerListing)
     res.status(200).json({ownerListing})
   },
   fetchCategoryListing: async (req, res) => {
