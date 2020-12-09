@@ -15,6 +15,30 @@ module.exports = {
   fetchOwnerListing: async (req, res) => {
     let ownerListing = await Listing.find({ ownerUserID: req.user.id });
 
+    
+    let listingIds = ownerListing.map((listing) => listing._id)
+    let bids = await ListingBid.find({ListingID: {$in: listingIds}})
+    let bidCountLookup = {}
+    for( let i = 0; i < bids.length; i++ ){
+      let listingId = bids[i].ListingID
+      if( listingId in bidCountLookup ){
+        bidCountLookup[listingId] += 1;
+      }else{
+        bidCountLookup[listingId] = 1
+      }
+    }
+    console.log("bidCountLookup", bidCountLookup)
+    for(let i=0; i < ownerListing.length; i++) {
+      let listingId = ownerListing[i]._id
+      if( listingId in bidCountLookup ){
+        ownerListing[i] = {bidCount: bidCountLookup[listingId], ...ownerListing[i]._doc}
+      }else{
+        ownerListing[i] = {bidCount: 0, ...ownerListing[i]._doc}
+      }
+    }
+
+
+
     res.status(200).json({ownerListing})
   },
   fetchCategoryListing: async (req, res) => {

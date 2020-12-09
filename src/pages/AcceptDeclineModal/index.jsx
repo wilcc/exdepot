@@ -199,11 +199,11 @@ export default function TransitionsModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log("AcceptDeclineModal log TransitionsModal", props)
   return (
     <div>
       <button type="button" onClick={handleOpen}>
-        {`Bids: ${props.numOfBids}`}
+        {`Bids: ${props.bidCount}`}
       </button>
       <Modal
         aria-labelledby="transition-modal-title"

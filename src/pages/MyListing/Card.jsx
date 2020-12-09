@@ -10,7 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import AcceptDeclineModal from "../AcceptDeclineModal/";
 import Typography from '@material-ui/core/Typography';
-import {NavLink} from 'react-router-dom'
+import {NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 });
 
 export default function MediaCard(props) {
+
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -44,7 +45,7 @@ export default function MediaCard(props) {
             {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <AcceptDeclineModal numOfBids={props.bids} />
+            <AcceptDeclineModal bidCount={props.bidCount} />
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -59,3 +60,4 @@ export default function MediaCard(props) {
     </Card>
   );
 }
+
