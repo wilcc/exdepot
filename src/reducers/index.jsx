@@ -6,6 +6,7 @@ import { currBidsSlice } from './currbidsreducer.jsx'
 import { watchSlice } from './watchreducer.jsx'
 import { detailSlice } from './detailreducer'
 import { messageSlice} from './messagereducer'
+import { SellerBiddedOnBidsItemsSlice } from './sellerbiddedonbidsitemsreducer'
 
 export default combineReducers({
   auth: authSlice.reducer,
@@ -15,4 +16,6 @@ export default combineReducers({
   watch: watchSlice.reducer,
   detail: detailSlice.reducer,
   message: messageSlice.reducer,
+  fetchOtherUsersBidsOnMyListing: SellerBiddedOnBidsItemsSlice.reducer,
+
 })

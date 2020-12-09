@@ -4,7 +4,7 @@ export const fetchOtherUsersBidsOnMyListing = createAsyncThunk(
   'fetchMyListings',
   async (args, thunkAPI) => {
     const token = thunkAPI.getState().auth.token;
-    const fetchUrl = 'http://localhost:3003/api/listings/fetchotherusersbidsonmylisting';
+    const fetchUrl = 'http://localhost:3003/api/listingbid/fetchotherusersbidsonmylisting';
     const response = await fetch(
       fetchUrl,
       {

@@ -59,10 +59,10 @@ class TopNav extends Component {
               ExDepot
             </IconButton>
             <Typography variant="h6" className="title"></Typography>
-            <div className="search">
+            {/*<div className="search">
               <SearchIcon />
               <InputBase placeholder="Search…" />
-            </div>
+    </div> */}
             {this.props.token ? 
               <div
                 className="avatar"
