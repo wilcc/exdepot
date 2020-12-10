@@ -83,7 +83,7 @@ export function MediaCard(props) {
           <div className={classes.imageCard}>{imagesOfTheSellersItemInMediaCard}</div>
             {props.title}
           </Typography>
-          <Typography variant="h9">Items Bid With:</Typography>
+          <Typography variant="h9">Bids on my item with these items:</Typography>
           <div className={classes.imageCard}>{itemsbidsFromOtherUsersArrPassedIntoMediaCard}</div>
         </CardContent>
       <CardActions className={classes.cardActionButtons}>
@@ -120,6 +120,7 @@ export function MediaCard(props) {
               },
               body: JSON.stringify({
                 _id: props.itemsbidCardID,
+                listingID: props.listingID,
                 }) 
               });
               let jsondata = await response.json();
@@ -149,7 +150,7 @@ export default function TransitionsModal(props) {
   // console.log("transition Modal in acceptDeclineModal index", props)
   const filteredActiveBidsCardsData = props.sellerbiddedonbids.filter((onlyActiveNeededElement) => onlyActiveNeededElement.status === "active")
   const displayUser = filteredActiveBidsCardsData.map((itembidsCard) => {
-    return <MediaCard key={itembidsCard._id} itemsbidCardID={itembidsCard._id} title={itembidsCard.listing.name} imagesOfTheSellersItem ={itembidsCard.listing.images} itemsbidsFromOtherUsers={itembidsCard.items_bid} authToken={props.authToken} />;
+    return <MediaCard key={itembidsCard._id} itemsbidCardID={itembidsCard._id} title={itembidsCard.listing.name} listingID={itembidsCard.listing._id} imagesOfTheSellersItem ={itembidsCard.listing.images} itemsbidsFromOtherUsers={itembidsCard.items_bid} authToken={props.authToken} />;
   });
   
   return (

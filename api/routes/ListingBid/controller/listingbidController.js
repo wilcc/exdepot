@@ -32,13 +32,17 @@ module.exports = {
   acceptBid: async (req, res) => {
     let currentListingBid = await ListingBid.findOne({ _id: req.body._id });
     console.log("currentListingBid in acceptBid listingbidController", currentListingBid)
+    let currentListingAsWell = await Listing.findOne({ _id: req.body.listingID });
 
     if (currentListingBid.ownerUserID === req.user.id 
         && currentListingBid.status === 'active'
         && currentListingBid.items_bid.length) {
           let acceptedBid = currentListingBid;
           acceptedBid.status = 'accepted';
+          acceptedBid.listing.status = 'accepted';
+          currentListingAsWell.status = 'accepted';
           acceptedBid.save();
+          currentListingAsWell.save();
           res.status(200).json({acceptedBid});
     }
   },
