@@ -26,13 +26,13 @@ module.exports = {
   },
   //legacy code commented possible not needed at all but keep it for now
   fetchOtherUsersBidsOnMyListing: async (req, res) => {
-    console.log('I need this req.user._id givemethat log', req.user.id)
     let sellersListingBidsItems = await ListingBid.find({ ownerUserID: req.user.id });
     res.status(200).json({ sellersListingBidsItems });
   },
   acceptBid: async (req, res) => {
-    let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
-    
+    let currentListingBid = await ListingBid.findOne({ _id: req.body._id });
+    console.log("currentListingBid in acceptBid listingbidController", currentListingBid)
+
     if (currentListingBid.ownerUserID === req.user.id 
         && currentListingBid.status === 'active'
         && currentListingBid.items_bid.length) {
@@ -43,13 +43,13 @@ module.exports = {
     }
   },
   cancelBid: async (req, res) => {
-    let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
+    let currentListingBid = await ListingBid.findOne({ _id: req.body.id });
     currentListingBid.status = 'canceled';
     currentListingBid.save();
     res.status(200).json({currentListingBid});
   },
   declineBid: async (req, res) => {
-    let currentListingBid = await ListingBid.findOne({ listingID: req.body.id });
+    let currentListingBid = await ListingBid.findOne({ _id: req.body.id });
     currentListingBid.status = 'declined';
     currentListingBid.save();
     res.status(200).json({currentListingBid});

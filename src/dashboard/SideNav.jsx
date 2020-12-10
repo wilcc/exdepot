@@ -43,7 +43,7 @@ class SidenavListitem extends Component {
 
 export class SideNav extends Component {
   render() {
-    console.log('this.props SideNav Component test', this.props)
+    // console.log('this.props SideNav Component test', this.props)
     return (
       <List>
       

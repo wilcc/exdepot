@@ -17,8 +17,9 @@ class MyListing extends Component {
     this.props.fetchOtherUsersBidsOnMyListing()
   }
   render() {
-
+    // console.log('MyListing mappropstostate need sellerbiddedonbids', this.props)
     const displayCards = this.props.listing.listingList.map((item) => {
+      let filteredSellerbiddedonbids = this.props.sellerbiddedonbids.sellerbiddedonbidsitems.sellersListingBidsItems.filter((sellerBidsNeeded) => sellerBidsNeeded.ListingID === item._id);
       return (
 
         <Card
@@ -27,6 +28,8 @@ class MyListing extends Component {
           listingID={item._id}
           bidCount={item.bidCount}
           image={item.images[0] ? item.images[0] : "https://media.istockphoto.com/photos/single-cloud-central-in-blue-sky-picture-id667409780"}
+          sellerbiddedonbids={filteredSellerbiddedonbids}
+          authToken={this.props.authToken}
         />
       );
     });
@@ -53,14 +56,14 @@ const mapStateToProps = (state) => {
   return {
     listing: state.listing,
     authToken: state.auth.token,
-    sellerbiddedonbids: state.sellerbiddedonbidsitems,
+    sellerbiddedonbids: state.sellerbiddedonbids,
   };
 };
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       fetchMyListings,
-      fetchOtherUsersBidsOnMyListing
+      fetchOtherUsersBidsOnMyListing,
     },
     dispatch
   );
