@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
     res.send('respond with a resource');
   });
 router.post('/createmessage',authVerify.authenticateToken ,messageController.createMessage)
-router.put('/sendmessage',authVerify.authenticateToken , messageController.postMessage)
-router.post('/fetchallmessage',authVerify.authenticateToken, messageController.fetchMessage)
+router.put('/sendmessage',authVerify.authenticateToken , messageController.sendMessage)
+router.get('/fetchallmessage',authVerify.authenticateToken, messageController.fetchMessage)
 
   module.exports = router

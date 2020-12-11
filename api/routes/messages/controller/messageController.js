@@ -4,7 +4,6 @@ const now = moment();
 
 module.exports = {
   createMessage: async (req, res) => {
-    console.log(req.user)
     let savedMessage = await Message.findOne({
       $or: [
         {
@@ -18,6 +17,7 @@ module.exports = {
       ],
     });
     if (savedMessage) {
+
       res.status(200).json({ savedMessage });
     } else {
       let newMessage = await new Message({
@@ -28,12 +28,14 @@ module.exports = {
         messageList: [],
         read_by_user_ids: [],
       });
+
       savedMessage = await newMessage.save();
+
       res.status(200).json({ savedMessage });
     }
   },
 
-  postMessage: async (req, res) => {
+  sendMessage: async (req, res) => {
     let foundMessage = await Message.findOne({
       $or: [
         {
@@ -47,12 +49,11 @@ module.exports = {
       ],
     });
     let newMessage = {
-      sender_user_id: req.body.userID,
+      sender_user_id: req.user.id,
       msg_text: req.body.text,
       date_created: now.format('dddd, MMMM Do YYYY, h:mm:ss a'),
     };
 
-    console.log(foundMessage);
     foundMessage.messageList.push(newMessage)
     foundMessage.read_by_user_ids.push(req.body.userID)
     await foundMessage.save()
@@ -63,13 +64,14 @@ module.exports = {
     let foundMessage = await Message.find({
         $or: [
           {
-            user1ID: req.user._id,
+            user1ID: req.user.id,
           },
           {
-            user2ID: req.user._id,
+            user2ID: req.user.id,
           },
         ],
       });
+
     res.status(200).json({ foundMessage });
 
   }

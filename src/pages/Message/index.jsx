@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dashboard from '../../dashboard/Dashboard';
 import MessageCard from './messageCard';
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,6 +9,9 @@ import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import TextField from '@material-ui/core/TextField';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMessage, fetchMessage } from '../../reducers/messagereducer';
+
 import './message.scss';
 
 const useStyles = makeStyles((theme) => ({
@@ -43,80 +46,84 @@ const useStyles = makeStyles((theme) => ({
   bubbleWrap: {
     display: 'flex',
   },
-  inputContainer:{
-    display:'flex',
-    justifyContent:'flex-end',
+  inputContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
-  replyButton:{
+  replyButton: {
     marginTop: 15,
-  }
+  },
 }));
 
-export function ChatLayout() {
+export function ChatLayout(props) {
   const classes = useStyles();
-  const dummyData = [
-    {
-      messageTime: '12:30',
-      message: 'This should be in left',
-      direction: 'left',
-    },
-    {
-      messageTime: '12:31',
-      message: 'This should be in right',
-      direction: 'right',
-    },
-    {
-      messageTime: '12:32',
-      message: 'This should be in left again',
-      direction: 'left',
-    },
-    {
-      messageTime: '12:33',
-      message: 'This should be in right again',
-      direction: 'right',
-    },
-  ];
+  const message = useSelector((state) =>
+    state.message.messageList.find((msg) => msg._id === props.messageID)
+  );
+  const requserID = useSelector((state) => state.auth.userID);
 
-  const chatBubbles = dummyData.map((item) => (
-    <div className={`${classes.bubbleContainer} ${item.direction}`}>
-      <AccountCircleIcon fontSize="large" />
-      <div className="classes.bubbleWrap">
-        <div className={classes.bubble}>
-          <div className={classes.button}>{item.message}</div>
+  const chatBubbles = message.messageList.map((item) => {
+    if (item.sender_user_id === requserID) {
+      return (
+        <div className={`${classes.bubbleContainer} right`}>
+          <AccountCircleIcon fontSize="large" />
+          <div className="classes.bubbleWrap">
+            <div className={classes.bubble}>
+              <div className={classes.button}>{item.msg_text}</div>
+            </div>
+            <Typography color="textSecondary" className="chatTime">
+            {item.date_created.split(',')[2]}
+            </Typography>
+          </div>
         </div>
-        <Typography color="textSecondary" className= "chatTime">
-          {item.messageTime}
-        </Typography>
-      </div>
-    </div>
-  ))
+      );
+    } else {
+      return (
+        <div className={`${classes.bubbleContainer} left`}>
+          <AccountCircleIcon fontSize="large" />
+          <div className="classes.bubbleWrap">
+            <div className={classes.bubble}>
+              <div className={classes.button}>{item.msg_text}</div>
+            </div>
+            <Typography color="textSecondary" className="chatTime">
+            {item.date_created.split(',')[2]}
+            </Typography>
+          </div>
+        </div>
+      );
+    }
+  });
+
   return <div className={classes.container}>{chatBubbles}</div>;
 }
 
 export default function Index() {
   const classes = useStyles();
-  const examples = [
-    {
-      UserName: 'Beats Test',
-      MessageTime: '12:30',
-      Message:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima consequuntur quisquam impedit ipsam delectus possimus quia officia minus similique sapiente cupiditate quasi incidunt architecto odit, aspernatur magnam veritatis blanditiis quidem.',
-    },
-    {
-      UserName: 'Beats Test',
-      MessageTime: '12:30',
-      Message:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima consequuntur quisquam impedit ipsam delectus possimus quia officia minus similique sapiente cupiditate quasi incidunt architecto odit, aspernatur magnam veritatis blanditiis quidem.',
-    },
-    {
-      UserName: 'Beats Test',
-      MessageTime: '12:30',
-      Message:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima consequuntur quisquam impedit ipsam delectus possimus quia officia minus similique sapiente cupiditate quasi incidunt architecto odit, aspernatur magnam veritatis blanditiis quidem.',
-    },
-  ];
+  const token = useSelector((state) => state.auth.token);
+  const userID = useSelector((state) => state.auth.userID);
+  const dispatch = useDispatch();
+
+  useEffect(async () => {
+    const response = await fetch(
+      'http://localhost:3003/api/message/fetchallmessage',
+      {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    let jsondata = await response.json();
+    dispatch(setMessage({ messageList: jsondata.foundMessage }));
+  }, []);
 
   const [open, setOpen] = React.useState(false);
+  const [messageID, setMessageID] = React.useState('');
+  const [messageText, setMessageText] = React.useState('');
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -124,22 +131,32 @@ export default function Index() {
   const handleClose = () => {
     setOpen(false);
   };
+  const message = useSelector((state) => state.message.messageList);
 
-  const displayMessage = examples.map((item) => {
+  const displayMessage = message.map((item) => {
     return (
-      <div onClick={handleOpen}>
+      <div
+        onClick={() => {
+          setMessageID(item._id);
+          setOpen(true);
+        }}
+      >
         <MessageCard
-          UserName={item.UserName}
-          Message={item.Message}
-          MessageTime={item.MessageTime}
+          UserName={item.user1ID === userID ? item.user2Name : item.user1Name}
+          Message={item.messageList[item.messageList.length - 1].msg_text}
+          MessageTime={item.messageList.date_created}
         />
       </div>
     );
   });
+  const messageClicked = useSelector((state) =>
+    state.message.messageList.find((msg) => msg._id === messageID)
+  );
   return (
     <Dashboard>
       <div>
         <div className="message-container">{displayMessage}</div>
+
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -154,10 +171,46 @@ export default function Index() {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-              <ChatLayout />
+              <ChatLayout messageID={messageID} />
               <div className={classes.inputContainer}>
-                <TextField id='outlined-basic' label='Enter Your Message'></TextField>
-                <Button className={classes.replyButton}>send</Button>
+                <TextField
+                  label="Enter Your Message"
+                  id="messageText"
+                  name="messageText"
+                  name="messageText"
+                  autoComplete="messageText"
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                />
+                <Button
+                  className={classes.replyButton}
+                  onClick={async () => {
+                    let receiver = '';
+                    messageClicked.user2ID === userID
+                      ? (receiver = messageClicked.user1ID)
+                      : (receiver = messageClicked.user2ID);
+                    console.log(receiver)
+                    const response = await fetch(
+                      'http://localhost:3003/api/message/sendmessage',
+                      {
+                        method: 'PUT',
+                        mode: 'cors',
+                        credentials: 'same-origin',
+                        headers: {
+                          'Content-Type': 'application/json',
+                          Authorization: `Bearer ${token}`,
+                        },
+                        body: JSON.stringify({
+                          user2ID: receiver ,
+                          text: messageText,
+                        }),
+                      }
+                    );
+                    let jsondata = await response.json();
+                  }}
+                >
+                  send
+                </Button>
               </div>
             </div>
           </Fade>

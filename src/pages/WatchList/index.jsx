@@ -138,7 +138,7 @@ class WatchList extends Component {
 
   async componentDidMount() {
     this.props.fetchWatchList();
-
+  
     // const response = await fetch(
     //   'http://localhost:3003/api/watchlist/',
     //   {

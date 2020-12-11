@@ -32,16 +32,7 @@ class MyListing extends Component {
     });
     return (
       <Dashboard>
-        <div>
-          <div className="create-button">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<CreateIcon />}
-            >
-              Create New
-            </Button>
-          </div>
+        <div className='mainDisplay'>
           <div className="cards">{displayCards}</div>
         </div>
       </Dashboard>

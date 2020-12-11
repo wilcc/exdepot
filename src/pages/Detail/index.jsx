@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import GavelTwoToneIcon from '@material-ui/icons/GavelTwoTone';
 import Dashboard from '../../dashboard/Dashboard';
-import MessageModel from '../Message/messageModel';
+import MessageModal from '../Message/messageModal';
 import { NavLink } from 'react-router-dom';
 import { setDetail, fetchDetail } from '../../reducers/detailreducer';
 import { setMessage, createMessage } from '../../reducers/messagereducer';
@@ -90,7 +90,7 @@ class Detail extends Component {
                 );
               }}
             >
-              <MessageModel />
+              <MessageModal />
             </div>
           </div>
         </div>
