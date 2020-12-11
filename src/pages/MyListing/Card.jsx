@@ -31,9 +31,9 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
 
   const classes = useStyles();
+  // console.log("MyListing Card.jsx props", props)
   return (
     <Card className={classes.root}>
-      <CardActionArea>
       <NavLink
           to={`/prodetail/${props.listingID}`}
           listingID={props.listingID}
@@ -45,10 +45,9 @@ export default function MediaCard(props) {
             {props.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <AcceptDeclineModal bidCount={props.bidCount} />
+            <AcceptDeclineModal bidCount={props.bidCount} sellerbiddedonbids={props.sellerbiddedonbids} authToken={props.authToken} />
           </Typography>
         </CardContent>
-      </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
         <Button size="small" color="primary">
           {<EditIcon />}

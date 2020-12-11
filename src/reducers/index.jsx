@@ -16,6 +16,6 @@ export default combineReducers({
   watch: watchSlice.reducer,
   detail: detailSlice.reducer,
   message: messageSlice.reducer,
-  fetchOtherUsersBidsOnMyListing: SellerBiddedOnBidsItemsSlice.reducer,
+  sellerbiddedonbids: SellerBiddedOnBidsItemsSlice.reducer,
 
 })

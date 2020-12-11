@@ -18,7 +18,6 @@ export const fetchOtherUsersBidsOnMyListing = createAsyncThunk(
       }
     );
     let jsondata = await response.json();
-    console.log('neeed this route to work', jsondata)
     return jsondata
   }
 );

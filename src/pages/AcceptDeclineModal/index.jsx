@@ -66,26 +66,66 @@ export function ImageCard(props) {
 export function MediaCard(props) {
   const classes = useStyles();
 
-  const individualItem = props.bidItem.map((item) => {
-    return <ImageCard image={item.ItemImage} name={item.ItemName} />;
+  const imagesOfTheSellersItemInMediaCard = props.imagesOfTheSellersItem.map((itemOfImage) => {
+    return <ImageCard image={itemOfImage} />;
   });
+
+  console.log("props for MediaCard in AcceptDecline", props)
+
+
+  const itemsbidsFromOtherUsersArrPassedIntoMediaCard = props.itemsbidsFromOtherUsers.map((itemsbidsOnYourItem) => {
+    return <ImageCard image={itemsbidsOnYourItem.images[0]} name={itemsbidsOnYourItem.name} />;
+  })
   return (
     <Card className={classes.root}>
-      <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h3">
-            <AccountCircleIcon />
+          <div className={classes.imageCard}>{imagesOfTheSellersItemInMediaCard}</div>
             {props.title}
           </Typography>
-          <Typography variant="h9">Items Bid With:</Typography>
-          <div className={classes.imageCard}>{individualItem}</div>
+          <Typography variant="h9">Bids on my item with these items:</Typography>
+          <div className={classes.imageCard}>{itemsbidsFromOtherUsersArrPassedIntoMediaCard}</div>
         </CardContent>
-      </CardActionArea>
       <CardActions className={classes.cardActionButtons}>
-        <Button variant="outlined" color="primary">
+        <Button variant="outlined" color="primary" onClick={async () => {
+          const response = await fetch(
+            `http://localhost:3003/api/listingbid/acceptbid`,
+            {
+              method: 'PUT',
+              mode: 'cors',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${props.authToken}`
+              },
+              body: JSON.stringify({
+                _id: props.itemsbidCardID,
+                }) 
+              });
+              let jsondata = await response.json();
+              console.log("response from acceptbid ", jsondata)
+        }}>
           Decline
         </Button>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={async () => {
+          const response = await fetch(
+            `http://localhost:3003/api/listingbid/acceptbid`,
+            {
+              method: 'PUT',
+              mode: 'cors',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${props.authToken}`
+              },
+              body: JSON.stringify({
+                _id: props.itemsbidCardID,
+                listingID: props.listingID,
+                }) 
+              });
+              let jsondata = await response.json();
+              console.log("response from acceptbid ", jsondata)
+        }}>
           Accept
         </Button>
       </CardActions>
@@ -93,100 +133,6 @@ export function MediaCard(props) {
   );
 }
 
-const UserExample = [
-  {
-    UserName: 'User1',
-    BidItem: [
-      {
-        ItemName: 'Beats Headphones',
-        detail: 'productdetail',
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        detail: 'productdetail',
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        detail: 'productdetail',
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-    ],
-  },
-  {
-    UserName: 'User2',
-    BidItem: [
-      {
-        ItemName: 'Beats Headphones',
-        detail: 'productdetail',
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        detail: 'productdetail',
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        detail: 'productdetail',
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-    ],
-  },
-  {
-    UserName: 'User2',
-    BidItem: [
-      {
-        ItemName: 'Beats Headphones',
-        detail: 'productdetail',
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        detail: 'productdetail',
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        detail: 'productdetail',
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-    ],
-  },
-  {
-    UserName: 'User2',
-    BidItem: [
-      {
-        ItemName: 'Beats Headphones',
-        detail: 'productdetail',
-        ItemImage: 'https://www.adorama.com/images/Large/btmx422lla.jpg',
-      },
-      {
-        ItemName: 'Batman Comic',
-        detail: 'productdetail',
-        ItemImage:
-          'https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/Batman497.png/220px-Batman497.png',
-      },
-      {
-        ItemName: 'Steam Controller',
-        detail: 'productdetail',
-        ItemImage:
-          'https://cdn.vox-cdn.com/thumbor/4D03ejrdgThqKAZHz084ody4dBQ=/0x0:2040x1530/920x0/filters:focal(0x0:2040x1530):format(webp):no_upscale()/cdn.vox-cdn.com/uploads/chorus_asset/file/19411304/shollister_191126_steam_controller_103959__2_.jpg',
-      },
-    ],
-  },
-];
-
-const displayUser = UserExample.map((user) => {
-  return <MediaCard title={user.UserName} bidItem={user.BidItem} />;
-});
 
 export default function TransitionsModal(props) {
   const classes = useStyles();
@@ -199,7 +145,14 @@ export default function TransitionsModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log("AcceptDeclineModal log TransitionsModal", props)
+
+  
+  // console.log("transition Modal in acceptDeclineModal index", props)
+  const filteredActiveBidsCardsData = props.sellerbiddedonbids.filter((onlyActiveNeededElement) => onlyActiveNeededElement.status === "active")
+  const displayUser = filteredActiveBidsCardsData.map((itembidsCard) => {
+    return <MediaCard key={itembidsCard._id} itemsbidCardID={itembidsCard._id} title={itembidsCard.listing.name} listingID={itembidsCard.listing._id} imagesOfTheSellersItem ={itembidsCard.listing.images} itemsbidsFromOtherUsers={itembidsCard.items_bid} authToken={props.authToken} />;
+  });
+  
   return (
     <div>
       <button type="button" onClick={handleOpen}>
