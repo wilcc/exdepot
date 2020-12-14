@@ -105,8 +105,8 @@ export function MediaCard(props) {
 }
 export function CurrentBidsCards(props) {
   const currBids = useSelector((state) => state.currbids.currBidsList);
-
-  const displayCards = currBids.map((item) => {
+  const filteredDispayCardForAcctive = currBids.filter((filterredCurrBidsActive) => filterredCurrBidsActive.status === "active")
+  const displayCards = filteredDispayCardForAcctive.map((item) => {
     return (
       <MediaCard
         title={item.listing.name}
@@ -116,7 +116,7 @@ export function CurrentBidsCards(props) {
             ? item.listing.images[0]
             : "https://media.istockphoto.com/photos/single-cloud-central-in-blue-sky-picture-id667409780"
         }
-        status={item.listing.status}
+        status={item.status}
         items_bid={item.items_bid}
       />
     );
@@ -158,48 +158,31 @@ export function MediaCardAcceptedHistory(props) {
   );
 }
 
-export class AcceptedBidsCards extends Component {
-  render() {
-    const threeItemsExamples = [
-      {
-        ItemName: "SoundLink Bose Speaker",
-        ItemBids: 22,
-        ItemImage:
-          "https://assets.bose.com/content/dam/Bose_DAM/Web/consumer_electronics/global/products/speakers/soundlink_color_ii/product_silo_images/soundlink_color_ii_red_EC.psd/_jcr_content/renditions/cq5dam.web.320.320.png",
-        status: "accepted",
-      },
-      {
-        ItemName: "Automate The Boring Stuff with Python",
-        ItemBids: 2,
-        ItemImage:
-          "https://automatetheboringstuff.com/images/automate_2e_cover.png",
-        status: "accepted",
-      },
-      {
-        ItemName: "Samurai Warrior Figurine",
-        ItemBids: 4,
-        ItemImage:
-          "https://static.lladro.com/media/catalog/product/cache/9a0e182083c7c5b80c6d12079a53d350/4/6/460662e1c0dd9424451b0a72c591ff92b643b5dd5dd362847e982e45e7fb08f6cb20e2f0452702cc2764d10b2efbc02fd63f3b4e98718b6ca578cab91be67ac6.jpg",
-        status: "accepted",
-      },
-    ];
-    const displayCards = threeItemsExamples.map((item) => {
-      return (
-        <MediaCardAcceptedHistory
-          title={item.ItemName}
-          bids={item.ItemBids}
-          image={item.ItemImage}
-          status={item.status}
-        />
-      );
-    });
+export function AcceptedBidsCards(props) {
+  const currBids = useSelector((state) => state.currbids.currBidsList);
+  const filteredDispayCardForAcctive = currBids.filter((filterredCurrBidsActive) => filterredCurrBidsActive.status !== "active")
+  const displayCards = filteredDispayCardForAcctive.map((item) => {
     return (
-      <div>
-        <div className="cards">{displayCards}</div>
-      </div>
+      <MediaCard
+        title={item.listing.name}
+        bids={0}
+        image={
+          item.listing.images.length
+            ? item.listing.images[0]
+            : "https://media.istockphoto.com/photos/single-cloud-central-in-blue-sky-picture-id667409780"
+        }
+        status={item.status}
+        items_bid={item.items_bid}
+      />
     );
-  }
+  });
+  return (
+    <div>
+      <div className="cards">{displayCards}</div>
+    </div>
+  );
 }
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

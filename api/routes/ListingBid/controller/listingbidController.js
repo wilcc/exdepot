@@ -31,19 +31,45 @@ module.exports = {
   },
   acceptBid: async (req, res) => {
     let currentListingBid = await ListingBid.findOne({ _id: req.body._id });
-    console.log("currentListingBid in acceptBid listingbidController", currentListingBid)
+    // console.log("currentListingBid in acceptBid listingbidController", currentListingBid)
     let currentListingAsWell = await Listing.findOne({ _id: req.body.listingID });
 
     if (currentListingBid.ownerUserID === req.user.id 
         && currentListingBid.status === 'active'
+        && currentListingAsWell.status === 'active'
         && currentListingBid.items_bid.length) {
           let acceptedBid = currentListingBid;
+          
+          let itembidIds = acceptedBid.items_bid.map((element) => element._id)
+          console.log('before acceptedBid')
+          let bidItems = await Listing.find({ _id: {$in: itembidIds }})
+          
+          for (let i = 0; i < bidItems.length; i++ ) {
+            if(bidItems[i].status !== "active") {
+
+              return res.status(500).json({message: "Bidded item is not available"})
+            }
+          }
+
+          for (let i = 0; i < bidItems.length; i++ ) {
+            bidItems[i].status = "accepted"; 
+            bidItems[i].save();
+          }
+
+          
           acceptedBid.status = 'accepted';
-          acceptedBid.listing.status = 'accepted';
+          // acceptedBid.listing = {status: 'accepted', ...acceptedBid.listing};
           currentListingAsWell.status = 'accepted';
+          
+          
           acceptedBid.save();
           currentListingAsWell.save();
+          let otherBidsUpdateMany = await ListingBid.updateMany({ ListingID: req.body.listingID, ListingID: {$ne: acceptedBid._id } }, {status: "declined"});
+
           res.status(200).json({acceptedBid});
+          console.log('after acceptedBid')
+    } else {
+      res.status(500).json({ message: "Something is wrong with your accepted item"})
     }
   },
   cancelBid: async (req, res) => {
