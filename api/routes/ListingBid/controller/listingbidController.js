@@ -54,9 +54,11 @@ module.exports = {
           for (let i = 0; i < bidItems.length; i++ ) {
             bidItems[i].status = "accepted"; 
             bidItems[i].save();
+            await ListingBid.updateMany({ ListingID: bidItems[i]._id }, { status: "declined" });
+            await ListingBid.updateMany({items_bid: {$elemMatch: { _id: bidItems[i]._id }}}, {status: "declined"});
           }
 
-          
+          //.find({items_bid: {$elemMatch: { _id: ObjectId("5fd797059f02fd23524382ce") }}})
           acceptedBid.status = 'accepted';
           // acceptedBid.listing = {status: 'accepted', ...acceptedBid.listing};
           currentListingAsWell.status = 'accepted';
@@ -64,7 +66,7 @@ module.exports = {
           
           acceptedBid.save();
           currentListingAsWell.save();
-          let otherBidsUpdateMany = await ListingBid.updateMany({ ListingID: req.body.listingID, ListingID: {$ne: acceptedBid._id } }, {status: "declined"});
+          let otherBidsUpdateMany = await ListingBid.updateMany({ ListingID: req.body.listingID, _id: {$ne: acceptedBid._id } }, {status: "declined"});
 
           res.status(200).json({acceptedBid});
           console.log('after acceptedBid')

@@ -17,7 +17,7 @@ module.exports = {
 
     
     let listingIds = ownerListing.map((listing) => listing._id)
-    let bids = await ListingBid.find({ListingID: {$in: listingIds}})
+    let bids = await ListingBid.find({ListingID: {$in: listingIds}, status: "active"});
     let bidCountLookup = {}
     for( let i = 0; i < bids.length; i++ ){
       let listingId = bids[i].ListingID
@@ -36,7 +36,7 @@ module.exports = {
       }
     }
 
-    console.log('Test for ListingList in controller jsondata', ownerListing)
+    // console.log('Test for ListingList in controller jsondata', ownerListing)
     res.status(200).json({ownerListing})
   },
   fetchCategoryListing: async (req, res) => {

@@ -19,7 +19,11 @@ class MyListing extends Component {
   render() {
     // console.log('MyListing mappropstostate need sellerbiddedonbids', this.props)
     const displayCards = this.props.listing.listingList.map((item) => {
-      let filteredSellerbiddedonbids = this.props.sellerbiddedonbids.sellerbiddedonbidsitems.sellersListingBidsItems.filter((sellerBidsNeeded) => sellerBidsNeeded.ListingID === item._id);
+      let filteredSellerbiddedonbids = []
+      if(this.props.sellerbiddedonbids.sellerbiddedonbidsitems.sellersListingBidsItems) {
+        filteredSellerbiddedonbids = this.props.sellerbiddedonbids.sellerbiddedonbidsitems.sellersListingBidsItems.filter((sellerBidsNeeded) => sellerBidsNeeded.ListingID === item._id);
+        
+      }
       return (
 
         <Card
