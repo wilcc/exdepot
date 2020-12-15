@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 export function ChatLayout(props) {
   const classes = useStyles();
   const message = useSelector((state) =>
-    state.message.messageList.find((msg) => msg._id === props.messageID)
+    state.message.messageListing.find((msg) => msg._id === props.messageID)
   );
   const requserID = useSelector((state) => state.auth.userID);
 
@@ -117,7 +117,7 @@ export default function Index() {
       }
     );
     let jsondata = await response.json();
-    dispatch(setMessage({ messageList: jsondata.foundMessage }));
+    dispatch(setMessage({ messageListing: jsondata.foundMessage }));
   }, []);
 
   const [open, setOpen] = React.useState(false);
@@ -131,26 +131,28 @@ export default function Index() {
   const handleClose = () => {
     setOpen(false);
   };
-  const message = useSelector((state) => state.message.messageList);
+  const message = useSelector((state) => state.message.messageListing);
 
   const displayMessage = message.map((item) => {
-    return (
-      <div
+    if(item.messageList.length > 0){
+      return (
+        <div
         onClick={() => {
           setMessageID(item._id);
           setOpen(true);
         }}
-      >
+        >
         <MessageCard
           UserName={item.user1ID === userID ? item.user2Name : item.user1Name}
           Message={item.messageList[item.messageList.length - 1].msg_text}
           MessageTime={item.messageList.date_created}
-        />
+          />
       </div>
     );
+  }
   });
   const messageClicked = useSelector((state) =>
-    state.message.messageList.find((msg) => msg._id === messageID)
+    state.message.messageListing.find((msg) => msg._id === messageID)
   );
   return (
     <Dashboard>

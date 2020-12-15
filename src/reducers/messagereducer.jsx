@@ -55,19 +55,19 @@ export const fetchMessage= createAsyncThunk(
 export const messageSlice = createSlice({
   name: 'message',
   initialState: {
-    messageList: [],
+    messageListing: [],
   },
   reducers: {
     setMessage: (state, { payload }) => {
-      state.messageList = payload.messageList;
+      state.messageListing = payload.messageListing;
     },
   },
   extraReducers: {
     [createMessage.fulfilled]: (state, action) => {
-      state.messageList = action.payload.messageList;
+      state.messageListing = action.payload;
     },
     [fetchMessage.fulfilled]: (state, action) => {
-      state.messageList = action.payload;
+      state.messageListing = action.payload;
     },
   },
 });

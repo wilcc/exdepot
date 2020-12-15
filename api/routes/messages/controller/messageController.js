@@ -18,7 +18,7 @@ module.exports = {
     });
     if (savedMessage) {
 
-      res.status(200).json({ savedMessage });
+      res.status(200).json({ savedMessage:[savedMessage]});
     } else {
       let newMessage = await new Message({
         user1ID: req.user.id,
@@ -31,7 +31,7 @@ module.exports = {
 
       savedMessage = await newMessage.save();
 
-      res.status(200).json({ savedMessage });
+      res.status(200).json({savedMessage:[savedMessage]});
     }
   },
 

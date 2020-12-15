@@ -17,7 +17,7 @@ class MyListing extends Component {
     this.props.fetchOtherUsersBidsOnMyListing()
   }
   render() {
-    // console.log('MyListing mappropstostate need sellerbiddedonbids', this.props)
+    
     const displayCards = this.props.listing.listingList.map((item) => {
       let filteredSellerbiddedonbids = []
       if(this.props.sellerbiddedonbids.sellerbiddedonbidsitems.sellersListingBidsItems) {

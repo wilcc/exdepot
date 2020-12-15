@@ -62,10 +62,10 @@ const useStyles = makeStyles((theme) => ({
 
 export function ChatLayout() {
   const classes = useStyles();
-  const message = useSelector((state) => state.message.messageList);
+  const message = useSelector((state) => state.message);
   const requserID = useSelector((state) => state.auth.userID);
-  console.log(message.messageList)
-  const chatBubbles = message.messageList.map((item) => {
+
+  const chatBubbles = message.messageListing[0].messageList.map((item) => {
       if (item.sender_user_id === requserID) {
         return (
           <div className={`${classes.bubbleContainer} right`}>
