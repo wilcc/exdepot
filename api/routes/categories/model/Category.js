@@ -17,7 +17,12 @@ const CategorySchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: 'https://exdepot-midterm.s3.amazonaws.com/defaults/Category_img_default.jpg'
+    default:
+      'https://exdepot-midterm.s3.amazonaws.com/defaults/Category_img_default.jpg',
+  },
+  bidCount: {
+    type: Number,
+    default: 0,
   },
   timestamp: {
     type: String,

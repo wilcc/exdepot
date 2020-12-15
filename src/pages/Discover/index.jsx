@@ -141,8 +141,7 @@ class Discover extends Component {
       }
     );
     let jsondataPopular = await responsePopular.json();
-    // console.log("categoryList from the server", jsondata.fetchallCategories)
-    this.props.setCategoryPopularList({categoryPopularList: jsondataPopular.fetchPopularCategoriesSlicedFour})
+    this.props.setCategoryPopularList({categoryPopularList: jsondataPopular.sortedCategory})
   }
 
 

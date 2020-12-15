@@ -92,6 +92,7 @@ module.exports = {
   deleteListing: async (req, res) => {
     let oneListing = await Listing.findOneAndDelete({ _id: req.body.id });
     let oneListingBid = await ListingBid.findOneAndDelete({ ListingID: req.body.id });
+    // remove listingBid with listing  is included as itemBid
     console.log('Onelisting deleted', oneListing);
     res.send(oneListing);
   }

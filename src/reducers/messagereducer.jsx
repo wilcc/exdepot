@@ -64,7 +64,7 @@ export const messageSlice = createSlice({
   },
   extraReducers: {
     [createMessage.fulfilled]: (state, action) => {
-      state.messageList = action.payload;
+      state.messageList = action.payload.messageList;
     },
     [fetchMessage.fulfilled]: (state, action) => {
       state.messageList = action.payload;

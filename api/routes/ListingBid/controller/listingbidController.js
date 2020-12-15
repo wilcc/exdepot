@@ -1,10 +1,15 @@
 const ListingBid = require('../model/ListingBid');
 const Listing = require('../../listings/model/Listing');
-
+const Category = require('../../categories/model/Category')
 module.exports = {
   createBid: async (req, res) => {
     let currentListing = await Listing.findOne({ _id: req.body.id });
     let itemsbid = await Listing.find({ _id: {$in: req.body.items_bid }});
+    for(let i = 0; i < itemsbid.length; i++){
+      if(itemsbid[i].status !== 'active'){
+        return res.status(400).json({status:'failed'})
+      }
+    }
     console.log("itemsbid clg", itemsbid)
     let newListingBid = await new ListingBid ({
       bidderUserID: req.user.id,
@@ -15,7 +20,13 @@ module.exports = {
       items_bid: itemsbid,
     });
 
-    newListingBid.save();
+    await newListingBid.save();
+    console.log('cat id',currentListing.categoryID)
+    let category = await Category.findOne({_id: currentListing.categoryID})
+    console.log('category herer',category)
+    category.bidCount++
+    await category.save()
+
     res
       .status(200)
       .json({message: "Successfully created NewListingBid", newListingBid})

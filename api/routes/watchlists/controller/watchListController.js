@@ -4,11 +4,13 @@ const Listing = require('../../listings/model/Listing');
 module.exports = {
   toggle: async (req, res) => {
     let found = await WatchList.find({
-      listingID: req.body.listingID
+      listingID: req.body.listingID,
+      ownerUserID: req.user.id
     })
     if(found.length > 0){
       let myWatchList = await WatchList.deleteOne({
-        listingID : req.body.listingID
+        listingID : req.body.listingID,
+        ownerUserID : req.user.id
       })
       res.status(200).json({ myWatchList });
     } else {
