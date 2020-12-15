@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'scroll',
+    overflow: 'scroll',
+    display: 'flex',
+    flexDirection:'column-reverse'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -27,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     width: '50%',
+    height: '50%',
+    overflow: 'scroll',
+    display: 'flex',
+    flexDirection:'column-reverse'
   },
 
   container: {
@@ -173,7 +180,6 @@ export default function Index() {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-              <ChatLayout messageID={messageID} />
               <div className={classes.inputContainer}>
                 <TextField
                   label="Enter Your Message"
@@ -227,6 +233,7 @@ export default function Index() {
                   send
                 </Button>
               </div>
+              <ChatLayout messageID={messageID} />
             </div>
           </Fade>
         </Modal>
