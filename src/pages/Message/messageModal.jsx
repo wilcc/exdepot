@@ -155,7 +155,6 @@ export default function MessageModel() {
           <Button
                 className={classes.replyButton}
                 onClick={async () => {
-                    console.log('clicked')
                   const response = await fetch(
                     'http://localhost:3003/api/message/sendmessage',
                     {
@@ -173,8 +172,7 @@ export default function MessageModel() {
                     }
                   );
                   let jsondata = await response.json();
-                  console.log(jsondata)
-                  ;
+                  
                 }}
               >
                 send

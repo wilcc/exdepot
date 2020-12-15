@@ -191,7 +191,6 @@ export default function Index() {
                     messageClicked.user2ID === userID
                       ? (receiver = messageClicked.user1ID)
                       : (receiver = messageClicked.user2ID);
-                    console.log(receiver)
                     const response = await fetch(
                       'http://localhost:3003/api/message/sendmessage',
                       {
@@ -208,7 +207,21 @@ export default function Index() {
                         }),
                       }
                     );
-                    let jsondata = await response.json();
+                    // let jsondata = await response.json();
+                    const response2 = await fetch(
+                      'http://localhost:3003/api/message/fetchallmessage',
+                      {
+                        method: 'GET',
+                        mode: 'cors',
+                        credentials: 'same-origin',
+                        headers: {
+                          'Content-Type': 'application/json',
+                          Authorization: `Bearer ${token}`,
+                        },
+                      }
+                    );
+                    let jsondata = await response2.json();
+                    dispatch(setMessage({ messageListing: jsondata.foundMessage }));
                   }}
                 >
                   send
