@@ -23,7 +23,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { setCurrBidsList } from "../../reducers/currbidsreducer.jsx";
 import Dashboard from "../../dashboard/Dashboard";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
@@ -72,6 +72,7 @@ export function CardItemIbidWith(props) {
 
 export function MediaCard(props) {
   const classes = useStyles();
+  const dispatch = useDispatch();
   return (
     <Card className={classes.root}>
         <CardMedia className={classes.media} image={props.image}></CardMedia>
@@ -87,24 +88,57 @@ export function MediaCard(props) {
           Items I bid with:
         </Typography>
       <CardItemIbidWith items_bid={props.items_bid} />
-      <CardActions className="card-action-buttons">
-        <Button size="small" color="primary">
-          {<PersonIcon />} UserNameHere
-        </Button>
-        <Button size="small" color="primary">
-          <Badge badgeContent={4} color="secondary">
-            {<MessageIcon />}
-          </Badge>
-        </Button>
+      <CardActions className="card-action-buttons" onClick={async () => {
+        const response = await fetch(
+          `http://localhost:3003/api/listingbid/cancelbid`,
+          {
+            method: 'PUT',
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${props.usersToken}`
+            },
+            body: JSON.stringify({
+              _id: props.listingBidId,
+              }) 
+            });
+            console.log("Cancel work", response.json())
+            // dispatch(fetchOtherUsersBidsOnMyListing())
+            const responseToRefreshCurrBids = await fetch(
+              "http://localhost:3003/api/listingbid/fetchownerbid",
+              {
+                method: "GET",
+                mode: "cors",
+                credentials: "same-origin",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${props.usersToken}`,
+                },
+              }
+            );
+      
+            let jsondata = await responseToRefreshCurrBids.json();
+            dispatch(setCurrBidsList({ currBidsList: jsondata.allListingBidByOwner }));
+            // props.setCurrBidsList({ currBidsList: jsondata.allListingBidByOwner });
+      }}>
+      {props.status === 'active' ? 
         <Button size="small" color="secondary">
           {<CancelIcon />} Cancel Bid
-        </Button>
+        </Button> : null}  
+      
+
       </CardActions>
     </Card>
   );
 }
+
+
+
 export function CurrentBidsCards(props) {
+
   const currBids = useSelector((state) => state.currbids.currBidsList);
+  const authToken = useSelector((state) => state.auth.token);
   const filteredDispayCardForAcctive = currBids.filter((filterredCurrBidsActive) => filterredCurrBidsActive.status === "active")
   const displayCards = filteredDispayCardForAcctive.map((item) => {
     return (
@@ -118,6 +152,8 @@ export function CurrentBidsCards(props) {
         }
         status={item.status}
         items_bid={item.items_bid}
+        listingBidId={item._id}
+        usersToken={authToken}
       />
     );
   });
@@ -128,35 +164,6 @@ export function CurrentBidsCards(props) {
   );
 }
 
-export function MediaCardAcceptedHistory(props) {
-  const classes = useStyles();
-  return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={props.image} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h3">
-            {props.title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Bids:{props.bids}
-          </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
-            Status:{props.status}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions className="card-action-buttons">
-        <Button size="small" color="primary">
-          {<PersonIcon />} UserNameHere
-        </Button>
-        <Button size="small" color="primary">
-          {<MessageIcon />}
-        </Button>
-      </CardActions>
-    </Card>
-  );
-}
 
 export function AcceptedBidsCards(props) {
   const currBids = useSelector((state) => state.currbids.currBidsList);
@@ -263,7 +270,7 @@ export function CurrentBids(props) {
             aria-label="simple tabs example"
           >
             <Tab label="Active" {...a11yProps(0)} />
-            <Tab label="Accepted" {...a11yProps(1)} />
+            <Tab label="History" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>

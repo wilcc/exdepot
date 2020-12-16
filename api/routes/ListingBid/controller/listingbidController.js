@@ -86,13 +86,13 @@ module.exports = {
     }
   },
   cancelBid: async (req, res) => {
-    let currentListingBid = await ListingBid.findOne({ _id: req.body.id });
+    let currentListingBid = await ListingBid.findOne({ _id: req.body._id });
     currentListingBid.status = 'canceled';
     currentListingBid.save();
     res.status(200).json({currentListingBid});
   },
   declineBid: async (req, res) => {
-    let currentListingBid = await ListingBid.findOne({ _id: req.body.id });
+    let currentListingBid = await ListingBid.findOne({ _id: req.body._id });
     currentListingBid.status = 'declined';
     currentListingBid.save();
     res.status(200).json({currentListingBid});

@@ -11,6 +11,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import { useDispatch } from 'react-redux';
+import { fetchOtherUsersBidsOnMyListing } from '../../reducers/sellerbiddedonbidsitemsreducer';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -66,11 +68,13 @@ export function ImageCard(props) {
 export function MediaCard(props) {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   const imagesOfTheSellersItemInMediaCard = props.imagesOfTheSellersItem.map((itemOfImage) => {
     return <ImageCard image={itemOfImage} />;
   });
 
-  console.log("props for MediaCard in AcceptDecline", props)
+  // console.log("props for MediaCard in AcceptDecline", props)
 
 
   const itemsbidsFromOtherUsersArrPassedIntoMediaCard = props.itemsbidsFromOtherUsers.map((itemsbidsOnYourItem) => {
@@ -89,7 +93,7 @@ export function MediaCard(props) {
       <CardActions className={classes.cardActionButtons}>
         <Button variant="outlined" color="primary" onClick={async () => {
           const response = await fetch(
-            `http://localhost:3003/api/listingbid/acceptbid`,
+            `http://localhost:3003/api/listingbid/declinebid`,
             {
               method: 'PUT',
               mode: 'cors',
@@ -103,7 +107,7 @@ export function MediaCard(props) {
                 }) 
               });
               let jsondata = await response.json();
-              console.log("response from acceptbid ", jsondata)
+              dispatch(fetchOtherUsersBidsOnMyListing())
         }}>
           Decline
         </Button>
@@ -124,7 +128,7 @@ export function MediaCard(props) {
                 }) 
               });
               let jsondata = await response.json();
-              console.log("response from acceptbid ", jsondata)
+              dispatch(fetchOtherUsersBidsOnMyListing())
         }}>
           Accept
         </Button>
@@ -180,3 +184,4 @@ export default function TransitionsModal(props) {
     </div>
   );
 }
+
