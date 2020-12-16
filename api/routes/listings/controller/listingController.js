@@ -90,10 +90,11 @@ module.exports = {
     res.status(200).json({savedListing});
   },
   deleteListing: async (req, res) => {
-    let oneListing = await Listing.findOneAndDelete({ _id: req.body.id });
-    let oneListingBid = await ListingBid.findOneAndDelete({ ListingID: req.body.id });
+    // await Listing.findOneAndDelete({ _id: req.body.id });
+    // await ListingBid.deleteMany({ ListingID: req.body.id });
     // remove listingBid with listing  is included as itemBid
-    console.log('Onelisting deleted', oneListing);
-    res.send(oneListing);
+    let updatedItemsBid = await ListingBid.find({items_bid: {$elemMatch: { _id: req.body.id }}});
+    console.log("deleteListing Trying to UpdatedItemsBid", updatedItemsBid)
+    res.status(200).json({message: "Successfully removed listing and all other refs to it"})
   }
 };

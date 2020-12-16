@@ -11,6 +11,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import AcceptDeclineModal from "../AcceptDeclineModal/";
 import Typography from '@material-ui/core/Typography';
 import {NavLink} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles({
   root: {
@@ -29,9 +30,10 @@ const useStyles = makeStyles({
 });
 
 export default function MediaCard(props) {
-
+  
   const classes = useStyles();
   // console.log("MyListing Card.jsx props", props)
+  const token = useSelector((state) => state.auth.token);
   return (
     <Card className={classes.root}>
       <NavLink
@@ -48,10 +50,25 @@ export default function MediaCard(props) {
             <AcceptDeclineModal bidCount={props.bidCount} sellerbiddedonbids={props.sellerbiddedonbids} authToken={props.authToken} />
           </Typography>
         </CardContent>
-      <CardActions className={classes.cardActionButtons}>
-        <Button size="small" color="primary">
-          {<EditIcon />}
-        </Button>
+      <CardActions className={classes.cardActionButtons} onClick={async ()=> {
+        const response = await fetch(
+          `http://localhost:3003/api/listings/deleteListing`,
+          {
+            method: 'DELETE',
+            mode: 'cors',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+              id: props.listingID,
+              }) 
+            });
+            let jsondata = await response.json();
+            console.log(jsondata)
+            // dispatch(fetchOtherUsersBidsOnMyListing())
+      }}>
         <Button size="small" color="primary">
           {<DeleteForeverIcon />}
         </Button>
