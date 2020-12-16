@@ -144,15 +144,34 @@ export default function Index() {
     if(item.messageList.length > 0){
       return (
         <div
-        onClick={() => {
+        onClick={async () => {
           setMessageID(item._id);
           setOpen(true);
+          const response = await fetch(
+            'http://localhost:3003/api/message/markMessageRead',
+            {
+              method: 'PUT',
+              mode:'cors',
+              credentials: 'same-origin',
+              headers:{
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                id: item._id
+              })
+            }
+          )
+
         }}
         >
+          
         <MessageCard
+          UserID = {userID}
           UserName={item.user1ID === userID ? item.user2Name : item.user1Name}
           Message={item.messageList[item.messageList.length - 1].msg_text}
           MessageTime={item.messageList.date_created}
+          ReadByUser={item.read_by_user_ids}
           />
       </div>
     );
@@ -227,7 +246,7 @@ export default function Index() {
                       }
                     );
                     let jsondata = await response2.json();
-                    dispatch(setMessage({ messageListing: jsondata.foundMessage }));
+                    dispatch(setMessage({ messageListing: jsondata.foundMessage }))
                   }}
                 >
                   send

@@ -171,8 +171,20 @@ export default function MessageModel() {
                       }),
                     }
                   );
-                  let jsondata = await response.json();
-                  
+                  // const response2 = await fetch(
+                  //   'http://localhost:3003/api/message/fetchallmessage',
+                  //   {
+                  //     method: 'GET',
+                  //     mode: 'cors',
+                  //     credentials: 'same-origin',
+                  //     headers: {
+                  //       'Content-Type': 'application/json',
+                  //       Authorization: `Bearer ${token}`,
+                  //     },
+                  //   }
+                  // );
+                  // let jsondata = await response2.json();
+                  // dispatch(setMessage({ messageListing: jsondata.foundMessage }))
                 }}
               >
                 send

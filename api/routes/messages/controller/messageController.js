@@ -55,7 +55,7 @@ module.exports = {
     };
 
     foundMessage.messageList.push(newMessage)
-    foundMessage.read_by_user_ids.push(req.body.userID)
+    foundMessage.read_by_user_ids = [req.user.id]
     await foundMessage.save()
     res.status(200).json({ foundMessage });
   },
@@ -74,5 +74,15 @@ module.exports = {
 
     res.status(200).json({ foundMessage });
 
+  },
+  markMessageAsRead: async (req,res) =>{
+    let foundMessage = await Message.findOne({
+      _id:req.body.id
+    })
+    if(!foundMessage.read_by_user_ids.includes(req.user.id)){
+      foundMessage.read_by_user_ids.push(req.user.id)
+      await foundMessage.save()
+    }
+    
   }
-};
+}

@@ -46,7 +46,10 @@ export default function MessageCard(props) {
                 {props.UserName}
               </Typography>
             </div>
-          <Badge badgeContent={4} color="secondary"  />
+          { !props.ReadByUser.includes(props.UserID) ? 
+          <Badge badgeContent={'new'} color="secondary"  />
+          : null
+          }
           </div>
           <Typography color="textSecondary">
             Last Received:{props.MessageTime}
