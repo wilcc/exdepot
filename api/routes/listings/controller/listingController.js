@@ -93,7 +93,7 @@ module.exports = {
     // await Listing.findOneAndDelete({ _id: req.body.id });
     // await ListingBid.deleteMany({ ListingID: req.body.id });
     // remove listingBid with listing  is included as itemBid
-    let updatedItemsBid = await ListingBid.find({items_bid: {$elemMatch: { _id: req.body.id }}});
+    let updatedItemsBid = await ListingBid.find({"items_bid": {$elemMatch: { _id: "5fd797059f02fd23524382ce" }}});
     console.log("deleteListing Trying to UpdatedItemsBid", updatedItemsBid)
     res.status(200).json({message: "Successfully removed listing and all other refs to it"})
   }
